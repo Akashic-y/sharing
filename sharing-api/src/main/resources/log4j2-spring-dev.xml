@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration status="off" monitorInterval="1800">
+	<properties>
+		<property name="LOG_HOME">/usr/local/blog/logs</property>
+		<property name="INFO_FILE_NAME">info.log</property>
+		<property name="WARN_FILE_NAME">warn.log</property>
+		<property name="ERROR_FILE_NAME">ecc.log</property>
+		<property name="PLOG_FILE_NAME">plog.log</property>
+		<property name="BACKUP_FILE_NAME">backup</property>
+		<property name="log_level">info</property>
+	</properties>
+	<appenders>
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout charset="UTF-8" pattern="%d{HH:mm:ss.SSS} [%-5level] %logger{36}[%t] - %msg%n" />
+		</Console>
+		<RollingFile name="infoRollingFile"
+			fileName="${LOG_HOME}/${INFO_FILE_NAME}" append="true"
+			filePattern="${LOG_HOME}/${BACKUP_FILE_NAME}/%d{yyyy-MM}/${INFO_FILE_NAME}-%d{yyyy-MM-dd-HH}-%i.log.gz">
+			<PatternLayout charset="UTF-8" pattern="[%-5level] [%d{yyyy/MM/dd HH:mm:ss}] [%t] - %msg%xEx%n" />
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="24" modulate="true" />
+				<SizeBasedTriggeringPolicy size="100 MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="200">
+<!-- 	            <Delete basePath="${LOG_HOME}/${BACKUP_FILE_NAME}" maxDepth="2"> -->
+<!-- 	            	<IfLastModified age="365D" /> -->
+<!-- 	            </Delete> -->
+            </DefaultRolloverStrategy>
+		</RollingFile>
+		<Async name="asyncInfoRollingFile">
+			<AppenderRef ref="infoRollingFile"/>
+		</Async>
+		<RollingRandomAccessFile name="warnRollingFile"
+			fileName="${LOG_HOME}/${WARN_FILE_NAME}" append="true"
+			filePattern="${LOG_HOME}/${BACKUP_FILE_NAME}/%d{yyyy-MM}/${WARN_FILE_NAME}-%d{yyyy-MM-dd-HH}-%i.log.gz">
+			<PatternLayout charset="UTF-8" pattern="[%-5level] [%d{yyyy/MM/dd HH:mm:ss}] [%t] - %msg%xEx%n" />
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="24" modulate="true" />
+				<SizeBasedTriggeringPolicy size="100 MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="200">
+<!-- 	            <Delete basePath="${LOG_HOME}/${BACKUP_FILE_NAME}" maxDepth="2"> -->
+<!-- 	            	<IfLastModified age="365D" /> -->
+<!-- 	            </Delete> -->
+	        </DefaultRolloverStrategy>
+		</RollingRandomAccessFile>
+		<RollingRandomAccessFile name="errorRollingFile"
+			fileName="${LOG_HOME}/${ERROR_FILE_NAME}" append="true"
+			filePattern="${LOG_HOME}/${BACKUP_FILE_NAME}/%d{yyyy-MM}/${ERROR_FILE_NAME}-%d{yyyy-MM-dd-HH}-%i.log.gz">
+			<PatternLayout charset="UTF-8" pattern="[%-5level] [%d{yyyy/MM/dd HH:mm:ss}] [%t] - %msg%xEx%n" />
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="24" modulate="true" />
+				<SizeBasedTriggeringPolicy size="100 MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="200">
+<!-- 	            <Delete basePath="${LOG_HOME}/${BACKUP_FILE_NAME}" maxDepth="2"> -->
+<!-- 	            	<IfLastModified age="365D" /> -->
+<!-- 	            </Delete> -->
+	        </DefaultRolloverStrategy>
+		</RollingRandomAccessFile>
+		<RollingRandomAccessFile name="plogRoloingFile"
+			fileName="${LOG_HOME}/${PLOG_FILE_NAME}" append="true"
+			filePattern="${LOG_HOME}/${BACKUP_FILE_NAME}/%d{yyyy-MM}/${PLOG_FILE_NAME}-%d{yyyy-MM-dd-HH}-%i.log.gz">
+			<PatternLayout charset="UTF-8" pattern="[%-5level] [%d{yyyy/MM/dd HH:mm:ss}] [%t] - %msg%xEx%n" />
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="24" modulate="true" />
+				<SizeBasedTriggeringPolicy size="100 MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="200">
+<!-- 	            <Delete basePath="${LOG_HOME}/${BACKUP_FILE_NAME}" maxDepth="2"> -->
+<!-- 	            	<IfLastModified age="365D" /> -->
+<!-- 	            </Delete> -->
+	        </DefaultRolloverStrategy>
+		</RollingRandomAccessFile>
+	</appenders>
+	<loggers>
+		<root level="info">
+			<appender-ref ref="asyncInfoRollingFile" />
+		</root>
+		<logger name="com.forms" level="${log_level}">
+			<appender-ref ref="warnRollingFile" level="warn">
+				<Filters>
+	           		<ThresholdFilter level="error" onMatch="DENY" onMismatch="NEUTRAL"/>
+	            </Filters>
+			</appender-ref>
+			<appender-ref ref="errorRollingFile">
+				<Filters>
+	           		<ThresholdFilter level="error" onMatch="ACCEPT" onMismatch="DENY"/>
+	            </Filters>
+			</appender-ref>
+		</logger>
+		<logger name="com.forms.beneform.mvc.result.json.JsonResultSupport" level="debug" />
+		<logger name="org.bcos.web3j.protocol.channel.ChannelEthereumService" level="debug" additivity="false">
+			<appender-ref ref="bcRoloingFile" />
+		</logger>
+		<logger name="plog" level="info" additivity="false">
+			<appender-ref ref="plogRoloingFile"/>
+		</logger>
+	</loggers>
+</configuration>
