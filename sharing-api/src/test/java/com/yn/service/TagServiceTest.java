@@ -5,11 +5,11 @@ import java.util.List;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.yn.BlogApiApplicationTests;
+import com.yn.SharingApiApplicationTests;
 import com.yn.entity.Article;
 import com.yn.entity.Tag;
 
-public class TagServiceTest extends BlogApiApplicationTests{
+public class TagServiceTest extends SharingApiApplicationTests{
 
 	@Autowired
 	private TagService	tagService;

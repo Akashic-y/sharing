@@ -13,7 +13,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.alibaba.fastjson.JSONObject;
-import com.yn.BlogApiApplicationTests;
+import com.yn.SharingApiApplicationTests;
 import com.yn.entity.User;
 import com.yn.entity.UserStatus;
 
@@ -21,7 +21,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;  
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-public class UserControllerTest extends BlogApiApplicationTests{
+public class UserControllerTest extends SharingApiApplicationTests{
 	
 	
     private MockMvc mockMvc; // 模拟MVC对象，通过MockMvcBuilders.webAppContextSetup(this.wac).build()初始化。    
@@ -82,7 +82,7 @@ public class UserControllerTest extends BlogApiApplicationTests{
 		User u = new User();
 		Long id = 5L;
 		u.setId(id);
-		u.setNickname("史明辉222");
+		u.setNickname("yn222");
         MvcResult result = mockMvc.perform(post("/users/update").contentType(MediaType.APPLICATION_JSON).content(JSONObject.toJSONString(u)))  
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))    

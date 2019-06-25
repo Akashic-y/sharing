@@ -8,12 +8,12 @@ import com.yn.vo.PageVo;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.yn.BlogApiApplicationTests;
+import com.yn.SharingApiApplicationTests;
 import com.yn.entity.Article;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
-public class ArticleServiceTest extends BlogApiApplicationTests{
+public class ArticleServiceTest extends SharingApiApplicationTests{
 
 	@Autowired
 	private ArticleService articleService;

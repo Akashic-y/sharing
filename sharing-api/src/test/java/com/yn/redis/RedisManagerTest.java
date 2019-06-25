@@ -3,10 +3,10 @@ package com.yn.redis;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.yn.BlogApiApplicationTests;
+import com.yn.SharingApiApplicationTests;
 import com.yn.common.cache.RedisManager;
 
-public class RedisManagerTest extends BlogApiApplicationTests{
+public class RedisManagerTest extends SharingApiApplicationTests{
 
 	@Autowired
 	private RedisManager redisManager;

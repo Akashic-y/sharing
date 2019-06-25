@@ -6,11 +6,11 @@ import java.util.List;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.yn.BlogApiApplicationTests;
+import com.yn.SharingApiApplicationTests;
 import com.yn.entity.User;
 import com.yn.entity.UserStatus;
 
-public class UserServiceTest extends BlogApiApplicationTests{
+public class UserServiceTest extends SharingApiApplicationTests{
 
 	@Autowired
 	private UserService userService;
@@ -32,7 +32,7 @@ public class UserServiceTest extends BlogApiApplicationTests{
 	public void saveUserTest() {
 		User u = new User();
 		u.setAccount("yn");
-		u.setNickname("史明辉");
+		u.setNickname("yn");
 		u.setPassword("123456");
 		u.setAdmin(false);
 		u.setCreateDate(new Date());
@@ -61,7 +61,7 @@ public class UserServiceTest extends BlogApiApplicationTests{
 		User u = new User();
 		Long id = 3L;
 		u.setId(id);
-		u.setNickname("史明辉222");
+		u.setNickname("yn222");
 		userService.updateUser(u);
 	}
 	
