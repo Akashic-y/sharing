@@ -74,7 +74,6 @@
         if(this.currentActiveName == 'category'){
           return '文章分类 - For Fun'
         }
-        console.info('dddd')
         return '标签 - For Fun'
       }
     },

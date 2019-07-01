@@ -1,9 +1,9 @@
 <template>
   <div id="login" v-title data-title="登录 - For Fun">
     <video preload="auto" class="me-video-player" autoplay="autoplay" loop="loop">
-          <source src="../../static/video/sea.mp4" type="video/mp4">
+          <!-- <source src="../../static/video/sea.mp4" type="video/mp4"> -->
       </video>
-
+    <div class="bg"></div>
     <div class="me-login-box me-login-box-radius">
       <h1>ForFun 登录</h1>
 
@@ -78,6 +78,20 @@
 </script>
 
 <style scoped>
+  .bg{
+    background-color: transparent;
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    display: block;
+    position: absolute;
+    left: 0;
+    z-index: 0;
+    top: 0;
+    background-image: url("../../static/bg/1.jpg");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+  }
   #login {
     min-width: 100%;
     min-height: 100%;
@@ -100,7 +114,7 @@
     width: 300px;
     height: 260px;
     background-color: white;
-    margin-top: 150px;
+    margin-top: 250px;
     margin-left: -180px;
     left: 50%;
     padding: 30px;

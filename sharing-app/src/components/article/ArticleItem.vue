@@ -16,12 +16,12 @@
       {{summary}}
     </div>
     <div class="me-article-footer">
-	  	<span class="me-article-author">
+	  	<span class="me-article-author" v-if="author">
 	    	<i class="me-icon-author"></i>&nbsp;{{author.nickname}}
 	    </span>
-
-      <el-tag v-for="t in tags" :key="t.tagname" size="mini" type="success">{{t.tagname}}</el-tag>
-
+      <div v-if="tags.length">
+        <el-tag v-for="t in tags" :key="t.tagname" size="mini" type="success" >{{t.tagname}}</el-tag>
+      </div>
       <span class="me-pull-right me-article-count">
 	    	<i class="el-icon-time"></i>&nbsp;{{createDate | format}}
 	    </span>

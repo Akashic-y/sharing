@@ -41,7 +41,7 @@ service.interceptors.response.use(
 
       //20001 用户未登录
       if (res.code === 20001) {
-        console.info("用户未登录")
+        // console.info("用户未登录")
 
         Message({
           type: 'warning',
@@ -54,7 +54,7 @@ service.interceptors.response.use(
 
       //70001 权限认证错误
       if (res.code === 70001) {
-        console.info("权限认证错误")
+        // console.info("权限认证错误")
         Message({
           type: 'warning',
           showClose: true,
