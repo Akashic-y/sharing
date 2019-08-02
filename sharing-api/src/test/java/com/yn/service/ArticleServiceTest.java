@@ -2,57 +2,51 @@ package com.yn.service;
 
 import java.util.List;
 
-import com.yn.repository.ArticleRepository;
-import com.yn.vo.ArticleVo;
+import javax.swing.text.AbstractDocument.Content;
+
 import com.yn.vo.PageVo;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.yn.SharingApiApplicationTests;
-import com.yn.entity.Article;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
+import com.yn.form.ArticleForm;
 
-public class ArticleServiceTest extends SharingApiApplicationTests{
+public class ArticleServiceTest extends SharingApiApplicationTests {
 
 	@Autowired
 	private ArticleService articleService;
-	
-	
-	
+
 	@Test
 	public void listArticlesByTagTest() {
 		int id = 1;
-		List<Article> as = articleService.listArticlesByTag(id);
-		
+		List<Content> as = articleService.listArticlesByTag(id);
+
 		System.out.println(as.size());
-		
+
 	}
-	
+
 	@Test
 	public void listArticlesByCategoryTest() {
 		int id = 1;
-		
-		List<Article> as = articleService.listArticlesByCategory(id);
+
+		List<Content> as = articleService.listArticlesByCategory(id);
 
 		System.out.println(as.size());
 	}
-	
+
 	@Test
 	public void listHotArticlesTest() {
-		
-		List<Article> as = articleService.listHotArticles(4);
 
-		as.stream().forEach( a -> System.out.println(a.getTitle()));
+		List<Content> as = articleService.listHotArticles(4);
+
 		System.out.println(as.size());
 	}
-	
+
 	@Test
 	public void listNewArticlesTest() {
 
-		List<Article> as = articleService.listNewArticles(4);
+		List<Content> as = articleService.listNewArticles(4);
 
-		as.stream().forEach( a -> System.out.println(a.getTitle()));
 		System.out.println(as.size());
 	}
 
@@ -65,9 +59,9 @@ public class ArticleServiceTest extends SharingApiApplicationTests{
 		p.setName("createDate");
 		p.setSort("desc");
 
-		List<Article> as = articleService.listArticles(p);
+		List<Content> as = articleService.listArticles(p);
 
-		as.stream().forEach( a -> System.out.println(a.getId()));
+		System.out.println(as);
 
 	}
 
@@ -80,19 +74,14 @@ public class ArticleServiceTest extends SharingApiApplicationTests{
 		p.setName("a.createDate");
 		p.setSort("desc");
 
-		ArticleVo articleVo = new ArticleVo();
-		articleVo.setYear(2018);
-		articleVo.setMonth(2);
-		//articleVo.setTagId(2);
-		//articleVo.setCategoryId(3);
+		ArticleForm form = new ArticleForm();
+		form.setYear(2018);
+		form.setMonth(2);
+		form.setTagId(2);
+		form.setCategoryId(3);
 
-		List<Article> as = articleService.listArticles(articleVo, p);
-
-		as.stream().forEach( a -> {
-			System.out.println(a.getId());
-			System.out.println(a.getTitle());
-
-		});
+		List<Content> as = articleService.listArticles(form, p);
+		System.out.println(as);
 
 	}
 }

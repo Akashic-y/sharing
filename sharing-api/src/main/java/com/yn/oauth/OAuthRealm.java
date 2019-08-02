@@ -36,7 +36,7 @@ public class OAuthRealm extends AuthorizingRealm {
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
         String account = (String) principals.getPrimaryPrincipal();
-        User user = userService.getUserByAccount(account);
+        com.yn.sharing.entity.User user = userService.getUserByAccount(account);
         SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
         Set<String> roles = new HashSet<String>();
 
@@ -55,7 +55,7 @@ public class OAuthRealm extends AuthorizingRealm {
 
         String account = (String) token.getPrincipal();
 
-        User user = userService.getUserByAccount(account);
+        com.yn.sharing.entity.User user = userService.getUserByAccount(account);
 
         if (user == null) {
             throw new UnknownAccountException();//没找到帐号

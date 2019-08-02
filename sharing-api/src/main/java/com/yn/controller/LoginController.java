@@ -8,21 +8,18 @@ import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.LockedAccountException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
-import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.yn.common.constant.Base;
 import com.yn.common.constant.ResultCode;
 import com.yn.common.result.Result;
-import com.yn.entity.User;
+import com.yn.sharing.entity.User;
 import com.yn.oauth.OAuthSessionManager;
 import com.yn.service.UserService;
 
@@ -54,8 +51,8 @@ public class LoginController {
 
         Result r = new Result();
 
-        User temp = userService.getUserByAccount(user.getAccount());
-        if (null != temp) {
+        int i = userService.exitUser(user.getAccount());
+        if (i > 0) {
             r.setResultCode(ResultCode.USER_HAS_EXISTED);
             return r;
         }
@@ -83,7 +80,7 @@ public class LoginController {
 
             User currentUser = userService.getUserByAccount(account);
             subject.getSession().setAttribute(Base.CURRENT_USER, currentUser);
-
+            //TODO加登录IP和登录时间
             r.setResultCode(ResultCode.SUCCESS);
             r.simple().put(OAuthSessionManager.OAUTH_TOKEN, subject.getSession().getId());
         } catch (UnknownAccountException e) {

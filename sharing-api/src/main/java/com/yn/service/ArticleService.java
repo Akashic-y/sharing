@@ -2,9 +2,10 @@ package com.yn.service;
 
 import java.util.List;
 
-import com.yn.entity.Article;
-import com.yn.entity.Tag;
-import com.yn.vo.ArticleVo;
+import javax.swing.text.AbstractDocument.Content;
+
+import com.yn.sharing.entity.Article;
+import com.yn.form.ArticleForm;
 import com.yn.vo.PageVo;
 
 /**
@@ -14,11 +15,9 @@ import com.yn.vo.PageVo;
  */
 public interface ArticleService {
 
-    List<Article> listArticles(PageVo page);
+    List<Content> listArticles(PageVo page);
 
-    List<Article> listArticles(ArticleVo article, PageVo page);
-
-    List<Article> findAll();
+    List<Content> findAll();
 
     Article getArticleById(Integer id);
 
@@ -30,16 +29,18 @@ public interface ArticleService {
 
     void deleteArticleById(Integer id);
 
-    List<Article> listArticlesByTag(Integer id);
+    List<Content> listArticlesByTag(Integer id);
 
-    List<Article> listArticlesByCategory(Integer id);
+    List<Content> listArticlesByCategory(Integer id);
 
     Article getArticleAndAddViews(Integer id);
 
-    List<Article> listHotArticles(int limit);
+    List<Content> listHotArticles(int limit);
 
-    List<Article> listNewArticles(int limit);
+    List<Content> listNewArticles(int limit);
 
-    List<ArticleVo> listArchives();
+	List<Content> listArticles(ArticleForm article, PageVo page);
+
+	List<ArticleForm> listArticleForms();
 
 }

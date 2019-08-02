@@ -37,18 +37,14 @@ public class TagServiceImpl implements TagService {
     @Transactional
     public Integer saveTag(Tag tag) {
 
-        return tagRepository.save(tag).getId();
+        return 0;
     }
 
     @Override
     @Transactional
     public Integer updateTag(Tag tag) {
-        Tag oldTag = tagRepository.getOne(tag.getId());
 
-        oldTag.setTagname(tag.getTagname());
-        oldTag.setAvatar(tag.getAvatar());
-
-        return oldTag.getId();
+        return 0;
     }
 
     @Override

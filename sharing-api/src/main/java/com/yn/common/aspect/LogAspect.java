@@ -6,7 +6,7 @@ import com.yn.common.util.HttpContextUtils;
 import com.yn.common.util.IpUtils;
 import com.yn.common.util.UserUtils;
 import com.yn.entity.Log;
-import com.yn.entity.User;
+import com.yn.sharing.entity.User;
 import com.yn.service.LogService;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;

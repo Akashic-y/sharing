@@ -7,8 +7,9 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.yn.SharingApiApplicationTests;
-import com.yn.entity.User;
+import com.yn.sharing.entity.User;
 import com.yn.entity.UserStatus;
+import com.yn.form.StaticValue;
 
 public class UserServiceTest extends SharingApiApplicationTests{
 
@@ -38,7 +39,7 @@ public class UserServiceTest extends SharingApiApplicationTests{
 		u.setCreateDate(new Date());
 		u.setEmail("919431514@qq.com");
 		u.setMobilePhoneNumber("18396816462");
-		u.setStatus(UserStatus.normal);
+		u.setStatus(StaticValue.normal);
 		Long id = userService.saveUser(u);
 		System.out.println(id);
 	}

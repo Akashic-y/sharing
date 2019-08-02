@@ -37,19 +37,19 @@ public class CategoryServiceImpl implements CategoryService {
     @Transactional
     public Integer saveCategory(Category category) {
 
-        return categoryRepository.save(category).getId();
+        return null;
     }
 
     @Override
     @Transactional
     public Integer updateCategory(Category category) {
-        Category oldCategory = categoryRepository.getOne(category.getId());
+//        Category oldCategory = categoryRepository.getOne(category.getId());
+//
+//        oldCategory.setCategoryname(category.getCategoryname());
+//        oldCategory.setAvatar(category.getAvatar());
+//        oldCategory.setDescription(category.getDescription());
 
-        oldCategory.setCategoryname(category.getCategoryname());
-        oldCategory.setAvatar(category.getAvatar());
-        oldCategory.setDescription(category.getDescription());
-
-        return oldCategory.getId();
+        return 0;
     }
 
     @Override

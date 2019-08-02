@@ -1,19 +1,18 @@
 package com.yn.service.impl;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.yn.entity.User;
+import com.yn.sharing.entity.User;
 import com.yn.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.yn.common.util.UserUtils;
+import com.yn.dao.ArticleMapper;
 import com.yn.entity.Article;
 import com.yn.entity.Comment;
-import com.yn.repository.ArticleRepository;
 import com.yn.repository.CommentRepository;
 import com.yn.service.CommentService;
 
@@ -26,7 +25,7 @@ import com.yn.service.CommentService;
 public class CommentServiceImpl implements CommentService {
 
     @Autowired
-    private ArticleRepository articleRepository;
+    private ArticleMapper dao;
 
     @Autowired
     private UserRepository userRepository;
@@ -49,7 +48,7 @@ public class CommentServiceImpl implements CommentService {
     @Transactional
     public Integer saveComment(Comment comment) {
 
-        return commentRepository.save(comment).getId();
+        return 0;
     }
 
 
@@ -71,10 +70,10 @@ public class CommentServiceImpl implements CommentService {
     public Comment saveCommentAndChangeCounts(Comment comment) {
 
         int count = 1;
-        Article a = articleRepository.findOne(comment.getArticle().getId());
-        a.setCommentCounts(a.getCommentCounts() + count);
+//        Article a = dao.selectByPrimaryKey(comment.getArticle().getId());
+//        a.setCommentCounts(a.getCommentCounts() + count);
 
-        comment.setAuthor(UserUtils.getCurrentUser());
+//        comment.setAuthor(UserUtils.getCurrentUser()); TODO
         comment.setCreateDate(new Date());
 
         //设置level

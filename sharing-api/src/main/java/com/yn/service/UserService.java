@@ -2,7 +2,7 @@ package com.yn.service;
 
 import java.util.List;
 
-import com.yn.entity.User;
+import com.yn.sharing.entity.User;
 
 /**
  * @author yn
@@ -22,4 +22,6 @@ public interface UserService {
     Long updateUser(User user);
 
     void deleteUserById(Long id);
+
+	int exitUser(String account);
 }

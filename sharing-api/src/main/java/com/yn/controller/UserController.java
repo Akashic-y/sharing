@@ -7,12 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import com.alibaba.fastjson.support.spring.annotation.FastJsonFilter;
 import com.alibaba.fastjson.support.spring.annotation.FastJsonView;
 import com.yn.common.annotation.LogAnnotation;
-import com.yn.entity.Article;
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.authz.annotation.RequiresRoles;
-import org.apache.shiro.subject.Subject;
-import org.apache.shiro.subject.SubjectContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,14 +15,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.yn.common.constant.Base;
 import com.yn.common.constant.ResultCode;
 import com.yn.common.result.Result;
 import com.yn.common.util.UserUtils;
-import com.yn.entity.User;
+import com.yn.sharing.entity.User;
 import com.yn.service.UserService;
 
 /**
@@ -92,7 +86,7 @@ public class UserController {
     @LogAnnotation(module = "用户", operation = "添加用户")
     public Result saveUser(@Validated @RequestBody User user) {
 
-        Long userId = userService.saveUser(user);
+    	Long userId = userService.saveUser(user);
 
         Result r = Result.success();
         r.simple().put("userId", userId);

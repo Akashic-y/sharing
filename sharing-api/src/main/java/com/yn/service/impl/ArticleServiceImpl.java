@@ -1,24 +1,25 @@
 package com.yn.service.impl;
 
-import java.util.Date;
 import java.util.List;
 
-import com.yn.vo.ArticleVo;
+import javax.swing.text.AbstractDocument.Content;
+
 import com.yn.vo.PageVo;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.yn.common.util.UserUtils;
-import com.yn.entity.Article;
-import com.yn.entity.Category;
-import com.yn.entity.Tag;
-import com.yn.entity.User;
-import com.yn.repository.ArticleRepository;
+import com.yn.dao.ArticleBodyMapper;
+import com.yn.dao.ArticleMapper;
+import com.yn.dao.CategoryMapper;
+import com.yn.sharing.entity.Article;
+import com.yn.sharing.entity.User;
+import com.yn.form.ArticleForm;
+import com.yn.form.StaticValue;
 import com.yn.service.ArticleService;
 
 /**
@@ -30,29 +31,38 @@ import com.yn.service.ArticleService;
 public class ArticleServiceImpl implements ArticleService {
 
     @Autowired
-    private ArticleRepository articleRepository;
-
-
+    private ArticleMapper dao;
+    
+    @Autowired
+    private ArticleBodyMapper bodyDao;
+    
+    @Autowired
+    private CategoryMapper categoryDao;
+    
     @Override
-    public List<Article> listArticles(PageVo page) {
-
-        return articleRepository.listArticles(page);
+    public List<Content> listArticles(PageVo page) {
+    	PageHelper.startPage(page.getPageNumber(), page.getPageSize(),true);
+    	List<Content> rs = dao.listArticles(null);
+    	PageInfo<Content> pi = new PageInfo<Content>(rs);
+        return pi.getList();
     }
 
     @Override
-    public List<Article> listArticles(ArticleVo article, PageVo page) {
-
-        return articleRepository.listArticles(article, page);
+    public List<Content> listArticles(ArticleForm article, PageVo page) {
+    	PageHelper.startPage(page.getPageNumber(), page.getPageSize(),true);
+    	List<Content> rs = dao.listArticles(article);
+    	PageInfo<Content> pi = new PageInfo<Content>(rs);
+        return pi.getList();
     }
 
     @Override
-    public List<Article> findAll() {
-        return articleRepository.findAll();
+    public List<Content> findAll() {
+        return dao.listArticles(new ArticleForm());
     }
 
     @Override
     public Article getArticleById(Integer id) {
-        return articleRepository.getOne(id);
+        return dao.selectByPrimaryKey(id);
     }
 
     @Override
@@ -70,78 +80,84 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     @Transactional
     public Integer saveArticle(Article article) {
-
+    	//TODO
+    	bodyDao.insertSelective(article.getBody());
+        
         User currentUser = UserUtils.getCurrentUser();
-
         if (null != currentUser) {
             article.setAuthor(currentUser);
         }
-
-        article.setCreateDate(new Date());
-        article.setWeight(Article.Article_Common);
-
-        return articleRepository.save(article).getId();
+        dao.insertSelective(article);
+        dao.insertTags(article.getId(),article.getTags());
+        return article.getId();
     }
 
     @Override
     @Transactional
     public Integer updateArticle(Article article) {
-        Article oldArticle = articleRepository.getOne(article.getId());
-
-        oldArticle.setTitle(article.getTitle());
-        oldArticle.setSummary(article.getSummary());
-        oldArticle.setBody(article.getBody());
-        oldArticle.setCategory(article.getCategory());
-        oldArticle.setTags(article.getTags());
-
-        return oldArticle.getId();
+    	bodyDao.update(article.getBody());
+    	dao.deleteTags(article.getId());
+    	dao.insertTags(article.getId(),article.getTags());
+    	User currentUser = UserUtils.getCurrentUser();
+        if (null != currentUser) {
+            article.setAuthor(currentUser);
+        }
+        dao.updateByPrimaryKeySelective(article);
+        return article.getId();
     }
 
     @Override
     @Transactional
     public void deleteArticleById(Integer id) {
-        articleRepository.delete(id);
+        dao.deleteByPrimaryKey(id);
     }
 
     @Override
-    public List<Article> listArticlesByTag(Integer id) {
-        Tag t = new Tag();
-        t.setId(id);
-        return articleRepository.findByTags(t);
+    public List<Content> listArticlesByTag(Integer id) {
+    	ArticleForm article = new ArticleForm();
+    	article.setTagId(id);
+		List<Content> rs = dao.listArticles(article);
+        return rs;
     }
 
     @Override
-    public List<Article> listArticlesByCategory(Integer id) {
-        Category c = new Category();
-        c.setId(id);
-
-        return articleRepository.findByCategory(c);
+    public List<Content> listArticlesByCategory(Integer id) {
+    	ArticleForm article = new ArticleForm();
+    	article.setCategoryId(id);
+		List<Content> rs = dao.listArticles(article);
+        return rs;
     }
 
     @Override
     @Transactional
     public Article getArticleAndAddViews(Integer id) {
-        int count = 1;
-        Article article = articleRepository.getOne(id);
-        article.setViewCounts(article.getViewCounts() + count);
+        Article article = dao.selectByPrimaryKey(id);
+        //TODO
+        dao.addView(id);
         return article;
     }
 
     @Override
-    public List<Article> listHotArticles(int limit) {
-
-        return articleRepository.findOrderByViewsAndLimit(limit);
+    public List<Content> listHotArticles(int limit) {
+        PageHelper.startPage(0, limit,true);
+        ArticleForm articleForm = new ArticleForm();
+        articleForm.setOrderBy(StaticValue.view_counts);
+    	List<Content> rs = dao.listArticlesName(articleForm);
+    	PageInfo<Content> pi = new PageInfo<Content>(rs);
+        return pi.getList();
     }
 
     @Override
-    public List<Article> listNewArticles(int limit) {
-
-        return articleRepository.findOrderByCreateDateAndLimit(limit);
+    public List<Content> listNewArticles(int limit) {
+    	PageHelper.startPage(0, limit,true);
+    	List<Content> rs = dao.listArticlesName(new ArticleForm());
+    	PageInfo<Content> pi = new PageInfo<Content>(rs);
+        return pi.getList();
     }
 
     @Override
-    public List<ArticleVo> listArchives() {
+    public List<ArticleForm> listArticleForms() {
 
-        return articleRepository.listArchives();
+        return dao.listArticleForms();
     }
 }
