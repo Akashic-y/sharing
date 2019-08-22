@@ -148,6 +148,12 @@
 			<artifactId>pagehelper-spring-boot-starter</artifactId>
 			<version>1.2.5</version>
 		</dependency>
+		
+		<dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
 	</dependencies>
 
 	<build>
