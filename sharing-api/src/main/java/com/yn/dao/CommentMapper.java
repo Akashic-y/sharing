@@ -1,11 +1,11 @@
 package com.yn.dao;
 
+import java.util.List;
+
 import com.yn.entity.Comment;
 
 public interface CommentMapper {
     int deleteByPrimaryKey(Integer id);
-
-    int insert(Comment record);
 
     int insertSelective(Comment record);
 
@@ -13,5 +13,7 @@ public interface CommentMapper {
 
     int updateByPrimaryKeySelective(Comment record);
 
-    int updateByPrimaryKey(Comment record);
+	List<Comment> findAll();
+
+	List<Comment> findByArticle(Integer id);
 }

@@ -1,7 +1,7 @@
 package com.yn.service.impl;
 
+import com.yn.dao.LogMapper;
 import com.yn.entity.Log;
-import com.yn.repository.LogRepository;
 import com.yn.service.LogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,10 +15,11 @@ import org.springframework.stereotype.Service;
 public class LogServiceImpl implements LogService {
 
     @Autowired
-    private LogRepository logRepository;
+    private LogMapper dao;
 
     @Override
     public Integer saveLog(Log log) {
-        return logRepository.save(log).getId();
+    	dao.insertSelective(log);
+        return log.getId();
     }
 }

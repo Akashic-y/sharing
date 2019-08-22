@@ -8,8 +8,6 @@ import lombok.Data;
 @Data
 public class Comment extends BaseEntity{
 
-	private Integer id;
-
     private String content;
 
     private User author;
@@ -19,7 +17,7 @@ public class Comment extends BaseEntity{
     /**
      * 类型 0 文章的评论 1 评论的评论 2 评论的回复 @
      */
-    private String level;
+    private Integer level;
     
     private Article article;
     
@@ -31,10 +29,10 @@ public class Comment extends BaseEntity{
 
     private Integer articleId;
 
-    private Long authorId;
+    private Integer authorId;
 
     private Integer parentId;
 
-    private Long toUid;
+    private Integer toUid;
 
 }

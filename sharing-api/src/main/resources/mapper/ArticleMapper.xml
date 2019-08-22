@@ -58,11 +58,11 @@
 		left join sys_user u on u.id = a.author_id	
 		left join me_article_body b on b.id = a.body_id
 		left join me_category c on c.id = a.category_id
-		where a.id = #{id,jdbcType=INTEGER} and a.is_delete = "N"
+		where a.id = #{id,jdbcType=INTEGER} and a.deleted = 0
 	</select>
 
 	<select id="listArticleForms" resultType="com.yn.form.ArticleForm">
-		select year(create_date) as year,month(create_date) as month,count(*) as count from me_article where is_delete = "N" group by year(create_date),month(create_date)
+		select year(create_date) as year,month(create_date) as month,count(*) as count from me_article where deleted = 0 group by year(create_date),month(create_date)
 	</select>
 	<select id="listArticles" resultMap="BaseResultMap" parameterType="com.yn.form.ArticleForm">
 		select
@@ -76,7 +76,7 @@
 		<if test="categoryId != null and categoryId!=''">
 		left join me_category c on c.id = a.category_id and c.id=#{categoryId}
 		</if>
-		where a.is_delete = "N"
+		where a.deleted = 0
 		<if test="year != null and year !=''">
 		and year(a.create_date) = #{year}
 		</if>
@@ -97,7 +97,7 @@
 		<if test="categoryId != null and categoryId!=''">
 		join me_category c on c.id = a.category_id and c.id=#{categoryId}
 		</if>
-		where a.is_delete = "N"
+		where a.deleted = 0
 		<if test="orderBy != null">
 		order by #{orderBy}
 		</if>
@@ -108,7 +108,7 @@
 		u.id as uid,u.nickname
 		from me_article a
 		left join sys_user u on u.id = a.author_id 
-		where a.is_delete = "N"
+		where a.deleted = 0
 		order by a.view_counts
 	</select>
 
@@ -122,7 +122,7 @@
 
 	<update id="deleteByPrimaryKey"
 		parameterType="java.lang.Integer">
-		update me_article set is_delete = "Y"
+		update me_article set deleted = 1
 		where id = #{id,jdbcType=INTEGER}
 	</update>
 	<insert id="insertSelective"
@@ -181,10 +181,19 @@
 			insert into me_article_tag (article_id,tag_id) values(#{articleId},#{tag.id});
 	    </foreach>  
 	</insert>
-	<update id="addView"
-		parameterType="java.lang.Integer">
+	<update id="addView" parameterType="java.lang.Integer">
 		update me_article set view_counts = view_counts + 1 where id = #{id}
 	</update>
+	
+	<update id="changeCount" parameterType="java.lang.Integer">
+		update me_article set comment_counts = comment_counts + 1 where id = #{id}
+	</update>
+	
+	<update id="reduceCount" parameterType="java.lang.Integer">
+		update me_article a INNER join me_comment c on c.id = #{id} and c.article_id = a.id
+		set a.comment_counts = a.comment_counts - 1
+	</update>
+	
 	<update id="updateByPrimaryKeySelective"
 		parameterType="com.yn.sharing.entity.Article">
 		update me_article

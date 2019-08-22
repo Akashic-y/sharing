@@ -37,4 +37,8 @@ public interface ArticleMapper {
 
 	void deleteTags(Integer id);
 
+	void changeCount(Integer id);
+
+	void reduceCount(Integer id);
+
 }

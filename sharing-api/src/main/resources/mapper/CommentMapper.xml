@@ -5,8 +5,8 @@
     <constructor>
       <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="content" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="create_date" javaType="java.util.Date" jdbcType="TIMESTAMP" />
-      <arg column="level" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="create_date" javaType="java.util.Date" jdbcType="datetime" />
+      <arg column="level" javaType="java.lang.Integer" jdbcType="Integer" />
       <arg column="article_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="author_id" javaType="java.lang.Long" jdbcType="BIGINT" />
       <arg column="parent_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
@@ -20,20 +20,22 @@
     select 
     <include refid="Base_Column_List" />
     from me_comment
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER} and deleted = 0
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from me_comment
+  
+  <select id="findByArticle" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from me_comment
+    where article_id = #{id,jdbcType=INTEGER} and deleted = 0 and level = 0
+    order by create_date desc
+  </select>
+  
+  <update id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    update me_comment set deleted = 1
     where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.yn.sharing.entity.Comment">
-    insert into me_comment (id, content, create_date, 
-      level, article_id, author_id, 
-      parent_id, to_uid)
-    values (#{id,jdbcType=INTEGER}, #{content,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, 
-      #{level,jdbcType=VARCHAR}, #{articleId,jdbcType=INTEGER}, #{authorId,jdbcType=BIGINT}, 
-      #{parentId,jdbcType=INTEGER}, #{toUid,jdbcType=BIGINT})
-  </insert>
+  </update>
+  
   <insert id="insertSelective" parameterType="com.yn.sharing.entity.Comment">
     insert into me_comment
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -43,9 +45,7 @@
       <if test="content != null">
         content,
       </if>
-      <if test="createDate != null">
-        create_date,
-      </if>
+      create_date,
       <if test="level != null">
         level,
       </if>
@@ -69,9 +69,7 @@
       <if test="content != null">
         #{content,jdbcType=VARCHAR},
       </if>
-      <if test="createDate != null">
-        #{createDate,jdbcType=TIMESTAMP},
-      </if>
+      now(),
       <if test="level != null">
         #{level,jdbcType=VARCHAR},
       </if>
@@ -89,6 +87,7 @@
       </if>
     </trim>
   </insert>
+  
   <update id="updateByPrimaryKeySelective" parameterType="com.yn.sharing.entity.Comment">
     update me_comment
     <set>
@@ -114,17 +113,6 @@
         to_uid = #{toUid,jdbcType=BIGINT},
       </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.yn.sharing.entity.Comment">
-    update me_comment
-    set content = #{content,jdbcType=VARCHAR},
-      create_date = #{createDate,jdbcType=TIMESTAMP},
-      level = #{level,jdbcType=VARCHAR},
-      article_id = #{articleId,jdbcType=INTEGER},
-      author_id = #{authorId,jdbcType=BIGINT},
-      parent_id = #{parentId,jdbcType=INTEGER},
-      to_uid = #{toUid,jdbcType=BIGINT}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

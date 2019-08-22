@@ -11,7 +11,6 @@ import org.hibernate.transform.Transformers;
 import org.hibernate.type.IntegerType;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.yn.repository.wrapper.CategoryWrapper;
 import com.yn.repository.wrapper.TagWrapper;
 import com.yn.vo.TagVO;
 

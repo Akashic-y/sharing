@@ -15,7 +15,6 @@ import com.github.pagehelper.PageInfo;
 import com.yn.common.util.UserUtils;
 import com.yn.dao.ArticleBodyMapper;
 import com.yn.dao.ArticleMapper;
-import com.yn.dao.CategoryMapper;
 import com.yn.entity.Article;
 import com.yn.entity.User;
 import com.yn.form.ArticleForm;

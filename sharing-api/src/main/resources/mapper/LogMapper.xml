@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="com.yn.sharing.entity.Log">
     <constructor>
       <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="create_date" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="create_date" javaType="java.util.Date" jdbcType="datetime" />
       <arg column="ip" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="method" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="module" javaType="java.lang.String" jdbcType="VARCHAR" />
@@ -28,25 +28,10 @@
     delete from sys_log
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.yn.sharing.entity.Log">
-    insert into sys_log (id, create_date, ip, 
-      method, module, nickname, 
-      operation, params, time, 
-      userid)
-    values (#{id,jdbcType=INTEGER}, #{createDate,jdbcType=TIMESTAMP}, #{ip,jdbcType=VARCHAR}, 
-      #{method,jdbcType=VARCHAR}, #{module,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}, 
-      #{operation,jdbcType=VARCHAR}, #{params,jdbcType=VARCHAR}, #{time,jdbcType=BIGINT}, 
-      #{userid,jdbcType=BIGINT})
-  </insert>
   <insert id="insertSelective" parameterType="com.yn.sharing.entity.Log">
     insert into sys_log
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="createDate != null">
-        create_date,
-      </if>
+      create_date,
       <if test="ip != null">
         ip,
       </if>
@@ -73,12 +58,7 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="createDate != null">
-        #{createDate,jdbcType=TIMESTAMP},
-      </if>
+      now(),
       <if test="ip != null">
         #{ip,jdbcType=VARCHAR},
       </if>
@@ -105,50 +85,4 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.yn.sharing.entity.Log">
-    update sys_log
-    <set>
-      <if test="createDate != null">
-        create_date = #{createDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="ip != null">
-        ip = #{ip,jdbcType=VARCHAR},
-      </if>
-      <if test="method != null">
-        method = #{method,jdbcType=VARCHAR},
-      </if>
-      <if test="module != null">
-        module = #{module,jdbcType=VARCHAR},
-      </if>
-      <if test="nickname != null">
-        nickname = #{nickname,jdbcType=VARCHAR},
-      </if>
-      <if test="operation != null">
-        operation = #{operation,jdbcType=VARCHAR},
-      </if>
-      <if test="params != null">
-        params = #{params,jdbcType=VARCHAR},
-      </if>
-      <if test="time != null">
-        time = #{time,jdbcType=BIGINT},
-      </if>
-      <if test="userid != null">
-        userid = #{userid,jdbcType=BIGINT},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.yn.sharing.entity.Log">
-    update sys_log
-    set create_date = #{createDate,jdbcType=TIMESTAMP},
-      ip = #{ip,jdbcType=VARCHAR},
-      method = #{method,jdbcType=VARCHAR},
-      module = #{module,jdbcType=VARCHAR},
-      nickname = #{nickname,jdbcType=VARCHAR},
-      operation = #{operation,jdbcType=VARCHAR},
-      params = #{params,jdbcType=VARCHAR},
-      time = #{time,jdbcType=BIGINT},
-      userid = #{userid,jdbcType=BIGINT}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
 </mapper>

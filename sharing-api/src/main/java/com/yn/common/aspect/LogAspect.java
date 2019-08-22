@@ -87,7 +87,6 @@ public class LogAspect {
 
         log.setTime(time);
         log.setCreateDate(new Date());
-
         logService.saveLog(log);
     }
 

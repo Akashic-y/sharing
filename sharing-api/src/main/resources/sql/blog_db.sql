@@ -21,23 +21,20 @@ SET FOREIGN_KEY_CHECKS=0;
 DROP TABLE IF EXISTS `me_article`;
 CREATE TABLE `me_article` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `comment_counts` int(11) DEFAULT NULL,
+  `comment_counts` int(8) DEFAULT NULL,
   `create_date` datetime DEFAULT CURRENT_TIMESTAMP,
   `summary` varchar(100) DEFAULT NULL,
   `title` varchar(64) DEFAULT NULL,
   `view_counts` int(11) DEFAULT 0,
-  `weight` int(11) NOT NULL,
-  `author_id` bigint(20) DEFAULT NULL,
-  `body_id` bigint(20) DEFAULT NULL,
+  `weight` int(1) NOT NULL,
+  `author_id` bigint(11) DEFAULT NULL,
+  `body_id` bigint(11) DEFAULT NULL,
   `category_id` int(11) DEFAULT NULL,
   `deleted` bit(1) DEFAULT b'0' COMMENT '删除状态',
   PRIMARY KEY (`id`),
   KEY `FKndx2m69302cso79y66yxiju4h` (`author_id`),
   KEY `FKrd11pjsmueckfrh9gs7bc6374` (`body_id`),
-  KEY `FKjrn3ua4xmiulp8raj7m9d2xk6` (`category_id`),
-  CONSTRAINT `FKjrn3ua4xmiulp8raj7m9d2xk6` FOREIGN KEY (`category_id`) REFERENCES `me_category` (`id`),
-  CONSTRAINT `FKndx2m69302cso79y66yxiju4h` FOREIGN KEY (`author_id`) REFERENCES `sys_user` (`id`),
-  CONSTRAINT `FKrd11pjsmueckfrh9gs7bc6374` FOREIGN KEY (`body_id`) REFERENCES `me_article_body` (`id`)
+  KEY `FKjrn3ua4xmiulp8raj7m9d2xk6` (`category_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -52,7 +49,7 @@ INSERT INTO `me_article` VALUES ('10', '0', '2018-02-01 14:47:19', '本节将介
 -- ----------------------------
 DROP TABLE IF EXISTS `me_article_body`;
 CREATE TABLE `me_article_body` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `id` bigint(11) NOT NULL AUTO_INCREMENT,
   `content` longtext,
   `content_html` longtext,
   PRIMARY KEY (`id`)
@@ -73,9 +70,7 @@ CREATE TABLE `me_article_tag` (
   `article_id` int(11) NOT NULL,
   `tag_id` int(11) NOT NULL,
   KEY `FK2s65pu9coxh7w16s8jycih79w` (`tag_id`),
-  KEY `FKsmysra6pt3ehcvts18q2h4409` (`article_id`),
-  CONSTRAINT `FK2s65pu9coxh7w16s8jycih79w` FOREIGN KEY (`tag_id`) REFERENCES `me_tag` (`id`),
-  CONSTRAINT `FKsmysra6pt3ehcvts18q2h4409` FOREIGN KEY (`article_id`) REFERENCES `me_article` (`id`)
+  KEY `FKsmysra6pt3ehcvts18q2h4409` (`article_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -121,20 +116,16 @@ CREATE TABLE `me_comment` (
   `content` varchar(255) DEFAULT NULL,
   `create_date` datetime DEFAULT CURRENT_TIMESTAMP,
   `article_id` int(11) DEFAULT NULL,
-  `author_id` bigint(20) DEFAULT NULL,
+  `author_id` bigint(11) DEFAULT NULL,
   `parent_id` int(11) DEFAULT NULL,
-  `to_uid` bigint(20) DEFAULT NULL,
-  `level` varchar(1) DEFAULT NULL,
+  `to_uid` bigint(11) DEFAULT NULL,
+  `level` int(1) DEFAULT NULL,
   `deleted` bit(1) DEFAULT b'0' COMMENT '删除状态',
   PRIMARY KEY (`id`),
   KEY `FKecq0fuo9k0lnmea6r01vfhiok` (`article_id`),
   KEY `FKkvuyh6ih7dt1rfqhwsjomsa6i` (`author_id`),
   KEY `FKaecafrcorkhyyp1luffinsfqs` (`parent_id`),
-  KEY `FK73dgr23lbs3ebex5qvqyku308` (`to_uid`),
-  CONSTRAINT `FK73dgr23lbs3ebex5qvqyku308` FOREIGN KEY (`to_uid`) REFERENCES `sys_user` (`id`),
-  CONSTRAINT `FKaecafrcorkhyyp1luffinsfqs` FOREIGN KEY (`parent_id`) REFERENCES `me_comment` (`id`),
-  CONSTRAINT `FKecq0fuo9k0lnmea6r01vfhiok` FOREIGN KEY (`article_id`) REFERENCES `me_article` (`id`),
-  CONSTRAINT `FKkvuyh6ih7dt1rfqhwsjomsa6i` FOREIGN KEY (`author_id`) REFERENCES `sys_user` (`id`)
+  KEY `FK73dgr23lbs3ebex5qvqyku308` (`to_uid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -171,11 +162,11 @@ CREATE TABLE `sys_log` (
   `ip` varchar(15) COLLATE utf8_bin DEFAULT NULL,
   `method` varchar(100) COLLATE utf8_bin DEFAULT NULL,
   `module` varchar(10) COLLATE utf8_bin DEFAULT NULL,
-  `nickname` varchar(10) COLLATE utf8_bin DEFAULT NULL,
+  `nickname` varchar(32) COLLATE utf8_bin DEFAULT NULL,
   `operation` varchar(25) COLLATE utf8_bin DEFAULT NULL,
   `params` varchar(255) COLLATE utf8_bin DEFAULT NULL,
   `time` bigint(20) DEFAULT NULL,
-  `userid` bigint(20) DEFAULT NULL,
+  `userid` bigint(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
@@ -188,7 +179,7 @@ CREATE TABLE `sys_log` (
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_user`;
 CREATE TABLE `sys_user` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `id` bigint(11) NOT NULL AUTO_INCREMENT,
   `account` varchar(64) DEFAULT NULL COMMENT '账号',
   `admin` bit(1) DEFAULT NULL COMMENT '是否是管理员（1是 0不是）',
   `avatar` varchar(255) DEFAULT NULL COMMENT '头像',

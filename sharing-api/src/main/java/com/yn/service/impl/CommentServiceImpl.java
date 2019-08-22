@@ -1,19 +1,15 @@
 package com.yn.service.impl;
 
-import java.util.Date;
 import java.util.List;
 
-import com.yn.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.yn.common.util.UserUtils;
 import com.yn.dao.ArticleMapper;
-import com.yn.entity.Article;
+import com.yn.dao.CommentMapper;
 import com.yn.entity.Comment;
-import com.yn.entity.User;
-import com.yn.repository.CommentRepository;
 import com.yn.service.CommentService;
 
 /**
@@ -28,80 +24,67 @@ public class CommentServiceImpl implements CommentService {
     private ArticleMapper dao;
 
     @Autowired
-    private UserRepository userRepository;
-
-
-    @Autowired
-    private CommentRepository commentRepository;
+    private CommentMapper cdao;
 
     @Override
     public List<Comment> findAll() {
-        return commentRepository.findAll();
+        return cdao.findAll();
     }
 
     @Override
     public Comment getCommentById(Integer id) {
-        return commentRepository.getOne(id);
+        return cdao.selectByPrimaryKey(id);
     }
 
     @Override
     @Transactional
     public Integer saveComment(Comment comment) {
-
-        return 0;
+    	comment.setAuthorId(UserUtils.getCurrentUser().getId());
+        return cdao.insertSelective(comment);
     }
 
 
     @Override
     @Transactional
     public void deleteCommentById(Integer id) {
-        commentRepository.delete(id);
+        cdao.deleteByPrimaryKey(id);
     }
 
     @Override
     public List<Comment> listCommentsByArticle(Integer id) {
-        Article a = new Article();
-        a.setId(id);
-        return commentRepository.findByArticleAndLevelOrderByCreateDateDesc(a, "0");
+    	//PageHelper.startPage(page.getPageNumber(), page.getPageSize(),true);
+    	//TODO 给页面的数据类型
+    	List<Comment> rs = cdao.findByArticle(id);
+        return rs;
     }
 
     @Override
     @Transactional
     public Comment saveCommentAndChangeCounts(Comment comment) {
-
-        int count = 1;
-//        Article a = dao.selectByPrimaryKey(comment.getArticle().getId());
-//        a.setCommentCounts(a.getCommentCounts() + count);
-
-//        comment.setAuthor(UserUtils.getCurrentUser()); TODO
-        comment.setCreateDate(new Date());
-
+        comment.setArticleId(UserUtils.getCurrentUser().getId());
         //设置level
         if(null == comment.getParent()){
-            comment.setLevel("0");
+            comment.setLevel(0);
         }else{
             if(null == comment.getToUser()){
-                comment.setLevel("1");
+                comment.setLevel(1);
             }else{
-                comment.setLevel("2");
+                comment.setLevel(2);
             }
         }
-
-        return commentRepository.save(comment);
+        cdao.insertSelective(comment);
+        //评论数加1
+        dao.changeCount(comment.getArticleId());
+        return comment;
 
     }
 
     @Override
     @Transactional
     public void deleteCommentByIdAndChangeCounts(Integer id) {
-        int count = 1;
-        Comment c = commentRepository.findOne(id);
-        Article a = c.getArticle();
-
-        a.setCommentCounts(a.getCommentCounts() - count);
-
-        commentRepository.delete(c);
+        cdao.deleteByPrimaryKey(id);
+        //评论数减1
+        dao.reduceCount(id);
     }
-
 
 }
