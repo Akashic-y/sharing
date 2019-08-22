@@ -18,4 +18,6 @@ yarn-error.log*
 *.njsproj
 *.sln
 
+sharing-app/package-lock.json
+
 .project
