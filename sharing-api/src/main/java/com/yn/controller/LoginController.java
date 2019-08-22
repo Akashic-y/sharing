@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.yn.common.constant.Base;
 import com.yn.common.constant.ResultCode;
 import com.yn.common.result.Result;
-import com.yn.sharing.entity.User;
+import com.yn.entity.User;
 import com.yn.oauth.OAuthSessionManager;
 import com.yn.service.UserService;
 

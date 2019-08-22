@@ -2,7 +2,7 @@ package com.yn.dao;
 
 import java.util.List;
 
-import com.yn.sharing.entity.User;
+import com.yn.entity.User;
 
 public interface UserMapper {
     int deleteUserById(Long id);
@@ -19,5 +19,5 @@ public interface UserMapper {
 
 	List<User> findAll();
 
-	void updateLoginTime(Long id);
+	void updateLoginTime(Integer id);
 }

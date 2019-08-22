@@ -1,12 +1,11 @@
 package com.yn.common.aspect;
 
-import com.alibaba.fastjson.JSON;
 import com.yn.common.annotation.LogAnnotation;
 import com.yn.common.util.HttpContextUtils;
 import com.yn.common.util.IpUtils;
 import com.yn.common.util.UserUtils;
 import com.yn.entity.Log;
-import com.yn.sharing.entity.User;
+import com.yn.entity.User;
 import com.yn.service.LogService;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -82,7 +81,7 @@ public class LogAspect {
             log.setUserId(user.getId());
             log.setNickname(user.getNickname());
         } else {
-            log.setUserId(-1L);
+            log.setUserId(-1);
             log.setNickname("获取用户信息为空");
         }
 

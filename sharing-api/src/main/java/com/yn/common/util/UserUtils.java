@@ -3,7 +3,7 @@ package com.yn.common.util;
 import org.apache.shiro.SecurityUtils;
 
 import com.yn.common.constant.Base;
-import com.yn.sharing.entity.User;
+import com.yn.entity.User;
 
 /**
  * @author yn

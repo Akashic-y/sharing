@@ -3,6 +3,7 @@ package com.yn.dao;
 import com.yn.SharingApiApplicationTests;
 import com.yn.entity.Comment;
 import com.yn.repository.CommentRepository;
+
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;

@@ -4,7 +4,6 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.yn.SharingApiApplicationTests;
-import com.yn.entity.Category;
 import com.yn.repository.CategoryRepository;
 
 public class CategoryRepositoryTest extends SharingApiApplicationTests{

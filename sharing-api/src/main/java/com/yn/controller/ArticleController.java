@@ -21,14 +21,13 @@ import com.alibaba.fastjson.support.spring.annotation.FastJsonView;
 import com.yn.common.constant.Base;
 import com.yn.common.constant.ResultCode;
 import com.yn.common.result.Result;
-import com.yn.sharing.entity.Article;
-import com.yn.vo.PageVo;
+import com.yn.entity.Article;
 import com.yn.entity.ArticleBody;
 import com.yn.entity.Tag;
 import com.yn.entity.User;
+import com.yn.vo.PageVo;
 import com.yn.form.ArticleForm;
 import com.yn.service.ArticleService;
-import com.yn.service.TagService;
 
 /**
  * 文章api
@@ -43,9 +42,6 @@ public class ArticleController {
 
 	@Autowired
 	private ArticleService articleService;
-
-	@Autowired
-	private TagService tagService;
 
 	@GetMapping
 	@FastJsonView(exclude = { @FastJsonFilter(clazz = Article.class, props = { "body", "category", "comments" }),

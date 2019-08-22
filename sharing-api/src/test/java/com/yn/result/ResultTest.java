@@ -26,7 +26,7 @@ public class ResultTest {
 	public void entityTest() {
 		User u = new User();
 		
-		u.setId(1L);
+		u.setId(1);
 		u.setAccount("a");
 		
 		Result s = Result.success(u);
@@ -37,11 +37,11 @@ public class ResultTest {
 	@Test
 	public void ListTest() {
 		User u = new User();
-		u.setId(1L);
+		u.setId(1);
 		u.setAccount("a");
 		
 		User u2 = new User();
-		u2.setId(2L);
+		u2.setId(2);
 		u2.setAccount("b");
 		
 		List<User> users = Arrays.asList(u,u2);

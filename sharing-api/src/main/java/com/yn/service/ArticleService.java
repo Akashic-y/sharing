@@ -4,7 +4,7 @@ import java.util.List;
 
 import javax.swing.text.AbstractDocument.Content;
 
-import com.yn.sharing.entity.Article;
+import com.yn.entity.Article;
 import com.yn.form.ArticleForm;
 import com.yn.vo.PageVo;
 

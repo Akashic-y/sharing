@@ -1,6 +1,6 @@
 package com.yn.dao;
 
-import com.yn.sharing.entity.Tag;
+import com.yn.entity.Tag;
 
 public interface TagMapper {
     int deleteByPrimaryKey(Integer id);

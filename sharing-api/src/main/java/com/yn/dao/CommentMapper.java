@@ -1,6 +1,6 @@
 package com.yn.dao;
 
-import com.yn.sharing.entity.Comment;
+import com.yn.entity.Comment;
 
 public interface CommentMapper {
     int deleteByPrimaryKey(Integer id);

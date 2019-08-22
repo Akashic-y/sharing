@@ -17,9 +17,9 @@ import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.yn.common.constant.Base;
-import com.yn.entity.UserStatus;
+import com.yn.entity.User;
+import com.yn.form.StaticValue;
 import com.yn.service.UserService;
-import com.yn.sharing.entity.User;
 
 /**
  * 自定义shiroRealm
@@ -61,7 +61,7 @@ public class OAuthRealm extends AuthorizingRealm {
             throw new UnknownAccountException();//没找到帐号
         }
 
-        if (UserStatus.blocked.equals(user.getStatus())) {
+        if (StaticValue.blocked.equals(user.getStatus())) {
             throw new LockedAccountException(); //帐号锁定
         }
         new Thread(() -> {

@@ -2,11 +2,8 @@ package com.yn.controller;
 
 import java.util.List;
 
-import javax.validation.Valid;
-
 import com.yn.common.annotation.LogAnnotation;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
-import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,12 +15,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.support.spring.annotation.FastJsonFilter;
 import com.alibaba.fastjson.support.spring.annotation.FastJsonView;
-import com.yn.common.constant.Base;
 import com.yn.common.constant.ResultCode;
 import com.yn.common.result.Result;
-import com.yn.entity.Article;
 import com.yn.entity.Comment;
-import com.yn.entity.Tag;
 import com.yn.entity.User;
 import com.yn.service.CommentService;
 

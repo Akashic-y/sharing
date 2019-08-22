@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.yn.common.util.PasswordHelper;
 import com.yn.dao.UserMapper;
-import com.yn.sharing.entity.User;
+import com.yn.entity.User;
 import com.yn.service.UserService;
 
 /**
@@ -68,7 +68,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void updateLoginTime(Long id) {
+	public void updateLoginTime(Integer id) {
 		dao.updateLoginTime(id);
 	}
 

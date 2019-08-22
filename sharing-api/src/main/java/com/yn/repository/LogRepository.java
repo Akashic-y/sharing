@@ -1,7 +1,8 @@
 package com.yn.repository;
 
-import com.yn.entity.Log;
 import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.yn.entity.Log;
 
 /**
  * @author yn

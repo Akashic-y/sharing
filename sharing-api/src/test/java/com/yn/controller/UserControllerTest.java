@@ -1,7 +1,6 @@
 package com.yn.controller;
 
 import java.util.Date;
-import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -15,7 +14,6 @@ import org.springframework.web.context.WebApplicationContext;
 import com.alibaba.fastjson.JSONObject;
 import com.yn.SharingApiApplicationTests;
 import com.yn.entity.User;
-import com.yn.entity.UserStatus;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;  
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;  
@@ -44,7 +42,6 @@ public class UserControllerTest extends SharingApiApplicationTests{
 		u.setCreateDate(new Date());
 		u.setEmail("919431514@qq.com");
 		u.setMobilePhoneNumber("18396816462");
-		u.setStatus(UserStatus.normal);
 		
         MvcResult result = mockMvc.perform(post("/users/create").contentType(MediaType.APPLICATION_JSON).content(JSONObject.toJSONString(u)))  
                 .andExpect(status().isOk())// 模拟向testRest发送get请求    
@@ -80,7 +77,7 @@ public class UserControllerTest extends SharingApiApplicationTests{
 	@Test
 	public void updateUserTest() throws Exception {
 		User u = new User();
-		Long id = 5L;
+		Integer id = 5;
 		u.setId(id);
 		u.setNickname("yn222");
         MvcResult result = mockMvc.perform(post("/users/update").contentType(MediaType.APPLICATION_JSON).content(JSONObject.toJSONString(u)))  

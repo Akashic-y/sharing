@@ -1,6 +1,6 @@
 package com.yn.dao;
 
-import com.yn.sharing.entity.ArticleBody;
+import com.yn.entity.ArticleBody;
 
 public interface ArticleBodyMapper {
     int deleteByPrimaryKey(Long id);

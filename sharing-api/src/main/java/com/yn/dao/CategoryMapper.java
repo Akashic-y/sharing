@@ -1,6 +1,6 @@
 package com.yn.dao;
 
-import com.yn.sharing.entity.Category;
+import com.yn.entity.Category;
 
 public interface CategoryMapper {
     int deleteByPrimaryKey(Integer id);

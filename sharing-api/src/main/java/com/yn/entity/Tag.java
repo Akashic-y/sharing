@@ -1,50 +1,17 @@
 package com.yn.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-
-import org.hibernate.validator.constraints.NotBlank;
-
 import com.yn.common.entity.BaseEntity;
+import lombok.Data;
 
-/**
- * 文章标签
- *
- * @author yn
- * <p>
- * 2018年1月23日
- */
-@Entity
-@Table(name = "me_tag")
-public class Tag extends BaseEntity<Integer> {
+@Data
+public class Tag extends BaseEntity{
 
-    /**
-     *
-     */
-    private static final long serialVersionUID = 5025313969040054182L;
+	private static final long serialVersionUID = -8703756043484996111L;
 
-    @NotBlank
-    private String tagname;
+	private Integer id;
+	
+	private String avatar;
 
-    @NotBlank
-    private String avatar;
-
-
-    public String getTagname() {
-        return tagname;
-    }
-
-    public void setTagname(String tagname) {
-        this.tagname = tagname;
-    }
-
-    public String getAvatar() {
-        return avatar;
-    }
-
-    public void setAvatar(String avatar) {
-        this.avatar = avatar;
-    }
-
+	private String tagname;
 
 }

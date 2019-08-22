@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.yn.common.constant.ResultCode;
-import com.yn.common.exception.BaseException;
 import com.yn.common.result.ParameterInvalidItem;
 import com.yn.common.result.Result;
 

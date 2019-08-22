@@ -6,9 +6,9 @@ import javax.swing.text.AbstractDocument.Content;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.yn.entity.Article;
+import com.yn.entity.Tag;
 import com.yn.form.ArticleForm;
-import com.yn.sharing.entity.Article;
-import com.yn.sharing.entity.Tag;
 
 public interface ArticleMapper {
     int deleteByPrimaryKey(Integer id);

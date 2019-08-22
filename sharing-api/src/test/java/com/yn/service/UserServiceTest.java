@@ -7,8 +7,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.yn.SharingApiApplicationTests;
-import com.yn.sharing.entity.User;
-import com.yn.entity.UserStatus;
+import com.yn.entity.User;
 import com.yn.form.StaticValue;
 
 public class UserServiceTest extends SharingApiApplicationTests{
@@ -60,7 +59,7 @@ public class UserServiceTest extends SharingApiApplicationTests{
 	@Test
 	public void updateUserTest() {
 		User u = new User();
-		Long id = 3L;
+		Integer id = 3;
 		u.setId(id);
 		u.setNickname("yn222");
 		userService.updateUser(u);

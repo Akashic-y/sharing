@@ -21,7 +21,7 @@ import com.yn.common.constant.Base;
 import com.yn.common.constant.ResultCode;
 import com.yn.common.result.Result;
 import com.yn.common.util.UserUtils;
-import com.yn.sharing.entity.User;
+import com.yn.entity.User;
 import com.yn.service.UserService;
 
 /**

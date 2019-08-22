@@ -6,9 +6,6 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.yn.SharingApiApplicationTests;
-import com.yn.entity.Article;
-import com.yn.entity.Category;
-import com.yn.entity.Tag;
 import com.yn.vo.CategoryVO;
 
 public class CategoryServiceTest extends SharingApiApplicationTests{

@@ -3,7 +3,6 @@ package com.yn.service.impl;
 import java.util.Date;
 import java.util.List;
 
-import com.yn.sharing.entity.User;
 import com.yn.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +12,7 @@ import com.yn.common.util.UserUtils;
 import com.yn.dao.ArticleMapper;
 import com.yn.entity.Article;
 import com.yn.entity.Comment;
+import com.yn.entity.User;
 import com.yn.repository.CommentRepository;
 import com.yn.service.CommentService;
 
