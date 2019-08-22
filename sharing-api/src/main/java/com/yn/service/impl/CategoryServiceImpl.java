@@ -36,20 +36,14 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     @Transactional
     public Integer saveCategory(Category category) {
-
-        return null;
+    	dao.insertSelective(category);
+        return category.getId();
     }
 
     @Override
     @Transactional
     public Integer updateCategory(Category category) {
-//        Category oldCategory = categoryRepository.getOne(category.getId());
-//
-//        oldCategory.setCategoryname(category.getCategoryname());
-//        oldCategory.setAvatar(category.getAvatar());
-//        oldCategory.setDescription(category.getDescription());
-
-        return 0;
+        return dao.update(category);
     }
 
     @Override

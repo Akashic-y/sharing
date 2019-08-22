@@ -9,19 +9,44 @@
       <arg column="description" javaType="java.lang.String" jdbcType="VARCHAR" />
     </constructor>
   </resultMap>
+  
   <sql id="Base_Column_List">
     id, avatar, categoryname, description
   </sql>
+  
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from me_category
     where id = #{id,jdbcType=INTEGER}
   </select>
+  
+  <select id="findAll" resultType="com.yn.sharing.entity.Category">
+    select 
+    <include refid="Base_Column_List" />
+    from me_category
+  </select>
+  
+  <select id="findAllDetail" resultType="com.yn.vo.CategoryVO">
+    select 
+    c.avatar, c.categoryname, c.description,
+    (select count(1) from me_article a where a.category_id = c.id ) as articles
+    from me_category c
+  </select>
+  
+  <select id="getCategoryDetail" resultType="com.yn.vo.CategoryVO" parameterType="java.lang.Integer">
+    select 
+    c.avatar, c.categoryname, c.description,
+    (select count(1) from me_article a where a.category_id = c.id ) as articles
+    from me_category c
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from me_category
     where id = #{id,jdbcType=INTEGER}
   </delete>
+  
   <insert id="insertSelective" parameterType="com.yn.sharing.entity.Category">
   	<selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
 		SELECT LAST_INSERT_ID() AS id
@@ -50,6 +75,7 @@
       </if>
     </trim>
   </insert>
+  
   <update id="update" parameterType="com.yn.sharing.entity.Category">
     update me_category
     <set>

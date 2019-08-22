@@ -18,5 +18,5 @@ public interface CategoryMapper {
 
 	List<CategoryVO> findAllDetail();
 
-	CategoryVO getCategoryDetail(Integer categoryId);
+	CategoryVO getCategoryDetail(Integer id);
 }
