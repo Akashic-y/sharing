@@ -30,6 +30,7 @@ CREATE TABLE `me_article` (
   `author_id` bigint(20) DEFAULT NULL,
   `body_id` bigint(20) DEFAULT NULL,
   `category_id` int(11) DEFAULT NULL,
+  `deleted` bit(1) DEFAULT b'0' COMMENT '删除状态',
   PRIMARY KEY (`id`),
   KEY `FKndx2m69302cso79y66yxiju4h` (`author_id`),
   KEY `FKrd11pjsmueckfrh9gs7bc6374` (`body_id`),
@@ -42,9 +43,9 @@ CREATE TABLE `me_article` (
 -- ----------------------------
 -- Records of me_article
 -- ----------------------------
-INSERT INTO `me_article` VALUES ('1', '2', '2018-01-31 13:16:16', 'Vue构建前台页面过程1Vue构建前台页面过程2Vue构建前台页面过程3Vue构建前台页面过程4Vue构建前台页面过程5Vue构建前台页面过程6Vue构建前台页面过程7Vue构建前台页面过程8', 'Vue构建前台页面Vue构建前台页面Vue构建前台页面Vue构建前台页面', '54', '0', '1', '1', '1');
-INSERT INTO `me_article` VALUES ('9', '0', '2018-02-01 14:37:23', 'Vue (读音 /vjuː/，类似于 view) 是一套用于构建用户界面的渐进式框架。', 'Vue.js 是什么', '3', '0', '1', '20', '1');
-INSERT INTO `me_article` VALUES ('10', '0', '2018-02-01 14:47:19', '本节将介绍如何在项目中使用 Element。', 'Element相关', '3', '0', '1', '21', '1');
+INSERT INTO `me_article` VALUES ('1', '2', '2018-01-31 13:16:16', 'Vue构建前台页面过程1Vue构建前台页面过程2Vue构建前台页面过程3Vue构建前台页面过程4Vue构建前台页面过程5Vue构建前台页面过程6Vue构建前台页面过程7Vue构建前台页面过程8', 'Vue构建前台页面Vue构建前台页面Vue构建前台页面Vue构建前台页面', '54', '0', '1', '1', '1',0);
+INSERT INTO `me_article` VALUES ('9', '0', '2018-02-01 14:37:23', 'Vue (读音 /vjuː/，类似于 view) 是一套用于构建用户界面的渐进式框架。', 'Vue.js 是什么', '3', '0', '1', '20', '1',0);
+INSERT INTO `me_article` VALUES ('10', '0', '2018-02-01 14:47:19', '本节将介绍如何在项目中使用 Element。', 'Element相关', '3', '0', '1', '21', '1',0);
 
 -- ----------------------------
 -- Table structure for me_article_body
@@ -124,6 +125,7 @@ CREATE TABLE `me_comment` (
   `parent_id` int(11) DEFAULT NULL,
   `to_uid` bigint(20) DEFAULT NULL,
   `level` varchar(1) DEFAULT NULL,
+  `deleted` bit(1) DEFAULT b'0' COMMENT '删除状态',
   PRIMARY KEY (`id`),
   KEY `FKecq0fuo9k0lnmea6r01vfhiok` (`article_id`),
   KEY `FKkvuyh6ih7dt1rfqhwsjomsa6i` (`author_id`),
@@ -191,7 +193,7 @@ CREATE TABLE `sys_user` (
   `admin` bit(1) DEFAULT NULL COMMENT '是否是管理员（1是 0不是）',
   `avatar` varchar(255) DEFAULT NULL COMMENT '头像',
   `create_date` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `deleted` bit(1) DEFAULT NULL COMMENT '删除状态',
+  `deleted` bit(1) DEFAULT b'0' COMMENT '删除状态',
   `email` varchar(128) DEFAULT NULL COMMENT '邮箱',
   `last_login` datetime DEFAULT NULL COMMENT '最后登录时间',
   `mobile_phone_number` varchar(20) DEFAULT NULL COMMENT '手机号码',

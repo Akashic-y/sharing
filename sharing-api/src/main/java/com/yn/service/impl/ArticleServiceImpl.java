@@ -36,9 +36,6 @@ public class ArticleServiceImpl implements ArticleService {
     @Autowired
     private ArticleBodyMapper bodyDao;
     
-    @Autowired
-    private CategoryMapper categoryDao;
-    
     @Override
     public List<Content> listArticles(PageVo page) {
     	PageHelper.startPage(page.getPageNumber(), page.getPageSize(),true);
@@ -132,8 +129,9 @@ public class ArticleServiceImpl implements ArticleService {
     @Transactional
     public Article getArticleAndAddViews(Integer id) {
         Article article = dao.selectByPrimaryKey(id);
-        //TODO
-        dao.addView(id);
+        new Thread(() -> {
+        	dao.addView(id);
+		}, "观看数量加1").start();
         return article;
     }
 
@@ -157,7 +155,6 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public List<ArticleForm> listArticleForms() {
-
         return dao.listArticleForms();
     }
 }

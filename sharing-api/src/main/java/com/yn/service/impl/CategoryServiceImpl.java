@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.yn.dao.CategoryMapper;
 import com.yn.entity.Category;
-import com.yn.repository.CategoryRepository;
 import com.yn.service.CategoryService;
 import com.yn.vo.CategoryVO;
 
@@ -20,17 +20,17 @@ import com.yn.vo.CategoryVO;
 public class CategoryServiceImpl implements CategoryService {
 
     @Autowired
-    private CategoryRepository categoryRepository;
+    private CategoryMapper dao;
 
 
     @Override
     public List<Category> findAll() {
-        return categoryRepository.findAll();
+        return dao.findAll();
     }
 
     @Override
     public Category getCategoryById(Integer id) {
-        return categoryRepository.getOne(id);
+        return dao.selectByPrimaryKey(id);
     }
 
     @Override
@@ -55,17 +55,17 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     @Transactional
     public void deleteCategoryById(Integer id) {
-        categoryRepository.delete(id);
+        dao.deleteByPrimaryKey(id);
     }
 
     @Override
     public List<CategoryVO> findAllDetail() {
-        return categoryRepository.findAllDetail();
+        return dao.findAllDetail();
     }
 
     @Override
     public CategoryVO getCategoryDetail(Integer categoryId) {
-        return categoryRepository.getCategoryDetail(categoryId);
+        return dao.getCategoryDetail(categoryId);
     }
 
 }

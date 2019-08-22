@@ -25,56 +25,52 @@ import com.yn.service.UserService;
  * 自定义shiroRealm
  *
  * @author yn
- * <p>
- * 2018年1月23日
+ *         <p>
+ *         2018年1月23日
  */
 public class OAuthRealm extends AuthorizingRealm {
 
-    @Autowired
-    private UserService userService;
+	@Autowired
+	private UserService userService;
 
-    @Override
-    protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-        String account = (String) principals.getPrimaryPrincipal();
-        User user = userService.getUserByAccount(account);
-        SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
-        Set<String> roles = new HashSet<String>();
+	@Override
+	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
+		String account = (String) principals.getPrimaryPrincipal();
+		User user = userService.getUserByAccount(account);
+		SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
+		Set<String> roles = new HashSet<String>();
 
-        //简单处理   只有admin一个角色
-        if (user.getAdmin()) {
-            roles.add(Base.ROLE_ADMIN);
-        }
+		// 简单处理 只有admin一个角色
+		if (user.getAdmin()) {
+			roles.add(Base.ROLE_ADMIN);
+		}
 
-        authorizationInfo.setRoles(roles);
+		authorizationInfo.setRoles(roles);
 
-        return authorizationInfo;
-    }
+		return authorizationInfo;
+	}
 
-    @Override
-    protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
+	@Override
+	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
 
-        String account = (String) token.getPrincipal();
+		String account = (String) token.getPrincipal();
 
-        User user = userService.getUserByAccount(account);
+		User user = userService.getUserByAccount(account);
 
-        if (user == null) {
-            throw new UnknownAccountException();//没找到帐号
-        }
+		if (user == null) {
+			throw new UnknownAccountException();// 没找到帐号
+		}
 
-        if (StaticValue.blocked.equals(user.getStatus())) {
-            throw new LockedAccountException(); //帐号锁定
-        }
-        new Thread(() -> {
-        	userService.updateLoginTime(user.getId());
-        },"记录登录时间线程").start();
-        SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(
-            user.getAccount(),
-            user.getPassword(),
-            ByteSource.Util.bytes(user.getSalt()),
-            getName()
-        );
+		if (StaticValue.blocked.equals(user.getStatus())) {
+			throw new LockedAccountException(); // 帐号锁定
+		}
+		new Thread(() -> {
+			userService.updateLoginTime(user.getId());
+		}, "记录登录时间线程").start();
+		SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(user.getAccount(),
+				user.getPassword(), ByteSource.Util.bytes(user.getSalt()), getName());
 
-        return authenticationInfo;
-    }
+		return authenticationInfo;
+	}
 
 }

@@ -19,46 +19,34 @@ import com.yn.common.interceptor.ClearTokenInteceptor;
 @Configuration
 public class WebMvcConfig extends WebMvcConfigurerAdapter {
 
+	@Override
+	public void addInterceptors(InterceptorRegistry registry) {
+		registry.addInterceptor(clearTokenInteceptor()).addPathPatterns("/**");
+	}
 
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
+	@Bean
+	public ClearTokenInteceptor clearTokenInteceptor() {
+		ClearTokenInteceptor clearTokenInteceptor = new ClearTokenInteceptor();
+		return clearTokenInteceptor;
+	}
 
-        registry.addInterceptor(clearTokenInteceptor()).addPathPatterns("/**");
-    }
+	@Override
+	public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
 
-    @Bean
-    public ClearTokenInteceptor clearTokenInteceptor() {
-        ClearTokenInteceptor clearTokenInteceptor = new ClearTokenInteceptor();
-        return clearTokenInteceptor;
-    }
+		FastJsonHttpMessageConverter fastConverter = new FastJsonHttpMessageConverter();
+		FastJsonConfig fastJsonConfig = new FastJsonConfig();
+		fastJsonConfig.setSerializerFeatures(SerializerFeature.PrettyFormat, SerializerFeature.WriteNullStringAsEmpty,
+				SerializerFeature.DisableCircularReferenceDetect);
+		List<MediaType> fastMediaTypes = new ArrayList<>();
+		fastMediaTypes.add(MediaType.APPLICATION_JSON_UTF8);
+		fastConverter.setFastJsonConfig(fastJsonConfig);
+		fastConverter.setSupportedMediaTypes(fastMediaTypes);
+		converters.add(fastConverter);
+	}
 
-
-    @Override
-    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-
-        FastJsonHttpMessageConverter fastConverter = new FastJsonHttpMessageConverter();
-
-        FastJsonConfig fastJsonConfig = new FastJsonConfig();
-
-        fastJsonConfig.setSerializerFeatures(
-                SerializerFeature.PrettyFormat, SerializerFeature.WriteNullStringAsEmpty,
-                SerializerFeature.DisableCircularReferenceDetect
-        );
-
-
-        List<MediaType> fastMediaTypes = new ArrayList<>();
-        fastMediaTypes.add(MediaType.APPLICATION_JSON_UTF8);
-
-        fastConverter.setFastJsonConfig(fastJsonConfig);
-        fastConverter.setSupportedMediaTypes(fastMediaTypes);
-
-        converters.add(fastConverter);
-    }
-
-
-    @Bean
-    public FastJsonViewResponseBodyAdvice FastJsonViewResponseBodyAdvice() {
-        FastJsonViewResponseBodyAdvice advice = new FastJsonViewResponseBodyAdvice();
-        return advice;
-    }
+	@Bean
+	public FastJsonViewResponseBodyAdvice FastJsonViewResponseBodyAdvice() {
+		FastJsonViewResponseBodyAdvice advice = new FastJsonViewResponseBodyAdvice();
+		return advice;
+	}
 }

@@ -6,7 +6,6 @@ import java.io.Serializable;
  * 基础Entity
  *
  * @author yn
- * <p>
  * 2018年1月23日
  */
 public abstract class BaseEntity implements Serializable {
@@ -30,13 +29,12 @@ public abstract class BaseEntity implements Serializable {
         return null == this.getId() ? false : this.getId().equals(that.getId());
     }
 
-
     @Override
     public int hashCode() {
         int hashCode = 17;
         hashCode += null == getId() ? 0 : getId().hashCode() * 31;
-        return hashCode;
-    }
+		return hashCode;
+	}
 
 	public Integer getId() {
 		return id;
