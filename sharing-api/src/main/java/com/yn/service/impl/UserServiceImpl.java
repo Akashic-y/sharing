@@ -67,4 +67,9 @@ public class UserServiceImpl implements UserService {
 		return dao.exitUser(account);
 	}
 
+	@Override
+	public void updateLoginTime(Long id) {
+		dao.updateLoginTime(id);
+	}
+
 }

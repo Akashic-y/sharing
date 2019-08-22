@@ -24,4 +24,6 @@ public interface UserService {
     void deleteUserById(Long id);
 
 	int exitUser(String account);
+
+	void updateLoginTime(Long id);
 }

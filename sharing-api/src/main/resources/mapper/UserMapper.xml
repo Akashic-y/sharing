@@ -160,4 +160,8 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
+  
+	<update id="updateLoginTime" parameterType="java.lang.Long">
+		update sys_user set last_login = now() where id = #{id}
+	</update>
 </mapper>

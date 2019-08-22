@@ -18,4 +18,6 @@ public interface UserMapper {
 	int exitUser(String account);
 
 	List<User> findAll();
+
+	void updateLoginTime(Long id);
 }

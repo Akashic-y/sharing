@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50726
 File Encoding         : 65001
 
-Date: 2019-08-22 10:50:32
+Date: 2019-08-22 11:18:36
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -22,10 +22,10 @@ DROP TABLE IF EXISTS `me_article`;
 CREATE TABLE `me_article` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `comment_counts` int(11) DEFAULT NULL,
-  `create_date` datetime DEFAULT NULL,
+  `create_date` datetime DEFAULT CURRENT_TIMESTAMP,
   `summary` varchar(100) DEFAULT NULL,
   `title` varchar(64) DEFAULT NULL,
-  `view_counts` int(11) DEFAULT NULL,
+  `view_counts` int(11) DEFAULT 0,
   `weight` int(11) NOT NULL,
   `author_id` bigint(20) DEFAULT NULL,
   `body_id` bigint(20) DEFAULT NULL,
@@ -98,17 +98,18 @@ CREATE TABLE `me_category` (
   `avatar` varchar(255) DEFAULT NULL,
   `categoryname` varchar(255) DEFAULT NULL,
   `description` varchar(255) DEFAULT NULL,
+  `create_date` datetime DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of me_category
 -- ----------------------------
-INSERT INTO `me_category` VALUES ('1', '/category/front.png', '前端', null);
-INSERT INTO `me_category` VALUES ('2', '/category/back.png', '后端', null);
-INSERT INTO `me_category` VALUES ('3', '/category/lift.jpg', '生活', null);
-INSERT INTO `me_category` VALUES ('4', '/category/database.png', '数据库', null);
-INSERT INTO `me_category` VALUES ('5', '/category/language.png', '编程语言', null);
+INSERT INTO `me_category` VALUES ('1', '/category/front.png', '前端', null, '2019-08-22 11:11:40');
+INSERT INTO `me_category` VALUES ('2', '/category/back.png', '后端', null, '2019-08-22 11:11:40');
+INSERT INTO `me_category` VALUES ('3', '/category/lift.jpg', '生活', null, '2019-08-22 11:11:40');
+INSERT INTO `me_category` VALUES ('4', '/category/database.png', '数据库', null, '2019-08-22 11:11:40');
+INSERT INTO `me_category` VALUES ('5', '/category/language.png', '编程语言', null, '2019-08-22 11:11:40');
 
 -- ----------------------------
 -- Table structure for me_comment
@@ -117,7 +118,7 @@ DROP TABLE IF EXISTS `me_comment`;
 CREATE TABLE `me_comment` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `content` varchar(255) DEFAULT NULL,
-  `create_date` datetime DEFAULT NULL,
+  `create_date` datetime DEFAULT CURRENT_TIMESTAMP,
   `article_id` int(11) DEFAULT NULL,
   `author_id` bigint(20) DEFAULT NULL,
   `parent_id` int(11) DEFAULT NULL,
@@ -135,10 +136,6 @@ CREATE TABLE `me_comment` (
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of me_comment
--- ----------------------------
-
--- ----------------------------
 -- Table structure for me_tag
 -- ----------------------------
 DROP TABLE IF EXISTS `me_tag`;
@@ -146,20 +143,21 @@ CREATE TABLE `me_tag` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `avatar` varchar(255) DEFAULT NULL,
   `tagname` varchar(255) DEFAULT NULL,
+  `create_date` datetime DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of me_tag
 -- ----------------------------
-INSERT INTO `me_tag` VALUES ('1', '/tag/java.png', 'Java');
-INSERT INTO `me_tag` VALUES ('2', '/tag/spring.png', 'Spring');
-INSERT INTO `me_tag` VALUES ('3', '/tag/hibernate.svg', 'Hibernate');
-INSERT INTO `me_tag` VALUES ('4', '/tag/maven.png', 'Maven');
-INSERT INTO `me_tag` VALUES ('5', '/tag/html.png', 'Html');
-INSERT INTO `me_tag` VALUES ('6', '/tag/js.png', 'JavaScript');
-INSERT INTO `me_tag` VALUES ('7', '/tag/vue.png', 'Vue');
-INSERT INTO `me_tag` VALUES ('8', '/tag/css.png', 'Css');
+INSERT INTO `me_tag` VALUES ('1', '/tag/java.png', 'Java', '2019-08-22 11:15:09');
+INSERT INTO `me_tag` VALUES ('2', '/tag/spring.png', 'Spring', '2019-08-22 11:15:09');
+INSERT INTO `me_tag` VALUES ('3', '/tag/hibernate.svg', 'Hibernate', '2019-08-22 11:15:09');
+INSERT INTO `me_tag` VALUES ('4', '/tag/maven.png', 'Maven', '2019-08-22 11:15:09');
+INSERT INTO `me_tag` VALUES ('5', '/tag/html.png', 'Html', '2019-08-22 11:15:09');
+INSERT INTO `me_tag` VALUES ('6', '/tag/js.png', 'JavaScript', '2019-08-22 11:15:09');
+INSERT INTO `me_tag` VALUES ('7', '/tag/vue.png', 'Vue', '2019-08-22 11:15:09');
+INSERT INTO `me_tag` VALUES ('8', '/tag/css.png', 'Css', '2019-08-22 11:15:09');
 
 -- ----------------------------
 -- Table structure for sys_log
@@ -167,7 +165,7 @@ INSERT INTO `me_tag` VALUES ('8', '/tag/css.png', 'Css');
 DROP TABLE IF EXISTS `sys_log`;
 CREATE TABLE `sys_log` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `create_date` datetime DEFAULT NULL,
+  `create_date` datetime DEFAULT CURRENT_TIMESTAMP,
   `ip` varchar(15) COLLATE utf8_bin DEFAULT NULL,
   `method` varchar(100) COLLATE utf8_bin DEFAULT NULL,
   `module` varchar(10) COLLATE utf8_bin DEFAULT NULL,
@@ -192,7 +190,7 @@ CREATE TABLE `sys_user` (
   `account` varchar(64) DEFAULT NULL COMMENT '账号',
   `admin` bit(1) DEFAULT NULL COMMENT '是否是管理员（1是 0不是）',
   `avatar` varchar(255) DEFAULT NULL COMMENT '头像',
-  `create_date` datetime DEFAULT NULL COMMENT '创建时间',
+  `create_date` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `deleted` bit(1) DEFAULT NULL COMMENT '删除状态',
   `email` varchar(128) DEFAULT NULL COMMENT '邮箱',
   `last_login` datetime DEFAULT NULL COMMENT '最后登录时间',
@@ -204,10 +202,10 @@ CREATE TABLE `sys_user` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `UK_awpog86ljqwb89aqa1c5gvdrd` (`account`),
   UNIQUE KEY `UK_ahtq5ew3v0kt1n7hf1sgp7p8l` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
 INSERT INTO `sys_user` VALUES ('1', 'yn', '', '/user/admin.png', '2018-01-22 17:14:49', '\0', '919431514@qq.com', null, '18396816462', 'yn', 'c237910910ffa1f4827bf7fe1831ce43', 'e4153a582cbc45c3a199998b506dab28', 'normal');
-INSERT INTO `sys_user` VALUES ('15', 'yn2', '\0', '/user/user_6.png', null, '\0', null, null, null, 'yn2', '0df7246bbb5b1bf138edd17f7b64b33b', '480e1a68cbc7e05ff49f39d2b5222d0b', 'normal');
+INSERT INTO `sys_user` VALUES ('2', 'yn2', '\0', '/user/user_6.png', null, '\0', null, null, null, 'yn2', '0df7246bbb5b1bf138edd17f7b64b33b', '480e1a68cbc7e05ff49f39d2b5222d0b', 'normal');
