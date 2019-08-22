@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yn.dao.LogMapper">
-  <resultMap id="BaseResultMap" type="com.yn.sharing.entity.Log">
+  <resultMap id="BaseResultMap" type="com.yn.entity.Log">
     <constructor>
       <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="create_date" javaType="java.util.Date" jdbcType="datetime" />
+      <arg column="create_date" javaType="java.util.Date" />
       <arg column="ip" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="method" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="module" javaType="java.lang.String" jdbcType="VARCHAR" />
@@ -28,7 +28,7 @@
     delete from sys_log
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insertSelective" parameterType="com.yn.sharing.entity.Log">
+  <insert id="insertSelective" parameterType="com.yn.entity.Log">
     insert into sys_log
     <trim prefix="(" suffix=")" suffixOverrides=",">
       create_date,

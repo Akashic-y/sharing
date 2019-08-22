@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yn.dao.CommentMapper">
-  <resultMap id="BaseResultMap" type="com.yn.sharing.entity.Comment">
+  <resultMap id="BaseResultMap" type="com.yn.entity.Comment">
     <constructor>
       <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="content" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="create_date" javaType="java.util.Date" jdbcType="datetime" />
-      <arg column="level" javaType="java.lang.Integer" jdbcType="Integer" />
+      <arg column="create_date" javaType="java.util.Date" />
+      <arg column="level" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="article_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="author_id" javaType="java.lang.Long" jdbcType="BIGINT" />
       <arg column="parent_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
@@ -36,7 +36,7 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
   
-  <insert id="insertSelective" parameterType="com.yn.sharing.entity.Comment">
+  <insert id="insertSelective" parameterType="com.yn.entity.Comment">
     insert into me_comment
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -88,7 +88,7 @@
     </trim>
   </insert>
   
-  <update id="updateByPrimaryKeySelective" parameterType="com.yn.sharing.entity.Comment">
+  <update id="updateByPrimaryKeySelective" parameterType="com.yn.entity.Comment">
     update me_comment
     <set>
       <if test="content != null">

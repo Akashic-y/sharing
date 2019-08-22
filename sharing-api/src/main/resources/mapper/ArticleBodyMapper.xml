@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yn.dao.ArticleBodyMapper">
-  <resultMap id="BaseResultMap" type="com.yn.sharing.entity.ArticleBody">
+  <resultMap id="BaseResultMap" type="com.yn.entity.ArticleBody">
     <constructor>
       <idArg column="id" javaType="java.lang.Long" jdbcType="BIGINT" />
     </constructor>
   </resultMap>
-  <resultMap id="ResultMapWithBLOBs" type="com.yn.sharing.entity.ArticleBody">
+  <resultMap id="ResultMapWithBLOBs" type="com.yn.entity.ArticleBody">
     <constructor>
       <idArg column="id" javaType="java.lang.Long" jdbcType="BIGINT" />
       <arg column="content" javaType="java.lang.String" jdbcType="LONGVARCHAR" />
@@ -31,7 +31,7 @@
     delete from me_article_body
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insertSelective" parameterType="com.yn.sharing.entity.ArticleBody">
+  <insert id="insertSelective" parameterType="com.yn.entity.ArticleBody">
   	<selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
 		SELECT LAST_INSERT_ID() AS id
 	</selectKey>
@@ -53,7 +53,7 @@
       </if>
     </trim>
   </insert>
-  <update id="update" parameterType="com.yn.sharing.entity.ArticleBody">
+  <update id="update" parameterType="com.yn.entity.ArticleBody">
     update me_article_body
     <set>
       <if test="content != null">

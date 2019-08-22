@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yn.dao.ArticleMapper">
 	<resultMap id="BaseResultMap"
-		type="com.yn.sharing.entity.Article">
+		type="com.yn.entity.Article">
 		<id column="aid" property="id" />
 		<result column="comment_counts" property="commentCounts"/>
 		<result column="createDate" property="createDate"/>
@@ -10,36 +10,36 @@
 		<result column="title" property="title"/>
 		<result column="view_counts" property="viewCounts"/>
 		<result column="weight" property="weight"/>
-		<association property="author" javaType="com.yn.sharing.entity.User" >
+		<association property="author" javaType="com.yn.entity.User" >
 			<id column="uid" jdbcType="INTEGER" property="id" />
 			<result column="nickname" jdbcType="VARCHAR" property="nickname" />
 		</association>
-		<collection column="aid" select="getTag" property="tags" ofType="com.yn.sharing.entity.Tag" javaType="java.util.ArrayList">
+		<collection column="aid" select="getTag" property="tags" ofType="com.yn.entity.Tag" javaType="java.util.ArrayList">
 		</collection>
 	</resultMap>
 	<resultMap id="BaseArticles"
-		type="com.yn.sharing.entity.Article">
+		type="com.yn.entity.Article">
 		<id column="aid" property="id" />
 		<result column="comment_counts" property="commentCounts"/>
 		<result column="createDate" property="createDate"/>
 		<result column="title" property="title"/>
 		<result column="view_counts" property="viewCounts"/>
-		<association property="author" javaType="com.yn.sharing.entity.User" >
+		<association property="author" javaType="com.yn.entity.User" >
 			<id column="uid" jdbcType="INTEGER" property="id" />
 			<result column="avatar" jdbcType="VARCHAR" property="avatar" />
 			<result column="nickname" jdbcType="VARCHAR" property="nickname" />
 		</association>
-		<association property="body" javaType="com.yn.sharing.entity.ArticleBody" >
+		<association property="body" javaType="com.yn.entity.ArticleBody" >
 			<id column="bid" jdbcType="INTEGER" property="id" />
 			<result column="content" jdbcType="VARCHAR" property="content" />
 			<result column="content_html" jdbcType="VARCHAR" property="contentHtml" />
 		</association>
-		<association property="category" javaType="com.yn.sharing.entity.Category" >
+		<association property="category" javaType="com.yn.entity.Category" >
 			<id column="cid" jdbcType="INTEGER" property="id" />
 			<result column="categoryname" jdbcType="VARCHAR" property="categoryname" />
 			<result column="description" jdbcType="VARCHAR" property="description" />
 		</association>
-		<collection column="aid" select="getTag" property="tags" ofType="com.yn.sharing.entity.Tag" javaType="java.util.ArrayList">
+		<collection column="aid" select="getTag" property="tags" ofType="com.yn.entity.Tag" javaType="java.util.ArrayList">
 		</collection>
 	</resultMap>
 
@@ -87,7 +87,7 @@
 		order by #{orderBy}
 		</if>
 	</select>
-	<select id="listArticlesName" resultType="com.yn.sharing.entity.Article" parameterType="com.yn.form.ArticleForm">
+	<select id="listArticlesName" resultType="com.yn.entity.Article" parameterType="com.yn.form.ArticleForm">
 		select
 		a.id ,a.title
 		from me_article a
@@ -112,7 +112,7 @@
 		order by a.view_counts
 	</select>
 
-	<select id="getTag" resultType="com.yn.sharing.entity.Tag" parameterType="int">
+	<select id="getTag" resultType="com.yn.entity.Tag" parameterType="int">
 		select DISTINCT 
 		at.tag_id as id,t.tagname
 		from me_article_tag at
@@ -126,7 +126,7 @@
 		where id = #{id,jdbcType=INTEGER}
 	</update>
 	<insert id="insertSelective"
-		parameterType="com.yn.sharing.entity.Article">
+		parameterType="com.yn.entity.Article">
 		<selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
 			SELECT LAST_INSERT_ID() AS id
 		</selectKey>
@@ -195,7 +195,7 @@
 	</update>
 	
 	<update id="updateByPrimaryKeySelective"
-		parameterType="com.yn.sharing.entity.Article">
+		parameterType="com.yn.entity.Article">
 		update me_article
 		<set>
 			<if test="summary != null">

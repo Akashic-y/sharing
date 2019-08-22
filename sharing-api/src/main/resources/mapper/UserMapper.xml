@@ -2,16 +2,16 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yn.dao.UserMapper">
 	<resultMap id="BaseResultMap"
-		type="com.yn.sharing.entity.User">
+		type="com.yn.entity.User">
 		<constructor>
 			<idArg column="id" javaType="java.lang.Long" jdbcType="BIGINT" />
 			<arg column="account" javaType="java.lang.String" jdbcType="VARCHAR" />
 			<arg column="admin" javaType="java.lang.Boolean" jdbcType="BIT" />
 			<arg column="avatar" javaType="java.lang.String" jdbcType="VARCHAR" />
-			<arg column="create_date" javaType="java.util.Date" jdbcType="datetime" />
+			<arg column="create_date" javaType="java.util.Date" />
 			<arg column="deleted" javaType="java.lang.Boolean" jdbcType="BIT" />
 			<arg column="email" javaType="java.lang.String" jdbcType="VARCHAR" />
-			<arg column="last_login" javaType="java.util.Date" jdbcType="datetime" />
+			<arg column="last_login" javaType="java.util.Date" />
 			<arg column="mobile_phone_number" javaType="java.lang.String" jdbcType="VARCHAR" />
 			<arg column="nickname" javaType="java.lang.String" jdbcType="VARCHAR" />
 			<arg column="password" javaType="java.lang.String" jdbcType="VARCHAR" />
@@ -48,7 +48,7 @@
 		update sys_user set deleted = 1
 		where id = #{id,jdbcType=BIGINT}
 	</update>
-	<insert id="saveUser" parameterType="com.yn.sharing.entity.User">
+	<insert id="saveUser" parameterType="com.yn.entity.User">
 		insert into sys_user
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="account != null">
@@ -124,7 +124,7 @@
 		</trim>
 	</insert>
 	<update id="updateUser"
-		parameterType="com.yn.sharing.entity.User">
+		parameterType="com.yn.entity.User">
 		update sys_user
 		<set>
 			<if test="account != null">

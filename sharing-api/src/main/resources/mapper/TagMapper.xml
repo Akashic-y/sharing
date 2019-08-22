@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yn.dao.TagMapper">
-  <resultMap id="BaseResultMap" type="com.yn.sharing.entity.Tag">
+  <resultMap id="BaseResultMap" type="com.yn.entity.Tag">
     <constructor>
       <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="avatar" javaType="java.lang.String" jdbcType="VARCHAR" />
@@ -17,17 +17,43 @@
     from me_tag
     where id = #{id,jdbcType=INTEGER}
   </select>
+  
+  <select id="findAll" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from me_tag
+  </select>
+  
+  <select id="listHotTagsByArticleUse" parameterType="java.lang.Integer" resultType="com.yn.entity.Tag">
+    select t.*,count(at.tag_id) as count from me_article_tag at
+    right join me_tag t on t.id = at.tag_id
+    group by t.id order by count(at.tag_id) desc limit #{limit}
+  </select>
+  
+  <select id="findAllDetail" resultType="com.yn.vo.TagVO">
+    select t.*,count(at.tag_id) as articles from me_article_tag at
+    right join me_tag t on t.id = at.tag_id
+    group by t.id
+  </select>
+  
+  <select id="getTagDetail" parameterType="java.lang.Integer" resultType="com.yn.vo.TagVO">
+    select t.*,count(at.tag_id) as articles from me_article_tag at
+    right join me_tag t on t.id = at.tag_id
+    where t.id = #{id}
+    group by t.id
+  </select>
+  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from me_tag
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.yn.sharing.entity.Tag">
+  <insert id="insert" parameterType="com.yn.entity.Tag">
     insert into me_tag (id, avatar, tagname
       )
     values (#{id,jdbcType=INTEGER}, #{avatar,jdbcType=VARCHAR}, #{tagname,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.yn.sharing.entity.Tag">
+  <insert id="insertSelective" parameterType="com.yn.entity.Tag">
     insert into me_tag
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -52,7 +78,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.yn.sharing.entity.Tag">
+  <update id="updateByPrimaryKeySelective" parameterType="com.yn.entity.Tag">
     update me_tag
     <set>
       <if test="avatar != null">
@@ -64,7 +90,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.yn.sharing.entity.Tag">
+  <update id="updateByPrimaryKey" parameterType="com.yn.entity.Tag">
     update me_tag
     set avatar = #{avatar,jdbcType=VARCHAR},
       tagname = #{tagname,jdbcType=VARCHAR}

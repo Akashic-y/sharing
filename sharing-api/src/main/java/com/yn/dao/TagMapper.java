@@ -1,11 +1,12 @@
 package com.yn.dao;
 
+import java.util.List;
+
 import com.yn.entity.Tag;
+import com.yn.vo.TagVO;
 
 public interface TagMapper {
     int deleteByPrimaryKey(Integer id);
-
-    int insert(Tag record);
 
     int insertSelective(Tag record);
 
@@ -13,5 +14,11 @@ public interface TagMapper {
 
     int updateByPrimaryKeySelective(Tag record);
 
-    int updateByPrimaryKey(Tag record);
+	List<TagVO> findAllDetail();
+
+	TagVO getTagDetail(Integer id);
+
+	List<Tag> listHotTagsByArticleUse(int limit);
+
+	List<Tag> findAll();
 }

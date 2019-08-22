@@ -10,4 +10,5 @@ public class Tag extends BaseEntity{
 
 	private String tagname;
 
+	private Integer count;
 }

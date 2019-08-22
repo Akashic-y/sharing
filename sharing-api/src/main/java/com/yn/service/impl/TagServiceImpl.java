@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.yn.dao.TagMapper;
 import com.yn.entity.Tag;
-import com.yn.repository.TagRepository;
 import com.yn.service.TagService;
 import com.yn.vo.TagVO;
 
@@ -20,52 +20,49 @@ import com.yn.vo.TagVO;
 public class TagServiceImpl implements TagService {
 
     @Autowired
-    private TagRepository tagRepository;
-
+    private TagMapper dao;
 
     @Override
     public List<Tag> findAll() {
-        return tagRepository.findAll();
+        return dao.findAll();
     }
 
     @Override
     public Tag getTagById(Integer id) {
-        return tagRepository.getOne(id);
+        return dao.selectByPrimaryKey(id);
     }
 
     @Override
     @Transactional
     public Integer saveTag(Tag tag) {
-
-        return 0;
+        return dao.insertSelective(tag);
     }
 
     @Override
     @Transactional
     public Integer updateTag(Tag tag) {
-
-        return 0;
+        return dao.updateByPrimaryKeySelective(tag);
     }
 
     @Override
     @Transactional
     public void deleteTagById(Integer id) {
-        tagRepository.delete(id);
+        dao.deleteByPrimaryKey(id);
     }
 
     @Override
     public List<Tag> listHotTags(int limit) {
 
-        return tagRepository.listHotTagsByArticleUse(limit);
+        return dao.listHotTagsByArticleUse(limit);
     }
 
     @Override
     public List<TagVO> findAllDetail() {
-        return tagRepository.findAllDetail();
+        return dao.findAllDetail();
     }
 
     @Override
     public TagVO getTagDetail(Integer tagId) {
-        return tagRepository.getTagDetail(tagId);
+        return dao.getTagDetail(tagId);
     }
 }
