@@ -73,8 +73,8 @@ public class ShiroConfig {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
         securityManager.setRealm(oAuthRealm);
         securityManager.setSessionManager(sessionManager);
-        // 自定义缓存实现 使用redis  
-        //securityManager.setCacheManager(cacheManager());  
+        // 自定义缓存实现 使用redis
+        //securityManager.setCacheManager(cacheManager());
         return securityManager;
     }
 

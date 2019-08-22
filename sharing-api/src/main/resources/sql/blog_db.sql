@@ -1,20 +1,43 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : r
-Source Server Version : 50131
+Source Server         : 本地
+Source Server Version : 50726
 Source Host           : localhost:3306
-Source Database       : blog
+Source Database       : blog_db
 
 Target Server Type    : MYSQL
-Target Server Version : 50131
+Target Server Version : 50726
 File Encoding         : 65001
 
-Date: 2018-02-01 15:21:27
+Date: 2019-08-22 10:50:32
 */
 
 SET FOREIGN_KEY_CHECKS=0;
 
+-- ----------------------------
+-- Table structure for me_article
+-- ----------------------------
+DROP TABLE IF EXISTS `me_article`;
+CREATE TABLE `me_article` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `comment_counts` int(11) DEFAULT NULL,
+  `create_date` datetime DEFAULT NULL,
+  `summary` varchar(100) DEFAULT NULL,
+  `title` varchar(64) DEFAULT NULL,
+  `view_counts` int(11) DEFAULT NULL,
+  `weight` int(11) NOT NULL,
+  `author_id` bigint(20) DEFAULT NULL,
+  `body_id` bigint(20) DEFAULT NULL,
+  `category_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FKndx2m69302cso79y66yxiju4h` (`author_id`),
+  KEY `FKrd11pjsmueckfrh9gs7bc6374` (`body_id`),
+  KEY `FKjrn3ua4xmiulp8raj7m9d2xk6` (`category_id`),
+  CONSTRAINT `FKjrn3ua4xmiulp8raj7m9d2xk6` FOREIGN KEY (`category_id`) REFERENCES `me_category` (`id`),
+  CONSTRAINT `FKndx2m69302cso79y66yxiju4h` FOREIGN KEY (`author_id`) REFERENCES `sys_user` (`id`),
+  CONSTRAINT `FKrd11pjsmueckfrh9gs7bc6374` FOREIGN KEY (`body_id`) REFERENCES `me_article_body` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of me_article
@@ -23,7 +46,16 @@ INSERT INTO `me_article` VALUES ('1', '2', '2018-01-31 13:16:16', 'Vue构建前�
 INSERT INTO `me_article` VALUES ('9', '0', '2018-02-01 14:37:23', 'Vue (读音 /vjuː/，类似于 view) 是一套用于构建用户界面的渐进式框架。', 'Vue.js 是什么', '3', '0', '1', '20', '1');
 INSERT INTO `me_article` VALUES ('10', '0', '2018-02-01 14:47:19', '本节将介绍如何在项目中使用 Element。', 'Element相关', '3', '0', '1', '21', '1');
 
-
+-- ----------------------------
+-- Table structure for me_article_body
+-- ----------------------------
+DROP TABLE IF EXISTS `me_article_body`;
+CREATE TABLE `me_article_body` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `content` longtext,
+  `content_html` longtext,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of me_article_body
@@ -32,6 +64,18 @@ INSERT INTO `me_article_body` VALUES ('1', '## 2018-01-04\n\n```\n# 使用vue的
 INSERT INTO `me_article_body` VALUES ('20', 'Vue (读音 /vjuː/，类似于 view) 是一套用于构建用户界面的渐进式框架。与其它大型框架不同的是，Vue 被设计为可以自底向上逐层应用。Vue 的核心库只关注视图层，不仅易于上手，还便于与第三方库或既有项目整合。另一方面，当与现代化的工具链以及各种支持类库结合使用时，Vue 也完全能够为复杂的单页应用提供驱动。\n\n如果你想在深入学习 Vue 之前对它有更多了解，我们制作了一个视频，带您了解其核心概念和一个示例工程。\n如果你已经是有经验的前端开发者，想知道 Vue 与其它库/框架有哪些区别，请查看对比其它框架。\n\n# 起步\n\n> 官方指南假设你已了解关于 HTML、CSS 和 JavaScript 的中级知识。如果你刚开始学习前端开发，将框架作为你的第一步可能不是最好的主意——掌握好基础知识再来吧！之前有其它框架的使用经验会有帮助，但这不是必需的。\n\n尝试 Vue.js 最简单的方法是使用 JSFiddle 上的 Hello World 例子。你可以在浏览器新标签页中打开它，跟着例子学习一些基础用法。或者你也可以创建一个 .html 文件，然后通过如下方式引入 Vue：\n\n```javascript\n<script src=\"https://cdn.jsdelivr.net/npm/vue\"></script>\n\n```\n安装教程给出了更多安装 Vue 的方式。请注意我们不推荐新手直接使用 vue-cli，尤其是在你还不熟悉基于 Node.js 的构建工具时。\n\n# 声明式渲染\nVue.js 的核心是一个允许采用简洁的模板语法来声明式地将数据渲染进 DOM 的系统：\n```javascript\n<div id=\"app\">\n  {{ message }}\n</div>\n\n```\n```javascript\nvar app = new Vue({\n  el: \'#app\',\n  data: {\n    message: \'Hello Vue!\'\n  }\n})\n\n```\n我们已经成功创建了第一个 Vue 应用！看起来这跟渲染一个字符串模板非常类似，但是 Vue 在背后做了大量工作。现在数据和 DOM 已经被建立了关联，所有东西都是响应式的。我们要怎么确认呢？打开你的浏览器的 JavaScript 控制台 (就在这个页面打开)，并修改 app.message 的值，你将看到上例相应地更新。\n\n除了文本插值，我们还可以像这样来绑定元素特性：\n\n\n\n\n\n\n', '<p>Vue (读音 /vjuː/，类似于 view) 是一套用于构建用户界面的渐进式框架。与其它大型框架不同的是，Vue 被设计为可以自底向上逐层应用。Vue 的核心库只关注视图层，不仅易于上手，还便于与第三方库或既有项目整合。另一方面，当与现代化的工具链以及各种支持类库结合使用时，Vue 也完全能够为复杂的单页应用提供驱动。</p>\n<p>如果你想在深入学习 Vue 之前对它有更多了解，我们制作了一个视频，带您了解其核心概念和一个示例工程。<br />\n如果你已经是有经验的前端开发者，想知道 Vue 与其它库/框架有哪些区别，请查看对比其它框架。</p>\n<h1>起步</h1>\n<blockquote>\n<p>官方指南假设你已了解关于 HTML、CSS 和 JavaScript 的中级知识。如果你刚开始学习前端开发，将框架作为你的第一步可能不是最好的主意——掌握好基础知识再来吧！之前有其它框架的使用经验会有帮助，但这不是必需的。</p>\n</blockquote>\n<p>尝试 Vue.js 最简单的方法是使用 JSFiddle 上的 Hello World 例子。你可以在浏览器新标签页中打开它，跟着例子学习一些基础用法。或者你也可以创建一个 .html 文件，然后通过如下方式引入 Vue：</p>\n<pre><div class=\"hljs\"><code class=\"lang-javascript\">&lt;script src=<span class=\"hljs-string\">\"https://cdn.jsdelivr.net/npm/vue\"</span>&gt;<span class=\"xml\"><span class=\"hljs-tag\">&lt;/<span class=\"hljs-name\">script</span>&gt;</span></span>\n\n</code></div></pre>\n<p>安装教程给出了更多安装 Vue 的方式。请注意我们不推荐新手直接使用 vue-cli，尤其是在你还不熟悉基于 Node.js 的构建工具时。</p>\n<h1>声明式渲染</h1>\n<p>Vue.js 的核心是一个允许采用简洁的模板语法来声明式地将数据渲染进 DOM 的系统：</p>\n<pre><div class=\"hljs\"><code class=\"lang-javascript\">&lt;div id=<span class=\"hljs-string\">\"app\"</span>&gt;\n  {{ message }}\n&lt;<span class=\"hljs-regexp\">/div&gt;\n\n</span></code></div></pre>\n<pre><div class=\"hljs\"><code class=\"lang-javascript\"><span class=\"hljs-keyword\">var</span> app = <span class=\"hljs-keyword\">new</span> Vue({\n  <span class=\"hljs-attr\">el</span>: <span class=\"hljs-string\">\'#app\'</span>,\n  <span class=\"hljs-attr\">data</span>: {\n    <span class=\"hljs-attr\">message</span>: <span class=\"hljs-string\">\'Hello Vue!\'</span>\n  }\n})\n\n</code></div></pre>\n<p>我们已经成功创建了第一个 Vue 应用！看起来这跟渲染一个字符串模板非常类似，但是 Vue 在背后做了大量工作。现在数据和 DOM 已经被建立了关联，所有东西都是响应式的。我们要怎么确认呢？打开你的浏览器的 JavaScript 控制台 (就在这个页面打开)，并修改 app.message 的值，你将看到上例相应地更新。</p>\n<p>除了文本插值，我们还可以像这样来绑定元素特性：</p>\n');
 INSERT INTO `me_article_body` VALUES ('21', '## 快速上手\n\n本节将介绍如何在项目中使用 Element。\n\n### 使用 Starter Kit\n我们提供了通用的项目模板，你可以直接使用。对于 Laravel 用户，我们也准备了相应的模板，同样可以直接下载使用。\n\n如果不希望使用我们提供的模板，请继续阅读。\n\n### 使用 vue-cli\n\n我们还可以使用 vue-cli 初始化项目，命令如下：\n\n```language\n> npm i -g vue-cli\n> mkdir my-project && cd my-project\n> vue init webpack\n> npm i && npm i element-ui\n```\n\n### 引入 Element\n你可以引入整个 Element，或是根据需要仅引入部分组件。我们先介绍如何引入完整的 Element。\n\n#### 完整引入\n在 main.js 中写入以下内容：\n```javascript\nimport Vue from \'vue\'\nimport ElementUI from \'element-ui\'\nimport \'element-ui/lib/theme-chalk/index.css\'\nimport App from \'./App.vue\'\n\nVue.use(ElementUI)\n\nnew Vue({\n  el: \'#app\',\n  render: h => h(App)\n})\n\n```\n以上代码便完成了 Element 的引入。需要注意的是，样式文件需要单独引入。\n\n#### 按需引入\n借助 babel-plugin-component，我们可以只引入需要的组件，以达到减小项目体积的目的。\n\n首先，安装 babel-plugin-component：\n\n', '<h2>快速上手</h2>\n<p>本节将介绍如何在项目中使用 Element。</p>\n<h3>使用 Starter Kit</h3>\n<p>我们提供了通用的项目模板，你可以直接使用。对于 Laravel 用户，我们也准备了相应的模板，同样可以直接下载使用。</p>\n<p>如果不希望使用我们提供的模板，请继续阅读。</p>\n<h3>使用 vue-cli</h3>\n<p>我们还可以使用 vue-cli 初始化项目，命令如下：</p>\n<pre><code class=\"lang-language\">&gt; npm i -g vue-cli\n&gt; mkdir my-project &amp;&amp; cd my-project\n&gt; vue init webpack\n&gt; npm i &amp;&amp; npm i element-ui\n</code></pre>\n<h3>引入 Element</h3>\n<p>你可以引入整个 Element，或是根据需要仅引入部分组件。我们先介绍如何引入完整的 Element。</p>\n<h4>完整引入</h4>\n<p>在 main.js 中写入以下内容：</p>\n<pre><div class=\"hljs\"><code class=\"lang-javascript\"><span class=\"hljs-keyword\">import</span> Vue <span class=\"hljs-keyword\">from</span> <span class=\"hljs-string\">\'vue\'</span>\n<span class=\"hljs-keyword\">import</span> ElementUI <span class=\"hljs-keyword\">from</span> <span class=\"hljs-string\">\'element-ui\'</span>\n<span class=\"hljs-keyword\">import</span> <span class=\"hljs-string\">\'element-ui/lib/theme-chalk/index.css\'</span>\n<span class=\"hljs-keyword\">import</span> App <span class=\"hljs-keyword\">from</span> <span class=\"hljs-string\">\'./App.vue\'</span>\n\nVue.use(ElementUI)\n\n<span class=\"hljs-keyword\">new</span> Vue({\n  <span class=\"hljs-attr\">el</span>: <span class=\"hljs-string\">\'#app\'</span>,\n  <span class=\"hljs-attr\">render</span>: <span class=\"hljs-function\"><span class=\"hljs-params\">h</span> =&gt;</span> h(App)\n})\n\n</code></div></pre>\n<p>以上代码便完成了 Element 的引入。需要注意的是，样式文件需要单独引入。</p>\n<h4>按需引入</h4>\n<p>借助 babel-plugin-component，我们可以只引入需要的组件，以达到减小项目体积的目的。</p>\n<p>首先，安装 babel-plugin-component：</p>\n');
 
+-- ----------------------------
+-- Table structure for me_article_tag
+-- ----------------------------
+DROP TABLE IF EXISTS `me_article_tag`;
+CREATE TABLE `me_article_tag` (
+  `article_id` int(11) NOT NULL,
+  `tag_id` int(11) NOT NULL,
+  KEY `FK2s65pu9coxh7w16s8jycih79w` (`tag_id`),
+  KEY `FKsmysra6pt3ehcvts18q2h4409` (`article_id`),
+  CONSTRAINT `FK2s65pu9coxh7w16s8jycih79w` FOREIGN KEY (`tag_id`) REFERENCES `me_tag` (`id`),
+  CONSTRAINT `FKsmysra6pt3ehcvts18q2h4409` FOREIGN KEY (`article_id`) REFERENCES `me_article` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of me_article_tag
@@ -45,6 +89,17 @@ INSERT INTO `me_article_tag` VALUES ('10', '8');
 INSERT INTO `me_article_tag` VALUES ('10', '5');
 INSERT INTO `me_article_tag` VALUES ('10', '6');
 
+-- ----------------------------
+-- Table structure for me_category
+-- ----------------------------
+DROP TABLE IF EXISTS `me_category`;
+CREATE TABLE `me_category` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `avatar` varchar(255) DEFAULT NULL,
+  `categoryname` varchar(255) DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of me_category
@@ -55,15 +110,44 @@ INSERT INTO `me_category` VALUES ('3', '/category/lift.jpg', '生活', null);
 INSERT INTO `me_category` VALUES ('4', '/category/database.png', '数据库', null);
 INSERT INTO `me_category` VALUES ('5', '/category/language.png', '编程语言', null);
 
-
+-- ----------------------------
+-- Table structure for me_comment
+-- ----------------------------
+DROP TABLE IF EXISTS `me_comment`;
+CREATE TABLE `me_comment` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `content` varchar(255) DEFAULT NULL,
+  `create_date` datetime DEFAULT NULL,
+  `article_id` int(11) DEFAULT NULL,
+  `author_id` bigint(20) DEFAULT NULL,
+  `parent_id` int(11) DEFAULT NULL,
+  `to_uid` bigint(20) DEFAULT NULL,
+  `level` varchar(1) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FKecq0fuo9k0lnmea6r01vfhiok` (`article_id`),
+  KEY `FKkvuyh6ih7dt1rfqhwsjomsa6i` (`author_id`),
+  KEY `FKaecafrcorkhyyp1luffinsfqs` (`parent_id`),
+  KEY `FK73dgr23lbs3ebex5qvqyku308` (`to_uid`),
+  CONSTRAINT `FK73dgr23lbs3ebex5qvqyku308` FOREIGN KEY (`to_uid`) REFERENCES `sys_user` (`id`),
+  CONSTRAINT `FKaecafrcorkhyyp1luffinsfqs` FOREIGN KEY (`parent_id`) REFERENCES `me_comment` (`id`),
+  CONSTRAINT `FKecq0fuo9k0lnmea6r01vfhiok` FOREIGN KEY (`article_id`) REFERENCES `me_article` (`id`),
+  CONSTRAINT `FKkvuyh6ih7dt1rfqhwsjomsa6i` FOREIGN KEY (`author_id`) REFERENCES `sys_user` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of me_comment
 -- ----------------------------
-INSERT INTO `me_comment` VALUES ('1', '你辛苦了', '2018-01-31 13:29:01', '1', '15');
-INSERT INTO `me_comment` VALUES ('2', '啦啦啦', '2018-01-31 16:12:31', '1', '1');
 
-
+-- ----------------------------
+-- Table structure for me_tag
+-- ----------------------------
+DROP TABLE IF EXISTS `me_tag`;
+CREATE TABLE `me_tag` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `avatar` varchar(255) DEFAULT NULL,
+  `tagname` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of me_tag
@@ -77,7 +161,50 @@ INSERT INTO `me_tag` VALUES ('6', '/tag/js.png', 'JavaScript');
 INSERT INTO `me_tag` VALUES ('7', '/tag/vue.png', 'Vue');
 INSERT INTO `me_tag` VALUES ('8', '/tag/css.png', 'Css');
 
+-- ----------------------------
+-- Table structure for sys_log
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_log`;
+CREATE TABLE `sys_log` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `create_date` datetime DEFAULT NULL,
+  `ip` varchar(15) COLLATE utf8_bin DEFAULT NULL,
+  `method` varchar(100) COLLATE utf8_bin DEFAULT NULL,
+  `module` varchar(10) COLLATE utf8_bin DEFAULT NULL,
+  `nickname` varchar(10) COLLATE utf8_bin DEFAULT NULL,
+  `operation` varchar(25) COLLATE utf8_bin DEFAULT NULL,
+  `params` varchar(255) COLLATE utf8_bin DEFAULT NULL,
+  `time` bigint(20) DEFAULT NULL,
+  `userid` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
+-- ----------------------------
+-- Records of sys_log
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for sys_user
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_user`;
+CREATE TABLE `sys_user` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `account` varchar(64) DEFAULT NULL COMMENT '账号',
+  `admin` bit(1) DEFAULT NULL COMMENT '是否是管理员（1是 0不是）',
+  `avatar` varchar(255) DEFAULT NULL COMMENT '头像',
+  `create_date` datetime DEFAULT NULL COMMENT '创建时间',
+  `deleted` bit(1) DEFAULT NULL COMMENT '删除状态',
+  `email` varchar(128) DEFAULT NULL COMMENT '邮箱',
+  `last_login` datetime DEFAULT NULL COMMENT '最后登录时间',
+  `mobile_phone_number` varchar(20) DEFAULT NULL COMMENT '手机号码',
+  `nickname` varchar(255) DEFAULT NULL COMMENT '昵称',
+  `password` varchar(64) DEFAULT NULL COMMENT '密码',
+  `salt` varchar(255) DEFAULT NULL COMMENT '盐值',
+  `status` varchar(255) DEFAULT NULL COMMENT '状态',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UK_awpog86ljqwb89aqa1c5gvdrd` (`account`),
+  UNIQUE KEY `UK_ahtq5ew3v0kt1n7hf1sgp7p8l` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of sys_user
