@@ -1,5 +1,5 @@
 <template>
-  <div id="login" v-title data-title="登录 - For Fun">
+  <div id="login" v-title data-title="登录 - ForSharing">
     <video preload="auto" class="me-video-player" autoplay="autoplay" loop="loop">
           <!-- <source src="../../static/video/sea.mp4" type="video/mp4"> -->
       </video>

@@ -24,16 +24,13 @@
     },
     computed: {
       title (){
-        return '留言板 - For Fun'
+        return '留言板 - ForSharing'
       }
     }
   }
 </script>
 
 <style scoped>
-  .me-message {
-  }
-
   .el-container {
     width: 700px;
   }
