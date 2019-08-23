@@ -8,11 +8,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 @MapperScan("com.yn.dao")
-public class SharingApiApplication {
-    private final static Logger LOGGER = LoggerFactory.getLogger(SharingApiApplication.class);
+public class SpringbootStarter {
+    private final static Logger LOGGER = LoggerFactory.getLogger(SpringbootStarter.class);
     
 	public static void main(String[] args) {
-	    SpringApplication.run(SharingApiApplication.class, args);
+	    SpringApplication.run(SpringbootStarter.class, args);
         LOGGER.info("项目启动 ");
 	}
 }
