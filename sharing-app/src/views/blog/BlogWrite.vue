@@ -318,9 +318,6 @@
     padding: 0;
   }
 
-  .me-write-title {
-  }
-
   .me-write-input textarea {
     font-size: 32px;
     font-weight: 600;
