@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yn.dao.ArticleMapper">
-	<resultMap id="BaseResultMap"
-		type="com.yn.entity.Article">
+	<resultMap id="BaseResultMap" type="com.yn.entity.Article">
 		<id column="aid" property="id" />
 		<result column="comment_counts" property="commentCounts"/>
 		<result column="createDate" property="createDate"/>
@@ -17,8 +16,7 @@
 		<collection column="aid" select="getTag" property="tags" ofType="com.yn.entity.Tag" javaType="java.util.ArrayList">
 		</collection>
 	</resultMap>
-	<resultMap id="BaseArticles"
-		type="com.yn.entity.Article">
+	<resultMap id="BaseArticles" type="com.yn.entity.Article">
 		<id column="aid" property="id" />
 		<result column="comment_counts" property="commentCounts"/>
 		<result column="createDate" property="createDate"/>
@@ -31,8 +29,8 @@
 		</association>
 		<association property="body" javaType="com.yn.entity.ArticleBody" >
 			<id column="bid" jdbcType="INTEGER" property="id" />
-			<result column="content" jdbcType="VARCHAR" property="content" />
-			<result column="content_html" jdbcType="VARCHAR" property="contentHtml" />
+			<result column="content" property="content" javaType="java.lang.String" jdbcType="LONGVARCHAR" />
+			<result column="content_html" property="contentHtml" javaType="java.lang.String" jdbcType="LONGVARCHAR" />
 		</association>
 		<association property="category" javaType="com.yn.entity.Category" >
 			<id column="cid" jdbcType="INTEGER" property="id" />
@@ -43,14 +41,7 @@
 		</collection>
 	</resultMap>
 
-	<sql id="Base_Column_List">
-		id, comment_counts, create_date, summary, title, view_counts, weight,
-		author_id,
-		body_id, category_id
-	</sql>
-
-	<select id="selectByPrimaryKey"
-		parameterType="java.lang.Integer" resultMap="BaseArticles">
+	<select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseArticles">
 		select
 		a.id as aid,a.comment_counts,DATE_FORMAT(a.create_date,'%Y-%m-%d %H:%i:%S') as createDate,a.title,a.view_counts,
 		u.avatar,u.id as uid,u.nickname,b.id as bid,b.content_html,b.content,c.id as cid,c.categoryname,c.description
@@ -139,7 +130,7 @@
 			<if test="title != null">
 				title,
 			</if>
-				view_counts,
+			view_counts,
 			<if test="weight != null">
 				weight,
 			</if>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration status="off" monitorInterval="1800">
 	<properties>
-		<property name="LOG_HOME">/usr/local/blog/logs</property>
+		<property name="LOG_HOME">/blog</property>
 		<property name="INFO_FILE_NAME">info.log</property>
 		<property name="WARN_FILE_NAME">warn.log</property>
 		<property name="ERROR_FILE_NAME">ecc.log</property>
@@ -19,7 +19,7 @@
 			<PatternLayout charset="UTF-8" pattern="[%-5level] [%d{yyyy/MM/dd HH:mm:ss}] [%t] - %msg%xEx%n" />
 			<Policies>
 				<TimeBasedTriggeringPolicy interval="24" modulate="true" />
-				<SizeBasedTriggeringPolicy size="100 MB" />
+				<SizeBasedTriggeringPolicy size="100MB" />
 			</Policies>
 			<DefaultRolloverStrategy max="200">
 <!-- 	            <Delete basePath="${LOG_HOME}/${BACKUP_FILE_NAME}" maxDepth="2"> -->
@@ -36,7 +36,7 @@
 			<PatternLayout charset="UTF-8" pattern="[%-5level] [%d{yyyy/MM/dd HH:mm:ss}] [%t] - %msg%xEx%n" />
 			<Policies>
 				<TimeBasedTriggeringPolicy interval="24" modulate="true" />
-				<SizeBasedTriggeringPolicy size="100 MB" />
+				<SizeBasedTriggeringPolicy size="100MB" />
 			</Policies>
 			<DefaultRolloverStrategy max="200">
 <!-- 	            <Delete basePath="${LOG_HOME}/${BACKUP_FILE_NAME}" maxDepth="2"> -->
@@ -50,7 +50,7 @@
 			<PatternLayout charset="UTF-8" pattern="[%-5level] [%d{yyyy/MM/dd HH:mm:ss}] [%t] - %msg%xEx%n" />
 			<Policies>
 				<TimeBasedTriggeringPolicy interval="24" modulate="true" />
-				<SizeBasedTriggeringPolicy size="100 MB" />
+				<SizeBasedTriggeringPolicy size="100MB" />
 			</Policies>
 			<DefaultRolloverStrategy max="200">
 <!-- 	            <Delete basePath="${LOG_HOME}/${BACKUP_FILE_NAME}" maxDepth="2"> -->
@@ -64,7 +64,7 @@
 			<PatternLayout charset="UTF-8" pattern="[%-5level] [%d{yyyy/MM/dd HH:mm:ss}] [%t] - %msg%xEx%n" />
 			<Policies>
 				<TimeBasedTriggeringPolicy interval="24" modulate="true" />
-				<SizeBasedTriggeringPolicy size="100 MB" />
+				<SizeBasedTriggeringPolicy size="100MB" />
 			</Policies>
 			<DefaultRolloverStrategy max="200">
 <!-- 	            <Delete basePath="${LOG_HOME}/${BACKUP_FILE_NAME}" maxDepth="2"> -->

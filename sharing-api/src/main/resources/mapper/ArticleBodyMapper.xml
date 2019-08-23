@@ -1,29 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yn.dao.ArticleBodyMapper">
-  <resultMap id="BaseResultMap" type="com.yn.entity.ArticleBody">
-    <constructor>
-      <idArg column="id" javaType="java.lang.Long" jdbcType="BIGINT" />
-    </constructor>
-  </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.yn.entity.ArticleBody">
     <constructor>
-      <idArg column="id" javaType="java.lang.Long" jdbcType="BIGINT" />
+      <idArg column="id" />
       <arg column="content" javaType="java.lang.String" jdbcType="LONGVARCHAR" />
       <arg column="content_html" javaType="java.lang.String" jdbcType="LONGVARCHAR" />
     </constructor>
   </resultMap>
   <sql id="Base_Column_List">
-    id
-  </sql>
-  <sql id="Blob_Column_List">
-    content, content_html
+    id,content, content_html
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
     select 
     <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
     from me_article_body
     where id = #{id,jdbcType=BIGINT}
   </select>

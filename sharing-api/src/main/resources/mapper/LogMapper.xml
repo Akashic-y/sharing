@@ -12,7 +12,7 @@
       <arg column="operation" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="params" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="time" javaType="java.lang.Long" jdbcType="BIGINT" />
-      <arg column="userid" javaType="java.lang.Long" jdbcType="BIGINT" />
+      <arg column="userid" />
     </constructor>
   </resultMap>
   <sql id="Base_Column_List">
@@ -25,8 +25,7 @@
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from sys_log
-    where id = #{id,jdbcType=INTEGER}
+    delete from sys_log where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insertSelective" parameterType="com.yn.entity.Log">
     insert into sys_log

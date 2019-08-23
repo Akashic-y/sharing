@@ -8,9 +8,9 @@
       <arg column="create_date" javaType="java.util.Date" />
       <arg column="level" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="article_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="author_id" javaType="java.lang.Long" jdbcType="BIGINT" />
+      <arg column="author_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="parent_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="to_uid" javaType="java.lang.Long" jdbcType="BIGINT" />
+      <arg column="to_uid" javaType="java.lang.Integer" jdbcType="INTEGER" />
     </constructor>
   </resultMap>
   <sql id="Base_Column_List">
