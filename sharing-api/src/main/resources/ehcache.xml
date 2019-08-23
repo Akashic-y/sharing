@@ -4,7 +4,6 @@
          updateCheck="false" monitoring="autodetect"
          dynamicConfig="true" >
          
-         
     <diskStore path="java.io.tmpdir/me-cache"/>
     
     <!--
