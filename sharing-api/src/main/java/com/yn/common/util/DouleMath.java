@@ -3,7 +3,7 @@ package com.yn.common.util;
 import java.math.BigDecimal;
 
 /**
- * @author ljw
+ * @author yn
  * <p>
  * Double 计算工具类
  */

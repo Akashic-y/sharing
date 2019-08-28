@@ -11,7 +11,7 @@ import java.util.TimeZone;
 /**
  * 时间校验器
  * 
- * @author 力 2017年2月6日 上午9:38:11
+ * @author YN 2017年2月6日 上午9:38:11
  */
 public class DateValidator {
 	/**

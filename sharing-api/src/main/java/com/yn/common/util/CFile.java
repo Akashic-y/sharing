@@ -116,7 +116,7 @@ public class CFile {
 				break;
 			}
 		} catch (Exception ex) {
-			;
+			
 		}
 		return false;
 
@@ -145,7 +145,7 @@ public class CFile {
 			BufferedOutputStream bout = new BufferedOutputStream(new FileOutputStream(to));
 			int c;
 			while ((c = bin.read()) != -1) // 复制
-				bout.write(c);
+			bout.write(c);
 			bin.close();
 			bout.close();
 			return true;
