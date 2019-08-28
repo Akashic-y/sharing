@@ -2,6 +2,8 @@ package com.yn.common.cache;
 
 import java.util.concurrent.TimeUnit;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 
@@ -14,6 +16,7 @@ import org.springframework.data.redis.core.ValueOperations;
  */
 public class RedisManager {
 
+	private static final Logger logger = LoggerFactory.getLogger(RedisManager.class);
     /**
      * 默认过期时长，单位：秒 30分钟
      */
@@ -34,7 +37,7 @@ public class RedisManager {
                 redisTemplate.opsForValue().set(key, value, expire, TimeUnit.SECONDS);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+        	logger.error(e.getMessage());
         }
 
     }

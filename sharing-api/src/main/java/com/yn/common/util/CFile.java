@@ -447,10 +447,10 @@ public class CFile {
 			if (!file.exists())
 				return "";
 			String ls_parent = file.getParent();
-			if (ls_parent.endsWith(file.separator)) {
+			if (ls_parent.endsWith(File.separator)) {
 				return ls_parent;
 			}
-			return ls_parent + file.separator;
+			return ls_parent + File.separator;
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
@@ -475,7 +475,7 @@ public class CFile {
 	}
 
 	// 控制台输入
-	private static String inputString() {
+	public static String inputString() {
 		BufferedReader bufferedreader = new BufferedReader(new InputStreamReader(System.in));
 		String s = null;
 		try {
@@ -487,7 +487,7 @@ public class CFile {
 	}
 
 	// 是否为utf-8编码
-	private static boolean isutf8(String as_filename) {
+	public static boolean isutf8(String as_filename) {
 		java.io.File f = new java.io.File(as_filename);
 		try {
 			java.io.InputStream ios = new java.io.FileInputStream(f);
@@ -546,9 +546,10 @@ public class CFile {
 		/*
 		 * 读取ini文件 as_inifile:ini文件全路径 as_1：主节点 as_2:子节点
 		 */
+		BufferedReader bufferedReader = null;
 		try {
 			String strLine, value = "";
-			BufferedReader bufferedReader = new BufferedReader(new FileReader(as_inifile));
+			bufferedReader = new BufferedReader(new FileReader(as_inifile));
 			boolean isInSection = false;
 			while ((strLine = bufferedReader.readLine()) != null) {
 				strLine = strLine.trim();
@@ -597,6 +598,14 @@ public class CFile {
 			ex.getMessage();
 			as_return.append("");
 			return -1;
+		}finally {
+			try {
+				if(bufferedReader != null) {
+					bufferedReader.close();
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 		return 1;
 	}
@@ -643,10 +652,11 @@ public class CFile {
 
 	/* 写ini文件 */
 	public static int writeinifile(String as_inifile, String as_1, String as_2, String as_value) {
+		BufferedReader bufferedReader = null;
 		try {
 			String fileContent, allLine, strLine, newLine, remarkStr;
 			String getValue;
-			BufferedReader bufferedReader = new BufferedReader(new FileReader(as_inifile));
+			bufferedReader = new BufferedReader(new FileReader(as_inifile));
 			boolean isInSection = false;
 			fileContent = "";
 
@@ -691,10 +701,17 @@ public class CFile {
 				fileContent += allLine + "\r\n";
 			}
 			return -1;
-
 		} catch (Exception ex) {
 			ex.getMessage();
 			return -1;
+		}finally {
+			try {
+				if(bufferedReader != null) {
+					bufferedReader.close();
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 

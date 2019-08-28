@@ -101,7 +101,7 @@ public class LoginController {
     @RequestMapping(value = "/handleLogin")
     public Result handleLogin(HttpServletRequest request) {
         String id = request.getHeader(OAuthSessionManager.OAUTH_TOKEN);
-        System.out.println("超时登录。。。:" + id);
+//        System.out.println("超时登录。。。:" + id);
         return Result.error(ResultCode.SESSION_TIME_OUT);
     }
 

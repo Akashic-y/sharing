@@ -2,6 +2,7 @@ package com.yn.common.util;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
@@ -26,43 +27,57 @@ public class LinuxSystemTools {
 	 * @throws IOException
 	 * @throws InterruptedException
 	 */
-	protected static long[] getMemInfo() throws IOException, InterruptedException {
-		File file = new File("/proc/meminfo");
-		BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
-		long[] result = new long[7];
-		String str = null;
-		StringTokenizer token = null;
-		while ((str = br.readLine()) != null) {
-			token = new StringTokenizer(str);
-			if (!token.hasMoreTokens()) {
-				continue;
-			}
+	protected static long[] getMemInfo() {
+		BufferedReader br =null;
+		try {
+			File file = new File("/proc/meminfo");
+			br = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
+			long[] result = new long[7];
+			String str = null;
+			StringTokenizer token = null;
+			while ((str = br.readLine()) != null) {
+				token = new StringTokenizer(str);
+				if (!token.hasMoreTokens()) {
+					continue;
+				}
+				str = token.nextToken();
+				if (!token.hasMoreTokens()) {
+					continue;
+				}
 
-			str = token.nextToken();
-			if (!token.hasMoreTokens()) {
-				continue;
+				if (str.equalsIgnoreCase("MemTotal:")) {
+					result[0] = Long.parseLong(token.nextToken());
+				} else if (str.equalsIgnoreCase("MemFree:")) {
+					result[1] = Long.parseLong(token.nextToken());
+				} else if (str.equalsIgnoreCase("SwapTotal:")) {
+					result[2] = Long.parseLong(token.nextToken());
+				} else if (str.equalsIgnoreCase("SwapFree:")) {
+					result[3] = Long.parseLong(token.nextToken());
+				} else if (str.equalsIgnoreCase("Buffers:")) {
+					result[4] = Long.parseLong(token.nextToken());
+				} else if (str.equalsIgnoreCase("Cached:")) {
+					result[5] = Long.parseLong(token.nextToken());
+				} else if (str.equalsIgnoreCase("SwapCached:")) {
+					result[6] = Long.parseLong(token.nextToken());
+				}
 			}
-
-			if (str.equalsIgnoreCase("MemTotal:")) {
-				result[0] = Long.parseLong(token.nextToken());
-			} else if (str.equalsIgnoreCase("MemFree:")) {
-				result[1] = Long.parseLong(token.nextToken());
-			} else if (str.equalsIgnoreCase("SwapTotal:")) {
-				result[2] = Long.parseLong(token.nextToken());
-			} else if (str.equalsIgnoreCase("SwapFree:")) {
-				result[3] = Long.parseLong(token.nextToken());
-			} else if (str.equalsIgnoreCase("Buffers:")) {
-				result[4] = Long.parseLong(token.nextToken());
-			} else if (str.equalsIgnoreCase("Cached:")) {
-				result[5] = Long.parseLong(token.nextToken());
-			} else if (str.equalsIgnoreCase("SwapCached:")) {
-				result[6] = Long.parseLong(token.nextToken());
+			return result;
+		} catch (NumberFormatException e) {
+			logger.error(e.getMessage());
+		} catch (FileNotFoundException e) {
+			logger.error(e.getMessage());
+		} catch (IOException e) {
+			logger.error(e.getMessage());
+		}finally {
+			try {
+				if(br != null) {
+					br.close();
+				}
+			} catch (IOException e) {
+				logger.error(e.getMessage());
 			}
 		}
-		if(br != null) {
-			br.close();
-		}
-		return result;
+		return new long[0];
 	}
 
 	/***
@@ -72,33 +87,51 @@ public class LinuxSystemTools {
 	 * @throws IOException
 	 * @throws InterruptedException
 	 */
-	protected static double getCpuInfo() throws IOException, InterruptedException {
-		File file = new File("/proc/stat");
-		BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
-		StringTokenizer token = new StringTokenizer(br.readLine());
-		token.nextToken();
-		long user1 = Long.parseLong(token.nextToken());
-		long nice1 = Long.parseLong(token.nextToken());
-		long sys1 = Long.parseLong(token.nextToken());
-		long idle1 = Long.parseLong(token.nextToken());
+	protected static double getCpuInfo(){
+		BufferedReader br = null;
+			try {
+				File file = new File("/proc/stat");
+				br = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
+				StringTokenizer token = new StringTokenizer(br.readLine());
+				token.nextToken();
+				long user1 = Long.parseLong(token.nextToken());
+				long nice1 = Long.parseLong(token.nextToken());
+				long sys1 = Long.parseLong(token.nextToken());
+				long idle1 = Long.parseLong(token.nextToken());
 
-		Thread.sleep(500);
-		if(br != null) {
-			br.close();
-		}
-		br = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
-		token = new StringTokenizer(br.readLine());
-		token.nextToken();
-		// int user2 = Integer.parseInt(token.nextToken());
-		long user2 = Long.parseLong(token.nextToken());
-		long nice2 = Long.parseLong(token.nextToken());
-		long sys2 = Long.parseLong(token.nextToken());
-		long idle2 = Long.parseLong(token.nextToken());
-		if(br != null) {
-			br.close();
-		}
-		double ret = (double) ((user2 + sys2 + nice2) - (user1 + sys1 + nice1)) / (double) ((user2 + nice2 + sys2 + idle2) - (user1 + nice1 + sys1 + idle1));
-		return ret;
+				Thread.sleep(500);
+				if(br != null) {
+					br.close();
+				}
+				br = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
+				token = new StringTokenizer(br.readLine());
+				token.nextToken();
+				// int user2 = Integer.parseInt(token.nextToken());
+				long user2 = Long.parseLong(token.nextToken());
+				long nice2 = Long.parseLong(token.nextToken());
+				long sys2 = Long.parseLong(token.nextToken());
+				long idle2 = Long.parseLong(token.nextToken());
+				
+				double ret = (double) ((user2 + sys2 + nice2) - (user1 + sys1 + nice1)) / (double) ((user2 + nice2 + sys2 + idle2) - (user1 + nice1 + sys1 + idle1));
+				return ret;
+			} catch (NumberFormatException e) {
+				logger.error(e.getMessage());
+			} catch (FileNotFoundException e) {
+				logger.error(e.getMessage());
+			} catch (IOException e) {
+				logger.error(e.getMessage());
+			} catch (InterruptedException e) {
+				logger.error(e.getMessage());
+			}finally {
+				try {
+					if(br != null) {
+						br.close();
+					}
+				} catch (IOException e) {
+					logger.error(e.getMessage());
+				}
+			}
+			return 0;
 	}
 	
     /**

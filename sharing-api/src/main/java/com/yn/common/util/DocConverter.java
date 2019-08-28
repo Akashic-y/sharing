@@ -26,8 +26,7 @@ import lombok.Data;
  */
 @Data
 public class DocConverter {
-	private static final Logger logger = LoggerFactory
-			.getLogger(DocConverter.class);
+	private static final Logger logger = LoggerFactory.getLogger(DocConverter.class);
 	private String fileString;// (只涉及pdf2swf路径问题)
 //	private String outputPath = "";// 输入路径 ，如果不设置就输出在默认的位置
 	private String fileName;
@@ -123,7 +122,7 @@ public class DocConverter {
 		try {
 			doc2pdf();
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error(e.getMessage());
 			converTip.put("conver", false);
 		}
 		if (pdfFile.exists()) {

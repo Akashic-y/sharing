@@ -2,8 +2,6 @@ package com.yn.service;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Param;
-
 import com.yn.entity.User;
 
 /**

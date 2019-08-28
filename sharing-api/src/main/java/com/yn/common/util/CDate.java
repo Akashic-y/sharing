@@ -800,18 +800,18 @@ public class CDate {
 
 	/** 方法功能：开始运行 参数说明： 返回值： */
 	public void start() {
-		IDT_RQ1 = this.getcurdate();
+		IDT_RQ1 = getcurdate();
 	}
 
 	/** 方法功能：结束运行 参数说明： 返回值：运行时间 long-毫秒数,string-运行时间描述 */
 	public long end2() {
 		if (IDT_RQ1 == null)
 			return 0;
-		return this.getruntime(IDT_RQ1, getcurdate(), "毫秒");
+		return getruntime(IDT_RQ1, getcurdate(), "毫秒");
 	}
 
 	public String end() {
-		return this.getruntime2(IDT_RQ1, getcurdate());
+		return getruntime2(IDT_RQ1, getcurdate());
 	}
 
 	/** 两日期的时间 天数 差 */
@@ -888,7 +888,6 @@ public class CDate {
 		Calendar cal = Calendar.getInstance();
 		cal.set(Calendar.YEAR, year);
 		cal.set(Calendar.MONTH, month);
-		System.out.println(cal.getTime());
 		return new SimpleDateFormat("yyyy-MM").format(cal.getTime());
 	}
 

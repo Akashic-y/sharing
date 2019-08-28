@@ -26,13 +26,7 @@ public class SystemTools {
 		if (osType == 1) {
 			ret = WindowsSystemTool.getCpuRatioForWindows();
 		} else {
-			try {
-				ret = LinuxSystemTools.getCpuInfo();
-			} catch (IOException e) {
-				logger.error(e.getMessage());
-			} catch (InterruptedException e) {
-				logger.error(e.getMessage());
-			}
+			ret = LinuxSystemTools.getCpuInfo();
 		}
 		
 		return ret;
@@ -48,18 +42,12 @@ public class SystemTools {
 		if (osType == 1) {
 			ret = WindowsSystemTool.getWindowsMemery();
 		} else {
-			try {
-				long[] memoryInfo = LinuxSystemTools.getMemInfo();
-				long mem_total = memoryInfo[0];
-				long mem_free = memoryInfo[1] + memoryInfo[4] + memoryInfo[5]; // + memoryInfo[6];
-				ret = ((double)(mem_total - mem_free) / (double)mem_total);
-				
-//				ret = ((double)memoryInfo[0] - (double)memoryInfo[1]) / (double)memoryInfo[0];
-			} catch (IOException e) {
-				logger.error(e.getMessage());
-			} catch (InterruptedException e) {
-				logger.error(e.getMessage());
-			}
+			long[] memoryInfo = LinuxSystemTools.getMemInfo();
+			long mem_total = memoryInfo[0];
+			long mem_free = memoryInfo[1] + memoryInfo[4] + memoryInfo[5]; // + memoryInfo[6];
+			ret = ((double)(mem_total - mem_free) / (double)mem_total);
+			
+//			ret = ((double)memoryInfo[0] - (double)memoryInfo[1]) / (double)memoryInfo[0];
 		}
 		return ret;
 	}

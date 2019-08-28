@@ -48,7 +48,7 @@ public class CommonTools {
 		try {
 			Runtime.getRuntime().exec(str.toString());
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.error(e.getMessage());
 		}
 	}
 	
@@ -73,9 +73,8 @@ public class CommonTools {
 			}
 			in.close();
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.error(e.getMessage());
 		}
-		System.out.println(sb);
 		logger.info(sb.toString());
 		return sb.toString();
 	}

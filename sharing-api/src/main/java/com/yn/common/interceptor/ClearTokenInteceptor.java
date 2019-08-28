@@ -32,7 +32,6 @@ public class ClearTokenInteceptor extends HandlerInterceptorAdapter {
 
 		if (null != token) {
 			Session s = redisManager.get(token, Session.class);
-
 			if (null == s || null == s.getId()) {
 				response.setHeader(SESSION_TIME_OUT_K, SESSION_TIME_OUT_V);
 			}

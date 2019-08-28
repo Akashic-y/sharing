@@ -67,7 +67,7 @@ public class OAuthRealm extends AuthorizingRealm {
 		}
 		new Thread(() -> {
 			userService.updateLoginInfo(user.getId(),IpUtils.getIpAddr());
-		}, "记录登录时间线程").start();
+		}, "记录最后登录时间和IP线程").start();
 		SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(user.getAccount(),
 				user.getPassword(), ByteSource.Util.bytes(user.getSalt()), getName());
 
