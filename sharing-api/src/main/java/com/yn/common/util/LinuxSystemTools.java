@@ -59,7 +59,9 @@ public class LinuxSystemTools {
 				result[6] = Long.parseLong(token.nextToken());
 			}
 		}
-		
+		if(br != null) {
+			br.close();
+		}
 		return result;
 	}
 
@@ -81,7 +83,9 @@ public class LinuxSystemTools {
 		long idle1 = Long.parseLong(token.nextToken());
 
 		Thread.sleep(500);
-
+		if(br != null) {
+			br.close();
+		}
 		br = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
 		token = new StringTokenizer(br.readLine());
 		token.nextToken();
@@ -90,7 +94,9 @@ public class LinuxSystemTools {
 		long nice2 = Long.parseLong(token.nextToken());
 		long sys2 = Long.parseLong(token.nextToken());
 		long idle2 = Long.parseLong(token.nextToken());
-
+		if(br != null) {
+			br.close();
+		}
 		double ret = (double) ((user2 + sys2 + nice2) - (user1 + sys1 + nice1)) / (double) ((user2 + nice2 + sys2 + idle2) - (user1 + nice1 + sys1 + idle1));
 		return ret;
 	}
