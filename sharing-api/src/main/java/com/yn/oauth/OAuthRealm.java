@@ -17,6 +17,7 @@ import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.yn.common.constant.Base;
+import com.yn.common.util.IpUtils;
 import com.yn.entity.User;
 import com.yn.form.StaticValue;
 import com.yn.service.UserService;
@@ -65,7 +66,7 @@ public class OAuthRealm extends AuthorizingRealm {
 			throw new LockedAccountException(); // 帐号锁定
 		}
 		new Thread(() -> {
-			userService.updateLoginTime(user.getId());
+			userService.updateLoginInfo(user.getId(),IpUtils.getIpAddr());
 		}, "记录登录时间线程").start();
 		SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(user.getAccount(),
 				user.getPassword(), ByteSource.Util.bytes(user.getSalt()), getName());

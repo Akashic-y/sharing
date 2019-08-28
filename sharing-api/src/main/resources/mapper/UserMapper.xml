@@ -122,8 +122,7 @@
 			</if>
 		</trim>
 	</insert>
-	<update id="updateUser"
-		parameterType="com.yn.entity.User">
+	<update id="updateUser" parameterType="com.yn.entity.User">
 		update sys_user
 		<set>
 			<if test="account != null">
@@ -166,8 +165,7 @@
 		where id = #{id,jdbcType=BIGINT}
 	</update>
 
-	<update id="updateLoginTime" parameterType="java.lang.Long">
-		update sys_user set
-		last_login = now() where id = #{id}
+	<update id="updateLoginInfo" >
+		update sys_user set last_login = now(),last_ip = #{ip}  where id = #{id}
 	</update>
 </mapper>

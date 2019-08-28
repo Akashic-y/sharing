@@ -2,11 +2,14 @@ package com.yn.service.impl;
 
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.yn.common.cache.RedisManager;
+import com.yn.common.util.IpUtils;
 import com.yn.common.util.PasswordHelper;
 import com.yn.dao.UserMapper;
 import com.yn.entity.User;
@@ -22,6 +25,9 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserMapper dao;
+	
+	@Autowired
+	private RedisManager redisManager;
 
 	@Override
 	public List<User> findAll() {
@@ -68,8 +74,22 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void updateLoginTime(Integer id) {
-		dao.updateLoginTime(id);
+	public void updateLoginInfo(Integer id,String ip) {
+		dao.updateLoginInfo(id,ip);
+	}
+
+	@Override
+	public boolean isLimitIP() {
+		if(redisManager.get("limitIP") == null) {
+			synchronized (this) {
+				if(redisManager.get("limitIP") == null) {
+					Set<String> limitIp = dao.getLimitIp();
+					redisManager.set("limitIP", limitIp);//默认30分钟
+				}
+			}
+		}
+		Set<String> set = redisManager.get("limitIP",Set.class);
+		return set.contains(IpUtils.getIpAddr());
 	}
 
 }

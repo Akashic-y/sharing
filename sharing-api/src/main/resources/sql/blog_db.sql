@@ -171,10 +171,6 @@ CREATE TABLE `sys_log` (
 ) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- ----------------------------
--- Records of sys_log
--- ----------------------------
-
--- ----------------------------
 -- Table structure for sys_user
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_user`;
@@ -202,3 +198,17 @@ CREATE TABLE `sys_user` (
 -- ----------------------------
 INSERT INTO `sys_user` VALUES ('1', 'yn', '', '/user/admin.png', '2018-01-22 17:14:49', '\0', '919431514@qq.com', null, '18396816462', 'yn', 'c237910910ffa1f4827bf7fe1831ce43', 'e4153a582cbc45c3a199998b506dab28', 'normal');
 INSERT INTO `sys_user` VALUES ('2', 'yn2', '\0', '/user/user_6.png', null, '\0', null, null, null, 'yn2', '0df7246bbb5b1bf138edd17f7b64b33b', '480e1a68cbc7e05ff49f39d2b5222d0b', 'normal');
+ALTER TABLE `sys_user` ADD COLUMN `last_ip`  varchar(32) NULL COMMENT '最后登录的ip地址' AFTER `last_login`;;
+
+-- ----------------------------
+-- Table structure for sys_limit_ip
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_limit_ip`;
+CREATE TABLE `sys_limit_ip` (
+  `id` int(6) NOT NULL AUTO_INCREMENT,
+  `ip` varchar(32) DEFAULT NULL COMMENT 'ip地址',
+  `create_date` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `creater_id` int(11) DEFAULT NULL COMMENT '创建者id',
+  `status` bit(1) DEFAULT NULL COMMENT '状态 0禁用 1启用',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;

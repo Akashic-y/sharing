@@ -1,6 +1,9 @@
 package com.yn.dao;
 
 import java.util.List;
+import java.util.Set;
+
+import org.apache.ibatis.annotations.Param;
 
 import com.yn.entity.User;
 
@@ -19,5 +22,7 @@ public interface UserMapper {
 
 	List<User> findAll();
 
-	void updateLoginTime(Integer id);
+	void updateLoginInfo(@Param("id") Integer id,@Param("ip") String ip);
+
+	Set<String> getLimitIp();
 }
