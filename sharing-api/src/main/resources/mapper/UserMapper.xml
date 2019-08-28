@@ -168,4 +168,8 @@
 	<update id="updateLoginInfo" >
 		update sys_user set last_login = now(),last_ip = #{ip}  where id = #{id}
 	</update>
+	
+	<select id="getLimitIp" resultType="java.util.HashSet">
+		SELECT ip FROM sys_limit_ip where status = 1
+	</select>
 </mapper>
