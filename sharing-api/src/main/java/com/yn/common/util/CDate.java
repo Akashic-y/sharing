@@ -188,7 +188,7 @@ public class CDate {
 				return lsb_rtn.toString();
 			ll_item = ll_ms / larray_2[li_1];
 			if (ll_item > 0) {
-				lsb_rtn.append(String.valueOf(ll_item));
+				lsb_rtn.append(ll_item);
 				lsb_rtn.append(larray_1[li_1]);
 				ll_ms -= ll_item * larray_2[li_1];
 			}
@@ -331,19 +331,15 @@ public class CDate {
 	public static boolean pdisdate(String as_date) {
 		Date ldt_rq = null;
 		ldt_rq = getdate(as_date);
-		if (ldt_rq == null)
-			return false;
-		return true;
-	}
+        return ldt_rq != null;
+    }
 
 //  判断是否为日期
 	public static boolean pdisdate(String as_date, String as_lx) {
 		Date ldt_rq = null;
 		ldt_rq = getdate(as_date, as_lx);
-		if (ldt_rq == null)
-			return false;
-		return true;
-	}
+        return ldt_rq != null;
+    }
 
 //  判断是否为生日
 	public static boolean pdissr(String as_sr) {
@@ -633,7 +629,7 @@ public class CDate {
 		int li_c, li_y, li_m, li_d;
 
 		li_c = Integer.parseInt(ls_year.substring(0, ls_year.length() - 2));
-		li_y = Integer.parseInt(ls_year.substring(ls_year.length() - 2, ls_year.length()));
+		li_y = Integer.parseInt(ls_year.substring(ls_year.length() - 2));
 		li_m = Integer.parseInt(getdateformat(adt_rq, "MM"));
 		li_d = Integer.parseInt(getdateformat(adt_rq, "dd"));
 		return (li_y + (li_y / 4) + (li_c / 4) - 2 * li_c + (26 * (li_m + 1) / 10) + li_d - 1 + 7) % 7;
@@ -834,7 +830,7 @@ public class CDate {
 		Date date = null;
 
 		try {
-			date = (Date) sdf.parse(_date);
+			date = sdf.parse(_date);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -913,7 +909,7 @@ public class CDate {
 		Calendar cl = Calendar.getInstance();
 		Date date = null;
 		try {
-			date = (Date) sdf.parse(_date);
+			date = sdf.parse(_date);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}

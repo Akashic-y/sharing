@@ -70,8 +70,7 @@ public class CFile {
 				return file.mkdirs();
 			}
 		} catch (Exception ex) {
-			;
-		}
+        }
 		return false;
 	}
 
@@ -163,8 +162,7 @@ public class CFile {
 				return file.createNewFile();
 			}
 		} catch (Exception ex) {
-			;
-		}
+        }
 		return false;
 	}
 
@@ -182,8 +180,7 @@ public class CFile {
 				return filecreate(as_filename);
 			}
 		} catch (Exception ex) {
-			;
-		}
+        }
 		return false;
 	}
 
@@ -195,8 +192,7 @@ public class CFile {
 				return false;
 			return file.delete();
 		} catch (Exception ex) {
-			;
-		}
+        }
 		return false;
 
 	}
@@ -290,8 +286,7 @@ public class CFile {
 				return false;
 			return file.renameTo(new File(as_filename2));
 		} catch (Exception ex) {
-			;
-		}
+        }
 		return false;
 
 	}
@@ -335,8 +330,7 @@ public class CFile {
 				return file.length();
 			}
 		} catch (Exception ex) {
-			;
-		}
+        }
 		return -1;
 	}
 
@@ -355,7 +349,7 @@ public class CFile {
 			// bout.write(as_nr.getBytes());
 			// bout.close();
 			PrintWriter write = new PrintWriter(as_filename, "GBK");
-			write.write(as_nr.toString());
+			write.write(as_nr);
 			write.close();
 			return true;
 		} catch (Exception e) {
@@ -367,7 +361,7 @@ public class CFile {
 	// 获得指定目录下所有文件
 	public static String[] getChilds(String dir) throws IOException {
 		String[] larray_rtn = null;
-		File fileList[];
+		File[] fileList;
 		File file = new File(dir);
 		fileList = file.listFiles();
 		larray_rtn = new String[fileList.length];
@@ -507,7 +501,7 @@ public class CFile {
 	public static int listDir(String dir, ArrayList<String> listFile) throws IOException {
 		int result = 0;
 		File file = new File(dir);
-		File fileList[];
+		File[] fileList;
 		if (!file.isDirectory()) {
 			result = -1;
 		} else {
@@ -561,11 +555,7 @@ public class CFile {
 				if (m.matches()) {
 					p = Pattern.compile("\\[\\s*" + as_1 + "\\s*\\]");
 					m = p.matcher(strLine);
-					if (m.matches()) {
-						isInSection = true;
-					} else {
-						isInSection = false;
-					}
+                    isInSection = m.matches();
 				}
 				if (isInSection) {
 					strLine = strLine.trim();
@@ -596,8 +586,7 @@ public class CFile {
 			}
 		} catch (Exception ex) {
 			ex.getMessage();
-			as_return.append("");
-			return -1;
+            return -1;
 		}finally {
 			try {
 				if(bufferedReader != null) {
@@ -616,7 +605,7 @@ public class CFile {
 			FileOutputStream fos = new FileOutputStream(as_localfilename);
 			URL url = new URL(as_httpfile);
 			InputStream is = url.openStream();
-			byte b[] = new byte[4096];
+			byte[] b = new byte[4096];
 			while (true) {
 				int i = is.read(b);
 				if (i == -1)
@@ -674,11 +663,7 @@ public class CFile {
 				if (m.matches()) {
 					p = Pattern.compile("\\[\\s*" + as_1 + "\\s*\\]");
 					m = p.matcher(strLine);
-					if (m.matches()) {
-						isInSection = true;
-					} else {
-						isInSection = false;
-					}
+                    isInSection = m.matches();
 				}
 				if (isInSection) {
 					strLine = strLine.trim();

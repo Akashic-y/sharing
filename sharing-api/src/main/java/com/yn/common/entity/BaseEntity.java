@@ -26,7 +26,7 @@ public abstract class BaseEntity implements Serializable {
             return false;
         }
         BaseEntity that = (BaseEntity) obj;
-        return null == this.getId() ? false : this.getId().equals(that.getId());
+        return null != this.getId() && this.getId().equals(that.getId());
     }
 
     @Override

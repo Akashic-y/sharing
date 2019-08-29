@@ -85,11 +85,8 @@ public class DateValidator {
 	 * @return
 	 */
 	public static Boolean isDate(String dateStr) {
-		if (dateStr.matches(DateReg)) {
-			return true;
-		}
-		return false;
-	}
+        return dateStr.matches(DateReg);
+    }
 
 	/**
 	 * 将字符串按格式转换为Date<br/>

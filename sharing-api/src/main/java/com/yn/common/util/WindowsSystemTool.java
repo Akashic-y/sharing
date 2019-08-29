@@ -31,7 +31,7 @@ public class WindowsSystemTool {
         OperatingSystemMXBean osmxb = (OperatingSystemMXBean) java.lang.management.ManagementFactory.getOperatingSystemMXBean();
         long totalvirtualMemory = osmxb.getTotalSwapSpaceSize();			// 总的物理内存+虚拟内存
         long freePhysicalMemorySize = osmxb.getFreePhysicalMemorySize();	// 剩余的物理内存
-        Double compare = (Double) (1 - freePhysicalMemorySize * 1.0 / totalvirtualMemory) * 100;
+        Double compare = (1 - freePhysicalMemorySize * 1.0 / totalvirtualMemory) * 100;
         return compare;
     }
     

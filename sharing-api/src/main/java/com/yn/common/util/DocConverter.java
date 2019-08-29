@@ -56,8 +56,8 @@ public class DocConverter {
 	private void ini(String fileString) {
 		this.fileString = fileString;
 		fileName = fileString.substring(0, fileString.lastIndexOf("."));
-		fileNameEnd = fileString.substring(fileString.lastIndexOf(".") + 1,
-				fileString.length());
+		fileNameEnd = fileString.substring(fileString.lastIndexOf(".") + 1
+		);
 		docFile = new File(fileString);
 		if (fileNameEnd.equals("PDF")) {
 			pdfFile = new File(fileName + ".PDF");

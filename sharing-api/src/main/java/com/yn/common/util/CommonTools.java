@@ -59,7 +59,7 @@ public class CommonTools {
 	 * @return
 	 */
 	public static String getExecCmdResult(String cmd) {
-		StringBuffer sb = new StringBuffer("");
+		StringBuffer sb = new StringBuffer();
 		StringBuffer str = new StringBuffer();
 		str.append("cmd.exe /c \"").append(cmd).append("\"");
 		logger.info(str.toString());
