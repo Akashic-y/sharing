@@ -90,8 +90,8 @@ public class CFile {
 				break;
 			case DIRDEL_CHILD:
 				child = file.listFiles();
-				for (int i = 0; i < child.length; i++) {
-					if (!child[i].delete())
+				for (File value : child) {
+					if (!value.delete())
 						lb_result = false;
 				}
 				if (lb_result) {
@@ -100,12 +100,12 @@ public class CFile {
 				break;
 			case DIRDEL_ALLCHILD:
 				child = file.listFiles();
-				for (int i = 0; i < child.length; i++) {
-					if (child[i].isDirectory()) {
-						if (!dirdelete(child[i].getPath(), ab_dirdeltype))
+				for (File value : child) {
+					if (value.isDirectory()) {
+						if (!dirdelete(value.getPath(), ab_dirdeltype))
 							lb_result = false;
 					} else {
-						if (!child[i].delete())
+						if (!value.delete())
 							lb_result = false;
 					}
 				}
@@ -127,7 +127,7 @@ public class CFile {
 			// String ls_parent;
 			// System.out.println(CDate.getcurrentdate()+":to:"+to+":is ok");
 			// ls_parent=getparent(to);
-			if (to.indexOf("/") >= 0 || to.indexOf("\\") >= 0) {
+			if (to.contains("/") || to.contains("\\")) {
 				to = to.replaceAll("\\\\", "/");
 				String toPath = to.substring(0, to.lastIndexOf("/")); // 提取文件路径
 				// System.out.println(CDate.getcurrentdate()+":toPath:"+toPath+":is
@@ -237,7 +237,7 @@ public class CFile {
 			// li_row = ai_row1;
 			while ((strLine = linenumberread.readLine()) != null) {
 				if (li_row >= ai_row1) {
-					ls_return2.append(strLine + "/r/n");
+					ls_return2.append(strLine).append("/r/n");
 					if (li_row == ai_row2 && ai_row2 > 0) {
 						ls_return = ls_return2.toString().split("/r/n");
 						return ls_return;
@@ -271,7 +271,9 @@ public class CFile {
 		} catch (Exception ex) {
 		} finally {
 			try {
-				linenumberread.close();
+				if (linenumberread != null) {
+					linenumberread.close();
+				}
 			} catch (Exception ex) {
 			}
 		}
@@ -364,9 +366,11 @@ public class CFile {
 		File[] fileList;
 		File file = new File(dir);
 		fileList = file.listFiles();
-		larray_rtn = new String[fileList.length];
-		for (int i = 0; i < fileList.length; i++) {
-			larray_rtn[i] = fileList[i].getPath();
+		if (fileList != null) {
+			larray_rtn = new String[fileList.length];
+			for (int i = 0; i < fileList.length; i++) {
+				larray_rtn[i] = fileList[i].getPath();
+			}
 		}
 		return larray_rtn;
 	}
@@ -507,11 +511,11 @@ public class CFile {
 		} else {
 
 			fileList = file.listFiles();
-			for (int i = 0; i < fileList.length; i++) {
-				if (fileList[i].isDirectory()) {
-					listDir(fileList[i].getPath(), listFile);
+			for (File value : fileList) {
+				if (value.isDirectory()) {
+					listDir(value.getPath(), listFile);
 				} else {
-					listFile.add(fileList[i].getPath());
+					listFile.add(value.getPath());
 				}
 			}
 		}
@@ -643,11 +647,15 @@ public class CFile {
 	public static int writeinifile(String as_inifile, String as_1, String as_2, String as_value) {
 		BufferedReader bufferedReader = null;
 		try {
-			String fileContent, allLine, strLine, newLine, remarkStr;
+			StringBuilder fileContent;
+			String allLine;
+			String strLine;
+			String newLine;
+			String remarkStr;
 			String getValue;
 			bufferedReader = new BufferedReader(new FileReader(as_inifile));
 			boolean isInSection = false;
-			fileContent = "";
+			fileContent = new StringBuilder();
 
 			while ((allLine = bufferedReader.readLine()) != null) {
 				allLine = allLine.trim();
@@ -671,19 +679,19 @@ public class CFile {
 					getValue = strArray[0].trim();
 					if (getValue.equalsIgnoreCase(as_2)) {
 						newLine = getValue + " = " + as_value + " " + remarkStr;
-						fileContent += newLine + "\r\n";
+						fileContent.append(newLine).append("\r\n");
 						while ((allLine = bufferedReader.readLine()) != null) {
-							fileContent += allLine + "\r\n";
+							fileContent.append(allLine).append("\r\n");
 						}
 						bufferedReader.close();
 						BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(as_inifile, false));
-						bufferedWriter.write(fileContent);
+						bufferedWriter.write(fileContent.toString());
 						bufferedWriter.flush();
 						bufferedWriter.close();
 						return 1;
 					}
 				}
-				fileContent += allLine + "\r\n";
+				fileContent.append(allLine).append("\r\n");
 			}
 			return -1;
 		} catch (Exception ex) {

@@ -142,7 +142,7 @@ public class DateValidator {
 		try {
 			int Strlength = dateStr.length();
 
-			if (dateStr.indexOf("-") > -1) {
+			if (dateStr.contains("-")) {
 				/**
 				 * 格式为yyyy-MM-dd +时
 				 */
@@ -163,7 +163,7 @@ public class DateValidator {
 					date = getdate(dateStr, "format5");
 					break;
 				}
-			} else if (dateStr.indexOf("/") > -1) {
+			} else if (dateStr.contains("/")) {
 				/**
 				 * 格式为yyyy/MM/dd+
 				 */
@@ -184,7 +184,7 @@ public class DateValidator {
 					date = getdate(dateStr, "format9");
 					break;
 				}
-			} else if (dateStr.indexOf("年") > -1) {
+			} else if (dateStr.contains("年")) {
 				/**
 				 * 格式为yyyy年MM月dd日+
 				 */
@@ -261,7 +261,8 @@ public class DateValidator {
 	 * format20：yyyy年MM月
 	 * 
 	 * @param Date
-	 * @param fmt
+	 * @param front_fmt
+	 * @param target_fmt
 	 * @return
 	 */
 	public static String ChangeDateFormat(String Date, String front_fmt, String target_fmt) {
@@ -393,14 +394,17 @@ public class DateValidator {
 	 */
 	public static String getLastDayOfMonth(String date, String fmt) {
 		Calendar cal = Calendar.getInstance();
-		cal.setTime(getdate(date, fmt));
-		// 获取某月最大天数
-		int lastDay = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
-		// 设置日历中月份的最大天数
-		cal.set(Calendar.DAY_OF_MONTH, lastDay);
-		// 格式化日期
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		String lastDayOfMonth = sdf.format(cal.getTime());
-		return lastDayOfMonth;
+		Date rs = getdate(date, fmt);
+		if (rs != null) {
+			cal.setTime(rs);
+			// 获取某月最大天数
+			int lastDay = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
+			// 设置日历中月份的最大天数
+			cal.set(Calendar.DAY_OF_MONTH, lastDay);
+			// 格式化日期
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			return sdf.format(cal.getTime());
+		}
+		return "参数有误！";
 	}
 }

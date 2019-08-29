@@ -228,38 +228,38 @@ public class CDate {
 		Date ldt_rq = null;
 		try {
 			int li_len = as_date.length();
-			if (as_date.indexOf("-") > -1 && li_len == 10) {
+			if (as_date.contains("-") && li_len == 10) {
 				ldt_rq = getdate(as_date, "yyyy-MM-dd");
-			} else if (as_date.indexOf("-") > -1 && li_len >= 8 && li_len <= 9) {
+			} else if (as_date.contains("-") && li_len >= 8 && li_len <= 9) {
 				ldt_rq = getdate(as_date, "yyyy-M-d");
-			} else if (as_date.indexOf("-") > -1 && li_len == 16) {
+			} else if (as_date.contains("-") && li_len == 16) {
 				ldt_rq = getdate(as_date, "yyyy-MM-dd HH:mm");
-			} else if (as_date.indexOf("-") > -1 && li_len == 19) {
+			} else if (as_date.contains("-") && li_len == 19) {
 				ldt_rq = getdate(as_date, "yyyy-MM-dd HH:mm:ss");
-			} else if (as_date.indexOf("-") > -1 && li_len == 23) {
+			} else if (as_date.contains("-") && li_len == 23) {
 				ldt_rq = getdate(as_date, "yyyy-MM-dd HH:mm:ss SSS");
-			} else if (as_date.indexOf("-") > -1 && li_len >= 21 && li_len <= 22) {
+			} else if (as_date.contains("-") && li_len >= 21 && li_len <= 22) {
 				ldt_rq = getdate(as_date, "yyyy-M-d HH:mm:ss SSS");
-			} else if (as_date.indexOf("-") > -1 && li_len == 7) {
+			} else if (as_date.contains("-") && li_len == 7) {
 				ldt_rq = getdate(as_date, "yyyy-MM");
-			} else if (as_date.indexOf("-") > -1 && li_len == 6) {
+			} else if (as_date.contains("-") && li_len == 6) {
 				ldt_rq = getdate(as_date, "yyyy-M");
 
-			} else if (as_date.indexOf("/") > -1 && li_len == 10) {
+			} else if (as_date.contains("/") && li_len == 10) {
 				ldt_rq = getdate(as_date, "yyyy/MM/dd");
-			} else if (as_date.indexOf("/") > -1 && li_len >= 8 && li_len <= 9) {
+			} else if (as_date.contains("/") && li_len >= 8 && li_len <= 9) {
 				ldt_rq = getdate(as_date, "yyyy/M/d");
-			} else if (as_date.indexOf("/") > -1 && li_len == 16) {
+			} else if (as_date.contains("/") && li_len == 16) {
 				ldt_rq = getdate(as_date, "yyyy/MM/dd HH:mm");
-			} else if (as_date.indexOf("/") > -1 && li_len == 19) {
+			} else if (as_date.contains("/") && li_len == 19) {
 				ldt_rq = getdate(as_date, "yyyy/MM/dd HH:mm:ss");
-			} else if (as_date.indexOf("/") > -1 && li_len == 23) {
+			} else if (as_date.contains("/") && li_len == 23) {
 				ldt_rq = getdate(as_date, "yyyy/MM/dd HH:mm:ss SSS");
-			} else if (as_date.indexOf("/") > -1 && li_len >= 21 && li_len <= 22) {
+			} else if (as_date.contains("/") && li_len >= 21 && li_len <= 22) {
 				ldt_rq = getdate(as_date, "yyyy/M/d HH:mm:ss SSS");
-			} else if (as_date.indexOf("/") > -1 && li_len == 7) {
+			} else if (as_date.contains("/") && li_len == 7) {
 				ldt_rq = getdate(as_date, "yyyy/MM");
-			} else if (as_date.indexOf("/") > -1 && li_len == 6) {
+			} else if (as_date.contains("/") && li_len == 6) {
 				ldt_rq = getdate(as_date, "yyyy/M");
 
 			} else if (li_len == 8) {
@@ -347,19 +347,19 @@ public class CDate {
 		StringBuffer lsb_rq = new StringBuffer(10);
 		String ls_lx = null;
 		lsb_rq.append("2000");
-		if (as_sr.indexOf("-") > -1 && li_len == 5) {
+		if (as_sr.contains("-") && li_len == 5) {
 			lsb_rq.append("-");
 			lsb_rq.append(as_sr);
 			ls_lx = "yyyy-MM-dd";
-		} else if (as_sr.indexOf("-") > -1 && li_len >= 3 && li_len <= 4) {
+		} else if (as_sr.contains("-") && li_len >= 3 && li_len <= 4) {
 			lsb_rq.append("-");
 			lsb_rq.append(as_sr);
 			ls_lx = "yyyy-M-d";
-		} else if (as_sr.indexOf("/") > -1 && li_len == 5) {
+		} else if (as_sr.contains("/") && li_len == 5) {
 			lsb_rq.append("/");
 			lsb_rq.append(as_sr);
 			ls_lx = "yyyy/MM/dd";
-		} else if (as_sr.indexOf("/") > -1 && li_len >= 3 && li_len <= 4) {
+		} else if (as_sr.contains("/") && li_len >= 3 && li_len <= 4) {
 			lsb_rq.append("/");
 			lsb_rq.append(as_sr);
 			ls_lx = "yyyy/M/d";
@@ -640,20 +640,28 @@ public class CDate {
 	 */
 	public static String getWeekStr(Date adt_rq) {
 		String str = String.valueOf(getweek(adt_rq));
-		if ("0".equals(str)) {
-			str = "星期日";
-		} else if ("1".equals(str)) {
-			str = "星期一";
-		} else if ("2".equals(str)) {
-			str = "星期二";
-		} else if ("3".equals(str)) {
-			str = "星期三";
-		} else if ("4".equals(str)) {
-			str = "星期四";
-		} else if ("5".equals(str)) {
-			str = "星期五";
-		} else if ("6".equals(str)) {
-			str = "星期六";
+		switch (str) {
+			case "0":
+				str = "星期日";
+				break;
+			case "1":
+				str = "星期一";
+				break;
+			case "2":
+				str = "星期二";
+				break;
+			case "3":
+				str = "星期三";
+				break;
+			case "4":
+				str = "星期四";
+				break;
+			case "5":
+				str = "星期五";
+				break;
+			case "6":
+				str = "星期六";
+				break;
 		}
 		return str;
 	}
@@ -697,7 +705,7 @@ public class CDate {
 	}
 
 	public static String getjr(String str) {
-		if ("0214".equals(str)) {
+		if ("0101".equals(str)) {
 			str = "元旦";
 		} else if ("0214".equals(str)) {
 			str = "情人节";
@@ -713,8 +721,6 @@ public class CDate {
 			str = "青年节";
 		} else if ("0601".equals(str)) {
 			str = "儿童节";
-		} else if ("0504".equals(str)) {
-			str = "青年节";
 		} else if ("0701".equals(str)) {
 			str = "建党节";
 		} else if ("0801".equals(str)) {
@@ -731,7 +737,6 @@ public class CDate {
 			str = "圣诞节";
 		} else if ("1226".equals(str)) {
 			str = "毛泽东诞辰";
-
 		} else if ("0520".equals(str)) {
 			str = "母亲节";
 		} else if ("0630".equals(str)) {
@@ -761,12 +766,12 @@ public class CDate {
 				{ "金牛座", "0421", "0521" }, { "双子座", "0522", "0621" }, { "巨蟹座", "0621", "0721" },
 				{ "狮子座", "0722", "0821" }, { "处女座", "0822", "0921" }, { "天秤座", "0922", "1021" },
 				{ "天蝎座", "1022", "1121" }, { "射手座", "1122", "1221" }, { "摩羯座", "1222", "0121" } };
-		for (int li_1 = 0; li_1 < con.length; li_1++) {
-			if (str.compareTo(con[li_1][1]) >= 0 && str.compareTo(con[li_1][2]) <= 0) {
-				return con[li_1][0];
-			} else if (con[li_1][1].compareTo(con[li_1][2]) >= 0) {
-				if (str.compareTo(con[li_1][1]) >= 0 || str.compareTo(con[li_1][2]) <= 0) {
-					return con[li_1][0];
+		for (String[] strings : con) {
+			if (str.compareTo(strings[1]) >= 0 && str.compareTo(strings[2]) <= 0) {
+				return strings[0];
+			} else if (strings[1].compareTo(strings[2]) >= 0) {
+				if (str.compareTo(strings[1]) >= 0 || str.compareTo(strings[2]) <= 0) {
+					return strings[0];
 				}
 			}
 		}
@@ -834,22 +839,21 @@ public class CDate {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		cl.setTime(date);
-		if ("pre".equals(option)) {
-			// 时间减一天
-			cl.add(Calendar.DAY_OF_MONTH, -1);
-
-		} else if ("next".equals(option)) {
-			// 时间加一天
-			cl.add(Calendar.DAY_OF_YEAR, 1);
-
-		} else {
-
-			// donothing
-
+		if(date != null) {
+			cl.setTime(date);
+			if ("pre".equals(option)) {
+				// 时间减一天
+				cl.add(Calendar.DAY_OF_MONTH, -1);
+			} else if ("next".equals(option)) {
+				// 时间加一天
+				cl.add(Calendar.DAY_OF_YEAR, 1);
+			} else {
+				// donothing
+			}
+			date = cl.getTime();
+			return sdf.format(date);
 		}
-		date = cl.getTime();
-		return sdf.format(date);
+		return "参数有误！";
 	}
 
 	public static List<String> getWeeks(String date, String formatPattern, boolean isCN) throws ParseException {
@@ -863,7 +867,7 @@ public class CDate {
 		if (dayOfWeek == 1 && isCN) {
 			c.add(Calendar.DAY_OF_MONTH, -1);
 			String d = format.format(c.getTime());
-			list = getWeeks(d, formatPattern, isCN);
+			list = getWeeks(d, formatPattern, true);
 		} else {
 			c.setWeekDate(currentYear, weekIndex, 1);
 			for (int i = 1; i <= 8; i++) {
@@ -974,7 +978,7 @@ public class CDate {
 //		
 //    	SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
 //    	System.out.println(sdf.format(getnext(getdate("2015-04-01"),7-2)));
-		System.out.println(getdate(1420041600000l));
+		System.out.println(getdate(1420041600000L));
 	}
 
 	/**
@@ -993,8 +997,7 @@ public class CDate {
 		int year2 = Integer.parseInt(date2[0]);
 		int month2 = Integer.parseInt(date2[1]);
 		// 通过年,月差计算月份差
-		int months = (year2 - year1) * 12 + (month2 - month1) + 1;
-		return months;
+		return (year2 - year1) * 12 + (month2 - month1) + 1;
 	}
 
 	/**

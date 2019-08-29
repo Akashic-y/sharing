@@ -21,7 +21,7 @@ import com.sun.mail.util.MailSSLSocketFactory;
 
 /** 
   * @ClassName: EmailUtil 
-  * @Description: TODO 
+  * @Description: 网易企业邮箱发送工具类
   * @author YN
   * @date 2019年8月27日 下午3:51:13  
   */

@@ -46,7 +46,7 @@ public class IpUtils {
         }
 
         // 使用代理，则获取第一个IP地址
-        if (CommonTools.isNull(ip) && ip.length() > maxLength) {
+        if (CommonTools.isNotNull(ip) && ip.length() > maxLength) {
             int idx = ip.indexOf(seperator);
             if (idx > 0) {
                 ip = ip.substring(0, idx);

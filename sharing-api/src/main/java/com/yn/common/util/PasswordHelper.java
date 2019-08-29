@@ -20,13 +20,13 @@ public class PasswordHelper {
 
     private static RandomNumberGenerator randomNumberGenerator = new SecureRandomNumberGenerator();
 
-    private static String algorithmName = "md5";
     private static final int hashIterations = 2;
 
     public static void encryptPassword(User user) {
 
         user.setSalt(randomNumberGenerator.nextBytes().toHex());
 
+        String algorithmName = "md5";
         String newPassword = new SimpleHash(
                 algorithmName,
                 user.getPassword(),

@@ -76,9 +76,7 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     @Transactional
     public Integer saveArticle(Article article) {
-    	//TODO
     	bodyDao.insertSelective(article.getBody());
-        
         User currentUser = UserUtils.getCurrentUser();
         if (null != currentUser) {
             article.setAuthor(currentUser);

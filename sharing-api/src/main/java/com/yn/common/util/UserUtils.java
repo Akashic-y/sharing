@@ -13,7 +13,6 @@ import com.yn.entity.User;
 public class UserUtils {
 
     public static User getCurrentUser() {
-        User user = (User) SecurityUtils.getSubject().getSession().getAttribute(Base.CURRENT_USER);
-        return user;
+        return (User) SecurityUtils.getSubject().getSession().getAttribute(Base.CURRENT_USER);
     }
 }

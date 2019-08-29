@@ -62,13 +62,9 @@ public class LinuxSystemTools {
 				}
 			}
 			return result;
-		} catch (NumberFormatException e) {
+		} catch (NumberFormatException | IOException e) {
 			logger.error(e.getMessage());
-		} catch (FileNotFoundException e) {
-			logger.error(e.getMessage());
-		} catch (IOException e) {
-			logger.error(e.getMessage());
-		}finally {
+		} finally {
 			try {
 				if(br != null) {
 					br.close();
@@ -100,9 +96,7 @@ public class LinuxSystemTools {
 				long idle1 = Long.parseLong(token.nextToken());
 
 				Thread.sleep(500);
-				if(br != null) {
-					br.close();
-				}
+				br.close();
 				br = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
 				token = new StringTokenizer(br.readLine());
 				token.nextToken();
@@ -111,18 +105,11 @@ public class LinuxSystemTools {
 				long nice2 = Long.parseLong(token.nextToken());
 				long sys2 = Long.parseLong(token.nextToken());
 				long idle2 = Long.parseLong(token.nextToken());
-				
-				double ret = (double) ((user2 + sys2 + nice2) - (user1 + sys1 + nice1)) / (double) ((user2 + nice2 + sys2 + idle2) - (user1 + nice1 + sys1 + idle1));
-				return ret;
-			} catch (NumberFormatException e) {
+
+				return (double) ((user2 + sys2 + nice2) - (user1 + sys1 + nice1)) / (double) ((user2 + nice2 + sys2 + idle2) - (user1 + nice1 + sys1 + idle1));
+			} catch (NumberFormatException | IOException | InterruptedException e) {
 				logger.error(e.getMessage());
-			} catch (FileNotFoundException e) {
-				logger.error(e.getMessage());
-			} catch (IOException e) {
-				logger.error(e.getMessage());
-			} catch (InterruptedException e) {
-				logger.error(e.getMessage());
-			}finally {
+			} finally {
 				try {
 					if(br != null) {
 						br.close();
@@ -141,15 +128,14 @@ public class LinuxSystemTools {
     public static String getUnixMACAddress() {
         String mac = null;
         BufferedReader bufferedReader = null;
-        Process process = null;
-        
+        Process process;
         try {
             process = Runtime.getRuntime().exec("ifconfig eth0");					// linux下的命令，一般取eth0作为本地主网卡
             
             // 显示信息中包含有mac地址信息
             bufferedReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-            String line = null;
-            int index = -1;
+            String line;
+            int index;
             while ((line = bufferedReader.readLine()) != null) {
                 index = line.toLowerCase().indexOf("hwaddr");						// 寻找标示字符串[hwaddr]
                 if (index >= 0) {													// 找到了
@@ -168,8 +154,6 @@ public class LinuxSystemTools {
             } catch (IOException e1) {
             	logger.error(e1.getMessage());
             }
-            bufferedReader = null;
-            process = null;
         }
         
         return mac;

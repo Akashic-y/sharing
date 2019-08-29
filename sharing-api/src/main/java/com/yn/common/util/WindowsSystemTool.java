@@ -31,8 +31,7 @@ public class WindowsSystemTool {
         OperatingSystemMXBean osmxb = (OperatingSystemMXBean) java.lang.management.ManagementFactory.getOperatingSystemMXBean();
         long totalvirtualMemory = osmxb.getTotalSwapSpaceSize();			// 总的物理内存+虚拟内存
         long freePhysicalMemorySize = osmxb.getFreePhysicalMemorySize();	// 剩余的物理内存
-        Double compare = (1 - freePhysicalMemorySize * 1.0 / totalvirtualMemory) * 100;
-        return compare;
+        return (1 - freePhysicalMemorySize * 1.0 / totalvirtualMemory) * 100;
     }
     
     /**
@@ -138,7 +137,7 @@ public class WindowsSystemTool {
                 // ThreadCount,UserModeTime,WriteOperation
                 String caption = substring(line, capidx, cmdidx - 1).trim();
                 String cmd = substring(line, cmdidx, kmtidx - 1).trim();
-                if (cmd.indexOf("wmic.exe") >= 0) {
+                if (cmd.contains("wmic.exe")) {
                     continue;
                 }
                 
@@ -147,19 +146,19 @@ public class WindowsSystemTool {
                 if (caption.equals("System Idle Process")
                         || caption.equals("System")) {
                     if (s1.length() > 0) {
-                        idletime += Long.valueOf(s1).longValue();
+                        idletime += Long.valueOf(s1);
                     }
                     if (s2.length() > 0) {
-                        idletime += Long.valueOf(s2).longValue();
+                        idletime += Long.valueOf(s2);
                     }
                     continue;
                 }
                 
                 if (s1.length() > 0) {
-                    kneltime += Long.valueOf(s1).longValue();
+                    kneltime += Long.valueOf(s1);
                 }
                 if (s2.length() > 0) {
-                    usertime += Long.valueOf(s2).longValue();
+                    usertime += Long.valueOf(s2);
                 }
             }
             retn[0] = idletime;
@@ -186,10 +185,10 @@ public class WindowsSystemTool {
      */
     private static String substring(String src, int start_idx, int end_idx) {
         byte[] b = src.getBytes();
-        String tgt = "";
+        StringBuilder tgt = new StringBuilder();
         for (int i = start_idx; i <= end_idx; i++) {
-            tgt += (char) b[i];
+            tgt.append((char) b[i]);
         }
-        return tgt;
+        return tgt.toString();
     }
 }

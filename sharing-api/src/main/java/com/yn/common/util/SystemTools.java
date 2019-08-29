@@ -60,7 +60,8 @@ public class SystemTools {
     }
     
     /**
-     * @return 本机主机名
+     * @return 本机主机名
+
      */
     public static String getHostName() {
         InetAddress ia = null;
@@ -105,11 +106,11 @@ public class SystemTools {
 		String systemTypeStr = pro.getProperty("os.name");
 		if (CommonTools.isNotNull(systemTypeStr)) {
 			systemTypeStr = systemTypeStr.toLowerCase();
-			if (systemTypeStr.indexOf("windows") != -1) {
+			if (systemTypeStr.contains("windows")) {
 				result = 1;
-			} else if (systemTypeStr.indexOf("linux") != -1) {
+			} else if (systemTypeStr.contains("linux")) {
 				result = 2;
-			} else if (systemTypeStr.indexOf("unix") != -1) {
+			} else if (systemTypeStr.contains("unix")) {
 				result = 3;
 			}
 		}
@@ -126,9 +127,9 @@ public class SystemTools {
 		String systemTypeStr = pro.getProperty("os.name");
 		if (CommonTools.isNotNull(systemTypeStr)) {
 			systemTypeStr = systemTypeStr.toLowerCase();
-			if (systemTypeStr.indexOf("windows") != -1) {
+			if (systemTypeStr.contains("windows")) {
 				return true;
-			} else if (systemTypeStr.indexOf("linux") != -1) {
+			} else if (systemTypeStr.contains("linux")) {
 				return false;
 			} 
 		}
@@ -198,7 +199,6 @@ public class SystemTools {
      * @return
      */
     public static String getNetRatio() {
-        String info = CommonTools.getExecCmdResult("netstat -e");
-        return info;
+		return CommonTools.getExecCmdResult("netstat -e");
     }
 }

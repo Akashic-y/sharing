@@ -4,9 +4,11 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.ConnectException;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.artofsolving.jodconverter.openoffice.connection.OpenOfficeException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -70,7 +72,7 @@ public class DocConverter {
 	/**
 	 * 转为PDF
 	 * 
-	 * @param file
+	 * @param
 	 */
 	private void doc2pdf() throws Exception {
 		if (docFile.exists()) {
@@ -85,13 +87,10 @@ public class DocConverter {
 					connection.disconnect();
 					logger.info("****pdf转换成功，PDF输出：" + pdfFile.getPath()
 							+ "****");
-				} catch (java.net.ConnectException e) {
+				} catch (ConnectException e) {
 					logger.error("****pdf转换器异常，openoffice服务未启动！****");
 					throw e;
-				} catch (com.artofsolving.jodconverter.openoffice.connection.OpenOfficeException e) {
-					logger.error("****pdf转换器异常，读取转换文件失败****");
-					throw e;
-				} catch (Exception e) {
+				} catch (OpenOfficeException e) {
 					logger.error("****pdf转换器异常，读取转换文件失败****");
 					throw e;
 				}
@@ -136,7 +135,7 @@ public class DocConverter {
 	/**
 	 * 返回文件路径
 	 * 
-	 * @param s
+	 * @param
 	 */
 	public String getswfPath() {
 		if (swfFile.exists()) {
