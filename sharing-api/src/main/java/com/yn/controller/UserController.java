@@ -69,12 +69,9 @@ public class UserController {
 	@GetMapping("/currentUser")
 	@FastJsonView(include = { @FastJsonFilter(clazz = User.class, props = { "id", "account", "nickname", "avatar" }) })
 	@LogAnnotation(module = "用户", operation = "获取当前登录用户")
-	public Result getCurrentUser(HttpServletRequest request) {
-
+	public Result getCurrentUser() {
 		Result r = new Result();
-
 		User currentUser = UserUtils.getCurrentUser();
-
 		r.setResultCode(ResultCode.SUCCESS);
 		r.setData(currentUser);
 		return r;

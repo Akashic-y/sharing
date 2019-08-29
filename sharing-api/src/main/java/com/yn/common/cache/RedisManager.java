@@ -20,7 +20,7 @@ public class RedisManager {
     /**
      * 默认过期时长，单位：秒 30分钟
      */
-    public final static long DEFAULT_EXPIRE = 60 * 30 * 1;
+    public final static long DEFAULT_EXPIRE = 60 * 30;
     /**
      * 不设置过期时长
      */

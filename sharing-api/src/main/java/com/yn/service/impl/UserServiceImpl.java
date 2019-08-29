@@ -88,7 +88,7 @@ public class UserServiceImpl implements UserService {
 				}
 			}
 		}
-		Set<String> set = redisManager.get("limitIP",Set.class);
+		Set set = redisManager.get("limitIP",Set.class);
 		return set.contains(IpUtils.getIpAddr());
 	}
 

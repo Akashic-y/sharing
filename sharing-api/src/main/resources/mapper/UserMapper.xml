@@ -23,22 +23,25 @@
 		mobile_phone_number,
 		nickname, password, salt, status
 	</sql>
-	<select id="getUserById" parameterType="java.lang.Long"
-		resultMap="BaseResultMap">
+	<select id="getUserById" parameterType="java.lang.Long" resultMap="BaseResultMap">
 		select
 		<include refid="Base_Column_List" />
 		from sys_user
 		where id = #{id,jdbcType=BIGINT} and deleted = 0
 	</select>
-	<select id="findByAccount" parameterType="java.lang.String"
-		resultMap="BaseResultMap">
+	<select id="findAll" parameterType="java.lang.Long" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from sys_user
+		where deleted = 0
+	</select>
+	<select id="findByAccount" parameterType="java.lang.String" resultMap="BaseResultMap">
 		select
 		<include refid="Base_Column_List" />
 		from sys_user
 		where account = #{account} and deleted = 0
 	</select>
-	<select id="exitUser" parameterType="java.lang.String"
-		resultType="java.lang.Integer">
+	<select id="exitUser" parameterType="java.lang.String" resultType="java.lang.Integer">
 		select count(1)
 		from sys_user
 		where account = #{account} and deleted = 0

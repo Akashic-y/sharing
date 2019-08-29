@@ -9,6 +9,4 @@ public interface LogMapper {
 
     Log selectByPrimaryKey(Integer id);
 
-    int updateByPrimaryKeySelective(Log record);
-
 }

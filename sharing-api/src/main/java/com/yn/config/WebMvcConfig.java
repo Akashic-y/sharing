@@ -26,8 +26,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 
 	@Bean
 	public ClearTokenInteceptor clearTokenInteceptor() {
-		ClearTokenInteceptor clearTokenInteceptor = new ClearTokenInteceptor();
-		return clearTokenInteceptor;
+		return new ClearTokenInteceptor();
 	}
 
 	@Override

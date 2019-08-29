@@ -63,7 +63,7 @@ public class OAuthSessionDAO extends CachingSessionDAO implements InitializingBe
 	}
 
 	@Override
-	public void afterPropertiesSet() throws Exception {
+	public void afterPropertiesSet() {
 		if (null == this.redisManager) {
 			logger.error("StringRedisTemplate should be not null.");
 		}

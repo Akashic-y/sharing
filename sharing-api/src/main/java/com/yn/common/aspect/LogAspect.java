@@ -55,10 +55,8 @@ public class LogAspect {
         Log log = new Log();
         LogAnnotation logAnnotation = method.getAnnotation(LogAnnotation.class);
 
-        if (log != null) {
-            log.setModule(logAnnotation.module());
-            log.setOperation(logAnnotation.operation());
-        }
+        log.setModule(logAnnotation.module());
+        log.setOperation(logAnnotation.operation());
 
         //请求的方法名
         String className = joinPoint.getTarget().getClass().getName();

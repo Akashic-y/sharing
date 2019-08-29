@@ -64,7 +64,7 @@ public class GlobalExceptionHandler {
         Result r = new Result();
         r.setResultCode(ResultCode.PERMISSION_NO_ACCESS);
 
-        return new ResponseEntity<Result>(r, status);
+        return new ResponseEntity<>(r, status);
     }
 
     @ExceptionHandler(UnauthenticatedException.class)
@@ -77,7 +77,7 @@ public class GlobalExceptionHandler {
         Result r = new Result();
         r.setResultCode(ResultCode.USER_NOT_LOGGED_IN);
 
-        return new ResponseEntity<Result>(r, status);
+        return new ResponseEntity<>(r, status);
     }
 
 
@@ -92,7 +92,7 @@ public class GlobalExceptionHandler {
 
         r.simple().put("errdetail", e.getMessage());
 
-        return new ResponseEntity<Result>(r, status);
+        return new ResponseEntity<>(r, status);
     }
 
     private HttpStatus getStatus(HttpServletRequest request) {

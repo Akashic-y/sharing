@@ -39,7 +39,7 @@ public class ArticleServiceImpl implements ArticleService {
     public List<Content> listArticles(PageVo page) {
     	PageHelper.startPage(page.getPageNumber(), page.getPageSize(),true);
     	List<Content> rs = dao.listArticles(null);
-    	PageInfo<Content> pi = new PageInfo<Content>(rs);
+    	PageInfo<Content> pi = new PageInfo<>(rs);
         return pi.getList();
     }
 
@@ -47,7 +47,7 @@ public class ArticleServiceImpl implements ArticleService {
     public List<Content> listArticles(ArticleForm article, PageVo page) {
     	PageHelper.startPage(page.getPageNumber(), page.getPageSize(),true);
     	List<Content> rs = dao.listArticles(article);
-    	PageInfo<Content> pi = new PageInfo<Content>(rs);
+    	PageInfo<Content> pi = new PageInfo<>(rs);
         return pi.getList();
     }
 
@@ -110,16 +110,14 @@ public class ArticleServiceImpl implements ArticleService {
     public List<Content> listArticlesByTag(Integer id) {
     	ArticleForm article = new ArticleForm();
     	article.setTagId(id);
-		List<Content> rs = dao.listArticles(article);
-        return rs;
+        return dao.listArticles(article);
     }
 
     @Override
     public List<Content> listArticlesByCategory(Integer id) {
     	ArticleForm article = new ArticleForm();
     	article.setCategoryId(id);
-		List<Content> rs = dao.listArticles(article);
-        return rs;
+        return dao.listArticles(article);
     }
 
     @Override
@@ -138,7 +136,7 @@ public class ArticleServiceImpl implements ArticleService {
         ArticleForm articleForm = new ArticleForm();
         articleForm.setOrderBy(StaticValue.view_counts);
     	List<Content> rs = dao.listArticlesName(articleForm);
-    	PageInfo<Content> pi = new PageInfo<Content>(rs);
+    	PageInfo<Content> pi = new PageInfo<>(rs);
         return pi.getList();
     }
 
@@ -146,7 +144,7 @@ public class ArticleServiceImpl implements ArticleService {
     public List<Content> listNewArticles(int limit) {
     	PageHelper.startPage(0, limit,true);
     	List<Content> rs = dao.listArticlesName(new ArticleForm());
-    	PageInfo<Content> pi = new PageInfo<Content>(rs);
+    	PageInfo<Content> pi = new PageInfo<>(rs);
         return pi.getList();
     }
 
