@@ -1,7 +1,6 @@
 package com.yn.redis;
 
 import com.yn.common.util.RedisUtil;
-import com.yn.config.RedisConfig;
 import com.yn.entity.ArticleBody;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
