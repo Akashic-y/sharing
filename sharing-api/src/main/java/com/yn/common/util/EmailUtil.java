@@ -1,10 +1,3 @@
- /**   
- * @Title: EmailUtil.java 
- * @Package com.yn.common.util 
- * @Description: TODO
- * @author YeNing
- * @date 2019年8月27日 下午3:51:13
- */
 package com.yn.common.util;
 
 import java.util.Properties;
@@ -18,33 +11,35 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 
 import com.sun.mail.util.MailSSLSocketFactory;
+import org.springframework.stereotype.Component;
 
-/** 
+ /**
   * @ClassName: EmailUtil 
   * @Description: 网易企业邮箱发送工具类
   * @author YN
   * @date 2019年8月27日 下午3:51:13  
   */
+ @Component
 public class EmailUtil {
 	
 	@Value("${email.username}")
-	private static String username;//企业邮箱
+	private String username;//企业邮箱
 	
 	@Value("${email.from}")
-	private static String from;//发件人昵称展示
+	private String from;//发件人昵称展示
 	
 	@Value("${email.password}")
-	private static String password;//企业邮箱密码 授权密码不是登录密码
+	private String password;//企业邮箱密码 授权密码不是登录密码
 	
 	@Value("${email.host}")
-	private static String host;//163企业邮箱smtp
+	private String host;//163企业邮箱smtp
 	/**
 	 * 
 	 * @param to 接收邮箱
 	 * @param subject 邮件主题
 	 * @param text 邮件内容
 	 */
-    public static void sendHtmlMail(String[] to,String subject,String text) {
+    public void sendHtmlMail(String[] to,String subject,String text) {
         try{
             //设置服务器验证信息
             Properties prop = new Properties();
@@ -75,10 +70,4 @@ public class EmailUtil {
             e.printStackTrace();
         }
     }
-    public static void main(String[] args) {
-    	String[] to = {"1678549524@qq.com"};
-    	String subject = "邮件主题";
-        String text = "邮件内容";
-    	sendHtmlMail(to,subject,text);
-	}
 }
