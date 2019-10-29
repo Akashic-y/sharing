@@ -1,5 +1,6 @@
 package com.yn.config;
 
+import com.yn.filter.SessionFilter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,6 +24,15 @@ public class FilterConfig {
         return registration;
     }
 
+    @Bean
+    public FilterRegistrationBean xssFilter(){
+        FilterRegistrationBean rs = new FilterRegistrationBean();
+        rs.setFilter(new SessionFilter());
+        rs.setName("xssFilter");
+        rs.addUrlPatterns("/*");//过滤所有路径
+        rs.setOrder(1);//优先级，最顶级
+        return rs;
+    }
     private CorsConfiguration buildConfig() {
         CorsConfiguration corsConfiguration = new CorsConfiguration();
         corsConfiguration.addAllowedOrigin("*");

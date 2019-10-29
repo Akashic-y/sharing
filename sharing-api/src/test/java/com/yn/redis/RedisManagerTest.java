@@ -15,8 +15,7 @@ public class RedisManagerTest extends SharingApiApplicationTests{
 
 	@Autowired
 	private RedisManager redisManager;
-	
-	
+
 	@Test
 	public void setTest() {
 		String k = "zzz";
@@ -44,11 +43,11 @@ public class RedisManagerTest extends SharingApiApplicationTests{
         RedisUtil.set("www","hello redis");
         String www = (String) RedisUtil.get("www");
         System.out.println(www);
-        boolean r = RedisUtil.exists("www");
-        System.out.println(r);
-        RedisUtil.del("www");
-        r = RedisUtil.exists("www");
-        System.out.println(r);
+//        boolean r = RedisUtil.exists("www");
+//        System.out.println(r);
+//        RedisUtil.del("www");
+//        r = RedisUtil.exists("www");
+//        System.out.println(r);
         //List test
         List<String> list = new ArrayList<>();
         list.add("asd");
