@@ -6,11 +6,12 @@ import com.yn.common.entity.BaseEntity;
 
 import lombok.Data;
 
+import javax.persistence.Transient;
+
 /**
  * 文章
- *
  * @author yn
- *         2019年1月23日
+ * @Date   2019年1月23日
  */
 @Data
 public class Article extends BaseEntity {
@@ -36,17 +37,22 @@ public class Article extends BaseEntity {
 	/** 浏览数量 */
 	private Integer viewCounts;
 
+	@Transient
 	private User author;
 
+	@Transient
 	private ArticleBody body;
 	
 	/** 分类 */
+	@Transient
 	private Category category;
 
 	/** 标签 */
+	@Transient
 	private List<Tag> tags;
 
 	/** 评论*/
+	@Transient
 	private List<Comment> comments;
 
 	/**

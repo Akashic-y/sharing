@@ -34,9 +34,7 @@ public class ClearTokenResponseBodyAdvice implements ResponseBodyAdvice<Object> 
 
         HttpServletRequest httpRequest = ((ServletServerHttpRequest) request).getServletRequest();
         String token = httpRequest.getHeader(OAuthSessionManager.OAUTH_TOKEN);
-
         HttpServletResponse httpResponse = ((ServletServerHttpResponse) response).getServletResponse();
-
         if (null != token) {
             Session s = redisManager.get(token, Session.class);
 
@@ -47,7 +45,6 @@ public class ClearTokenResponseBodyAdvice implements ResponseBodyAdvice<Object> 
         return body;
     }
 
-
     public RedisManager getRedisManager() {
         return redisManager;
     }
@@ -55,6 +52,5 @@ public class ClearTokenResponseBodyAdvice implements ResponseBodyAdvice<Object> 
     public void setRedisManager(RedisManager redisManager) {
         this.redisManager = redisManager;
     }
-
 
 }

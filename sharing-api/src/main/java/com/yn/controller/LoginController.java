@@ -60,7 +60,7 @@ public class LoginController {
         String account = user.getAccount();
         String password = user.getPassword();
 
-        Long userId = userService.saveUser(user);
+        int userId = userService.saveUser(user);
 
         if (userId > 0) {
             executeLogin(account, password, r);
@@ -109,11 +109,9 @@ public class LoginController {
     @GetMapping("/logout")
     @LogAnnotation(module = "退出", operation = "退出")
     public Result logout() {
-
         Result r = new Result();
         Subject subject = SecurityUtils.getSubject();
         subject.logout();
-
         r.setResultCode(ResultCode.SUCCESS);
         return r;
     }

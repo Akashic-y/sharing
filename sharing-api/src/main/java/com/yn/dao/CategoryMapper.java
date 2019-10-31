@@ -4,16 +4,9 @@ import java.util.List;
 
 import com.yn.entity.Category;
 import com.yn.vo.CategoryVO;
+import tk.mybatis.mapper.common.Mapper;
 
-public interface CategoryMapper {
-    int deleteByPrimaryKey(Integer id);
-
-    int insertSelective(Category record);
-
-    Category selectByPrimaryKey(Integer id);
-
-    int update(Category record);
-
+public interface CategoryMapper extends Mapper<Category> {
 	List<Category> findAll();
 
 	List<CategoryVO> findAllDetail();

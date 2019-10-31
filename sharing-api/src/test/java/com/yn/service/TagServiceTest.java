@@ -12,16 +12,12 @@ public class TagServiceTest extends SharingApiApplicationTests{
 
 	@Autowired
 	private TagService	tagService;
-	
-	
-	
+
 	@Test
 	public void listArticlesByTagTest() {
 		int limit = 3;
 		List<Tag> ts = tagService.listHotTags(limit);
-		
 		ts.stream().forEach( t -> System.out.println(t.getTagname()));
 		System.out.println(ts.size());
-		
 	}
 }

@@ -20,8 +20,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 public class UserControllerTest extends SharingApiApplicationTests{
-	
-	
+
     private MockMvc mockMvc; // 模拟MVC对象，通过MockMvcBuilders.webAppContextSetup(this.wac).build()初始化。    
     
     @Autowired    
@@ -42,23 +41,22 @@ public class UserControllerTest extends SharingApiApplicationTests{
 		u.setCreateDate(new Date());
 		u.setEmail("919431514@qq.com");
 		u.setMobilePhoneNumber("18396816462");
-		
+
         MvcResult result = mockMvc.perform(post("/users/create").contentType(MediaType.APPLICATION_JSON).content(JSONObject.toJSONString(u)))  
                 .andExpect(status().isOk())// 模拟向testRest发送get请求    
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))// 预期返回值的媒体类型text/plain;charset=UTF-8    
-                .andReturn();// 返回执行请求的结果    
-          
-        System.out.println(result.getResponse().getContentAsString()); 
-		
-		
+                .andReturn();// 返回执行请求的结果
+
+        System.out.println(result.getResponse().getContentAsString());
+
 	}
 	
 	@Test
 	public void getUserById() throws Exception {
 		Long id = 5L;
-        MvcResult result = mockMvc.perform(get("/users/"+id))  
-                .andExpect(status().isOk())  
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))    
+        MvcResult result = mockMvc.perform(get("/users/"+id))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andReturn();
           
         System.out.println(result.getResponse().getContentAsString()); 
@@ -66,11 +64,11 @@ public class UserControllerTest extends SharingApiApplicationTests{
 	
 	@Test
 	public void findAllTest() throws Exception {
-        MvcResult result = mockMvc.perform(get("/users/"))  
+        MvcResult result = mockMvc.perform(get("/users/"))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))  
-                .andReturn();   
-          
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andReturn();
+
         System.out.println(result.getResponse().getContentAsString()); 
 	}
 	
@@ -84,16 +82,16 @@ public class UserControllerTest extends SharingApiApplicationTests{
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))    
                 .andReturn();
-          
+
         System.out.println(result.getResponse().getContentAsString()); 
 	}
 	
 	@Test
 	public void deleteTest() throws Exception {
 		Long id = 5L;
-		MvcResult result = mockMvc.perform(get("/users/delete/"+id))  
-                .andExpect(status().isOk())  
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))    
+		MvcResult result = mockMvc.perform(get("/users/delete/"+id))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andReturn();
           
         System.out.println(result.getResponse().getContentAsString()); 

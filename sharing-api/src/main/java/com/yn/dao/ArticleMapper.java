@@ -9,15 +9,11 @@ import org.apache.ibatis.annotations.Param;
 import com.yn.entity.Article;
 import com.yn.entity.Tag;
 import com.yn.form.ArticleForm;
+import tk.mybatis.mapper.common.Mapper;
 
-public interface ArticleMapper {
-    int deleteByPrimaryKey(Integer id);
+public interface ArticleMapper extends Mapper<Article> {
 
-    int insertSelective(Article record);
-
-    Article selectByPrimaryKey(Integer id);
-
-    int updateByPrimaryKeySelective(Article record);
+	Article selectById(int id);
 
 	List<Content> listArticles(ArticleForm form);
 
@@ -25,7 +21,7 @@ public interface ArticleMapper {
 
 	List<Content> findOrderByCreateDateAndLimit();
 
-	List<Content> listArticlesName(ArticleForm articleForm);
+	List<Article> listArticlesName(ArticleForm articleForm);
 
 	List<Article> findAll();
 
@@ -40,5 +36,7 @@ public interface ArticleMapper {
 	void changeCount(Integer id);
 
 	void reduceCount(Integer id);
+
+	int deleteById(Integer id);
 
 }

@@ -131,21 +131,19 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public List<Content> listHotArticles(int limit) {
-        PageHelper.startPage(0, limit,true);
+    public List<Article> listHotArticles(int limit) {
         ArticleForm articleForm = new ArticleForm();
         articleForm.setOrderBy(StaticValue.view_counts);
-    	List<Content> rs = dao.listArticlesName(articleForm);
-    	PageInfo<Content> pi = new PageInfo<>(rs);
-        return pi.getList();
+        PageHelper.startPage(0, limit,true);
+        List<Article> rs = dao.listArticlesName(articleForm);;
+        return rs;
     }
 
     @Override
-    public List<Content> listNewArticles(int limit) {
+    public List<Article> listNewArticles(int limit) {
     	PageHelper.startPage(0, limit,true);
-    	List<Content> rs = dao.listArticlesName(new ArticleForm());
-    	PageInfo<Content> pi = new PageInfo<>(rs);
-        return pi.getList();
+    	List<Article> rs = dao.listArticlesName(new ArticleForm());
+        return rs;
     }
 
     @Override

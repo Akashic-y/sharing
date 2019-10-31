@@ -41,31 +41,29 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User getUserById(Long id) {
-		return dao.getUserById(id);
+		return dao.selectByPrimaryKey(id);
 	}
 
 	@Override
 	@Transactional
-	public Long saveUser(User user) {
-
+	public int saveUser(User user) {
 		PasswordHelper.encryptPassword(user);
 		int index = new Random().nextInt(6) + 1;
 		String avatar = "/static/user/user_" + index + ".png";
-
 		user.setAvatar(avatar);
-		return dao.saveUser(user);
+		return dao.insertSelective(user);
 	}
 
 	@Override
 	@Transactional
-	public Long updateUser(User user) {
-		return dao.updateUser(user);
+	public int updateUser(User user) {
+		return dao.updateByPrimaryKeySelective(user);
 	}
 
 	@Override
 	@Transactional
 	public void deleteUserById(Long id) {
-		dao.deleteUserById(id);
+		dao.deleteById(id);
 	}
 
 	@Override

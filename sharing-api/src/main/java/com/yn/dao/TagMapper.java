@@ -4,15 +4,9 @@ import java.util.List;
 
 import com.yn.entity.Tag;
 import com.yn.vo.TagVO;
+import tk.mybatis.mapper.common.Mapper;
 
-public interface TagMapper {
-    int deleteByPrimaryKey(Integer id);
-
-    int insertSelective(Tag record);
-
-    Tag selectByPrimaryKey(Integer id);
-
-    int updateByPrimaryKeySelective(Tag record);
+public interface TagMapper extends Mapper<Tag> {
 
 	List<TagVO> findAllDetail();
 

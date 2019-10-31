@@ -26,5 +26,4 @@ public interface CommentService {
 
     void deleteCommentByIdAndChangeCounts(Integer id);
 
-
 }

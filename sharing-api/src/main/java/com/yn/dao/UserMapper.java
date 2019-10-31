@@ -6,15 +6,10 @@ import java.util.Set;
 import org.apache.ibatis.annotations.Param;
 
 import com.yn.entity.User;
+import tk.mybatis.mapper.common.Mapper;
 
-public interface UserMapper {
-    int deleteUserById(Long id);
-
-    Long saveUser(User record);
-
-    User getUserById(Long id);
-
-    Long updateUser(User record);
+public interface UserMapper extends Mapper<User> {
+	User selectById(String Long);
 
 	User findByAccount(String account);
 
@@ -25,4 +20,6 @@ public interface UserMapper {
 	void updateLoginInfo(@Param("id") Integer id,@Param("ip") String ip);
 
 	Set<String> getLimitIp();
+
+    void deleteById(Long id);
 }

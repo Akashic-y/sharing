@@ -15,7 +15,6 @@ public class UserServiceTest extends SharingApiApplicationTests{
 	@Autowired
 	private UserService userService;
 	
-	
 /*	List<User> findAll();
 	
 	User findByAccount(String account);
@@ -39,7 +38,7 @@ public class UserServiceTest extends SharingApiApplicationTests{
 		u.setEmail("919431514@qq.com");
 		u.setMobilePhoneNumber("18396816462");
 		u.setStatus(StaticValue.normal);
-		Long id = userService.saveUser(u);
+		int id = userService.saveUser(u);
 		System.out.println(id);
 	}
 	
@@ -69,7 +68,6 @@ public class UserServiceTest extends SharingApiApplicationTests{
 	public void deleteTest() {
 		Long id = 3L;
 		userService.deleteUserById(id);
-		
 	}
 	
 }

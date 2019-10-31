@@ -47,7 +47,7 @@ public class CommentServiceImpl implements CommentService {
     @Override
     @Transactional
     public void deleteCommentById(Integer id) {
-        cdao.deleteByPrimaryKey(id);
+        cdao.deleteById(id);
     }
 
     @Override
@@ -82,7 +82,7 @@ public class CommentServiceImpl implements CommentService {
     @Override
     @Transactional
     public void deleteCommentByIdAndChangeCounts(Integer id) {
-        cdao.deleteByPrimaryKey(id);
+        cdao.deleteById(id);
         //评论数减1
         dao.reduceCount(id);
     }

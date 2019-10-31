@@ -1,5 +1,6 @@
 package com.yn.common.entity;
 
+import javax.persistence.Id;
 import java.io.Serializable;
 
 /**
@@ -11,7 +12,8 @@ import java.io.Serializable;
 public abstract class BaseEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
+    @Id
     private Integer id;
 
     @Override

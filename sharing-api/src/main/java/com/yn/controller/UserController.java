@@ -51,16 +51,12 @@ public class UserController {
 	@LogAnnotation(module = "用户", operation = "根据id获取用户")
 	@RequiresRoles(Base.ROLE_ADMIN)
 	public Result getUserById(@PathVariable("id") Long id) {
-
 		Result r = new Result();
-
 		if (null == id) {
 			r.setResultCode(ResultCode.PARAM_IS_BLANK);
 			return r;
 		}
-
 		User user = userService.getUserById(id);
-
 		r.setResultCode(ResultCode.SUCCESS);
 		r.setData(user);
 		return r;
@@ -81,9 +77,7 @@ public class UserController {
 	@RequiresRoles(Base.ROLE_ADMIN)
 	@LogAnnotation(module = "用户", operation = "添加用户")
 	public Result saveUser(@Validated @RequestBody User user) {
-
-		Long userId = userService.saveUser(user);
-
+		int userId = userService.saveUser(user);
 		Result r = Result.success();
 		r.simple().put("userId", userId);
 		return r;
@@ -94,14 +88,11 @@ public class UserController {
 	@LogAnnotation(module = "用户", operation = "修改用户")
 	public Result updateUser(@RequestBody User user) {
 		Result r = new Result();
-
 		if (null == user.getId()) {
 			r.setResultCode(ResultCode.USER_NOT_EXIST);
 			return r;
 		}
-
-		Long userId = userService.updateUser(user);
-
+		int userId = userService.updateUser(user);
 		r.setResultCode(ResultCode.SUCCESS);
 		r.simple().put("userId", userId);
 		return r;
@@ -112,14 +103,11 @@ public class UserController {
 	@LogAnnotation(module = "用户", operation = "删除用户")
 	public Result deleteUserById(@PathVariable("id") Long id) {
 		Result r = new Result();
-
 		if (null == id) {
 			r.setResultCode(ResultCode.PARAM_IS_BLANK);
 			return r;
 		}
-
 		userService.deleteUserById(id);
-
 		r.setResultCode(ResultCode.SUCCESS);
 		return r;
 	}

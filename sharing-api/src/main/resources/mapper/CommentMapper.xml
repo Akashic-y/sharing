@@ -16,110 +16,25 @@
   <sql id="Base_Column_List">
     id, content, create_date, level, article_id, author_id, parent_id, to_uid
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from me_comment
-    where id = #{id,jdbcType=INTEGER} and deleted = 0
-  </select>
 
   <select id="findAll" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
-    from me_comment
+    from comment
     where deleted = 0
   </select>
 
   <select id="findByArticle" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from me_comment
+    from comment
     where article_id = #{id,jdbcType=INTEGER} and deleted = 0 and level = 0
     order by create_date desc
   </select>
   
-  <update id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    update me_comment set deleted = 1
+  <update id="deleteById" parameterType="java.lang.Integer">
+    update comment set deleted = 1
     where id = #{id,jdbcType=INTEGER}
   </update>
-  
-  <insert id="insertSelective" parameterType="com.yn.entity.Comment">
-    insert into me_comment
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="content != null">
-        content,
-      </if>
-      create_date,
-      <if test="level != null">
-        level,
-      </if>
-      <if test="articleId != null">
-        article_id,
-      </if>
-      <if test="authorId != null">
-        author_id,
-      </if>
-      <if test="parentId != null">
-        parent_id,
-      </if>
-      <if test="toUid != null">
-        to_uid,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="content != null">
-        #{content,jdbcType=VARCHAR},
-      </if>
-      now(),
-      <if test="level != null">
-        #{level,jdbcType=VARCHAR},
-      </if>
-      <if test="articleId != null">
-        #{articleId,jdbcType=INTEGER},
-      </if>
-      <if test="authorId != null">
-        #{authorId,jdbcType=BIGINT},
-      </if>
-      <if test="parentId != null">
-        #{parentId,jdbcType=INTEGER},
-      </if>
-      <if test="toUid != null">
-        #{toUid,jdbcType=BIGINT},
-      </if>
-    </trim>
-  </insert>
-  
-  <update id="updateByPrimaryKeySelective" parameterType="com.yn.entity.Comment">
-    update me_comment
-    <set>
-      <if test="content != null">
-        content = #{content,jdbcType=VARCHAR},
-      </if>
-      <if test="createDate != null">
-        create_date = #{createDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="level != null">
-        level = #{level,jdbcType=VARCHAR},
-      </if>
-      <if test="articleId != null">
-        article_id = #{articleId,jdbcType=INTEGER},
-      </if>
-      <if test="authorId != null">
-        author_id = #{authorId,jdbcType=BIGINT},
-      </if>
-      <if test="parentId != null">
-        parent_id = #{parentId,jdbcType=INTEGER},
-      </if>
-      <if test="toUid != null">
-        to_uid = #{toUid,jdbcType=BIGINT},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
+
 </mapper>

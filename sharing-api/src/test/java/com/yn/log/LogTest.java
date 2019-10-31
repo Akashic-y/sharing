@@ -11,9 +11,7 @@ public class LogTest {
 	@Test
 	public void logTest(){
 		Exception e = new Exception("123456");
-		
 		logger.error("参数校验错误 , uri: {} , caused by: ", "https:localhost",e);
-		
 		logger.error(e.getMessage(),e);
 	}
 }

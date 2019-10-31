@@ -107,7 +107,7 @@ public class RedisUtil {
 	 */
 	public static void returnResource(final Jedis jedis) {
 		if (jedis != null) {
-			jedisPool.returnResource(jedis);
+			jedis.close();
 		}
 	}
 
@@ -118,7 +118,7 @@ public class RedisUtil {
 	 */
 	public static void returnResource(final ShardedJedis shardedJedis) {
 		if (shardedJedis != null) {
-			shardedJedisPool.returnResource(shardedJedis);
+			shardedJedis.close();
 		}
 	}
 	public static boolean set(String key, String value){
@@ -249,7 +249,9 @@ public class RedisUtil {
 			log.warn(e.getMessage());
 			return false;
 		} finally {
-			shardedJedisPool.returnResource(jedis);
+			if (jedis != null) {
+				jedis.close();
+			}
 		}
 	}
 
@@ -643,7 +645,9 @@ public class RedisUtil {
 			log.warn(e.getMessage());
 			return false;
 		} finally {
-			shardedJedisPool.returnResource(jedis);
+			if (jedis != null) {
+				jedis.close();
+			}
 		}
 	}
 

@@ -52,7 +52,6 @@ public class TagServiceImpl implements TagService {
 
     @Override
     public List<Tag> listHotTags(int limit) {
-
         return dao.listHotTagsByArticleUse(limit);
     }
 

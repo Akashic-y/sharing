@@ -17,8 +17,5 @@ public class JSONTest{
 		System.out.println(ss);
 		SimpleSession s2 = JSON.parseObject(ss,SimpleSession.class);
 		System.out.println(s2.getId());
-		
 	}
-	
-	
 }

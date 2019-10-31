@@ -17,9 +17,9 @@ public interface UserService {
 
     User getUserById(Long id);
 
-    Long saveUser(User user);
+    int saveUser(User user);
 
-    Long updateUser(User user);
+    int updateUser(User user);
 
     void deleteUserById(Long id);
 

@@ -24,13 +24,10 @@ public class RedisConfig {
 
         RedisTemplate redisTemplate = new RedisTemplate();
         redisTemplate.setConnectionFactory(factory);
-
         StringRedisSerializer ss = new StringRedisSerializer();
         //ExtGenericFastJsonRedisSerializer extGenericFastJsonRedisSerializer = new ExtGenericFastJsonRedisSerializer();
-
         redisTemplate.setKeySerializer(ss);
         // redisTemplate.setValueSerializer(extGenericFastJsonRedisSerializer);
-
         return redisTemplate;
     }
 }

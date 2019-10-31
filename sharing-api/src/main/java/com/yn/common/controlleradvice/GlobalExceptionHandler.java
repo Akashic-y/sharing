@@ -33,15 +33,11 @@ public class GlobalExceptionHandler {
 
     private Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
-
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public Result handleMethodArgumentNotValidException(MethodArgumentNotValidException e, HttpServletRequest request) {
-
         logger.error("参数校验错误 , url: {} , caused by: ", request.getRequestURI(), e);
-
         List<ParameterInvalidItem> parameterInvalidItemList = new ArrayList<>();
-
         List<FieldError> fieldErrorList = e.getBindingResult().getFieldErrors();
         for (FieldError fieldError : fieldErrorList) {
             ParameterInvalidItem parameterInvalidItem = new ParameterInvalidItem();
@@ -49,49 +45,36 @@ public class GlobalExceptionHandler {
             parameterInvalidItem.setMessage(fieldError.getDefaultMessage());
             parameterInvalidItemList.add(parameterInvalidItem);
         }
-
         return Result.error(ResultCode.PARAM_IS_INVALID, parameterInvalidItemList);
     }
 
 
     @ExceptionHandler(AuthorizationException.class)
     ResponseEntity<Result> AuthorizationExceptionHandler(HttpServletRequest request, AuthorizationException e) {
-
         logger.error("权限认证错误 , uri: {} , caused by: ", request.getRequestURI(), e);
-
         HttpStatus status = HttpStatus.UNAUTHORIZED;
-
         Result r = new Result();
         r.setResultCode(ResultCode.PERMISSION_NO_ACCESS);
-
         return new ResponseEntity<>(r, status);
     }
 
     @ExceptionHandler(UnauthenticatedException.class)
     ResponseEntity<Result> UnauthenticatedExceptionHandler(HttpServletRequest request, UnauthenticatedException e) {
-
         logger.error("登录认证错误 , uri: {} , caused by: ", request.getRequestURI(), e);
-
         HttpStatus status = HttpStatus.OK;
-
         Result r = new Result();
         r.setResultCode(ResultCode.USER_NOT_LOGGED_IN);
-
         return new ResponseEntity<>(r, status);
     }
 
 
     @ExceptionHandler(Exception.class)
     ResponseEntity<Result> ExceptionHandler(HttpServletRequest request, Exception e) {
-
         logger.error("服务器内部错误 , uri: {} , caused by: ", request.getRequestURI(), e);
-
         HttpStatus status = getStatus(request);
         Result r = new Result();
         r.setResultCode(ResultCode.SYSTEM_INNER_ERROR);
-
         r.simple().put("errdetail", e.getMessage());
-
         return new ResponseEntity<>(r, status);
     }
 

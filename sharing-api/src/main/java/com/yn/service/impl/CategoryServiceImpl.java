@@ -43,7 +43,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     @Transactional
     public Integer updateCategory(Category category) {
-        return dao.update(category);
+        return dao.updateByPrimaryKeySelective(category);
     }
 
     @Override

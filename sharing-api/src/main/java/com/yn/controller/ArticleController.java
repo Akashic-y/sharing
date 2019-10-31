@@ -31,10 +31,8 @@ import com.yn.service.ArticleService;
 
 /**
  * 文章api
- *
  * @author yn
- *         <p>
- *         2018年1月25日
+ * @Date   2018年1月25日
  */
 @RestController
 @RequestMapping(value = "/articles")
@@ -58,7 +56,7 @@ public class ArticleController {
 	@LogAnnotation(module = "文章", operation = "获取最热文章")
 	public Result listHotArticles() {
 		int limit = 6;
-		List<Content> articles = articleService.listHotArticles(limit);
+		List<Article> articles = articleService.listHotArticles(limit);
 
 		return Result.success(articles);
 	}
@@ -68,8 +66,7 @@ public class ArticleController {
 	@LogAnnotation(module = "文章", operation = "获取最新文章")
 	public Result listNewArticles() {
 		int limit = 6;
-		List<Content> articles = articleService.listNewArticles(limit);
-
+		List<Article> articles = articleService.listNewArticles(limit);
 		return Result.success(articles);
 	}
 

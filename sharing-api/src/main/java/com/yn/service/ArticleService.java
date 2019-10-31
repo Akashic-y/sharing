@@ -35,9 +35,9 @@ public interface ArticleService {
 
     Article getArticleAndAddViews(Integer id);
 
-    List<Content> listHotArticles(int limit);
+    List<Article> listHotArticles(int limit);
 
-    List<Content> listNewArticles(int limit);
+    List<Article> listNewArticles(int limit);
 
 	List<Content> listArticles(ArticleForm article, PageVo page);
 

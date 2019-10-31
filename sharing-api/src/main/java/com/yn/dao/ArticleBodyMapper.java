@@ -1,13 +1,8 @@
 package com.yn.dao;
 
 import com.yn.entity.ArticleBody;
+import tk.mybatis.mapper.common.Mapper;
 
-public interface ArticleBodyMapper {
-	int deleteByPrimaryKey(Long id);
-
-	int insertSelective(ArticleBody record);
-
-	ArticleBody selectByPrimaryKey(Long id);
-
+public interface ArticleBodyMapper extends Mapper<ArticleBody> {
 	int update(ArticleBody record);
 }
