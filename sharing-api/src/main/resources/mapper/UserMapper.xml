@@ -26,36 +26,36 @@
 	<select id="selectById" parameterType="java.lang.Long" resultMap="BaseResultMap">
 		select
 		<include refid="Base_Column_List" />
-		from user
+		from sys_user
 		where id = #{id,jdbcType=BIGINT} and deleted = 0
 	</select>
 	<select id="findAll" parameterType="java.lang.Long" resultMap="BaseResultMap">
 		select
 		<include refid="Base_Column_List" />
-		from user
+		from sys_user
 		where deleted = 0
 	</select>
 	<select id="findByAccount" parameterType="java.lang.String" resultMap="BaseResultMap">
 		select
 		<include refid="Base_Column_List" />
-		from user
+		from sys_user
 		where account = #{account} and deleted = 0
 	</select>
 	<select id="exitUser" parameterType="java.lang.String" resultType="java.lang.Integer">
 		select count(1)
-		from user
+		from sys_user
 		where account = #{account} and deleted = 0
 	</select>
 	<update id="deleteById" parameterType="java.lang.Long">
-		update user set deleted = 1
+		update sys_user set deleted = 1
 		where id = #{id,jdbcType=BIGINT}
 	</update>
 
 	<update id="updateLoginInfo" >
-		update user set last_login = now(),last_ip = #{ip}  where id = #{id}
+		update sys_user set last_login = now(),last_ip = #{ip}  where id = #{id}
 	</update>
 	
 	<select id="getLimitIp" resultType="java.lang.String">
-		SELECT ip FROM limit_ip where status = 1
+		SELECT ip FROM sys_limit_ip where status = 1
 	</select>
 </mapper>

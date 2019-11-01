@@ -33,7 +33,7 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public Comment getCommentById(Integer id) {
-        return cdao.selectByPrimaryKey(id);
+        return cdao.selectById(id);
     }
 
     @Override

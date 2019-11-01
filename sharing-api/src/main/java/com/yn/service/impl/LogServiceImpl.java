@@ -15,11 +15,11 @@ import org.springframework.stereotype.Service;
 public class LogServiceImpl implements LogService {
 
     @Autowired
-    private LogMapper dao;
+    private LogMapper logMapper;
 
     @Override
     public Integer saveLog(Log log) {
-    	dao.insertSelective(log);
+        logMapper.insertSelective(log);
         return log.getId();
     }
 }

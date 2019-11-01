@@ -2,38 +2,51 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yn.dao.CommentMapper">
   <resultMap id="BaseResultMap" type="com.yn.entity.Comment">
-    <constructor>
-      <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="content" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="create_date" javaType="java.util.Date" />
-      <arg column="level" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="article_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="author_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="parent_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="to_uid" javaType="java.lang.Integer" jdbcType="INTEGER" />
-    </constructor>
+    <id column="aid"  property="id"/>
+    <result column="content" property="content"/>
+    <result column="create_date"  property="createDate"/>
+    <result column="level"  property="level"/>
+    <result column="article_id" property="articleId"/>
+    <result column="author_id" property="authorId"/>
+    <result column="parent_id" property="parentId"/>
+    <result column="to_uid" property="toUid"/>
+    <collection column="aid" select="getChildrens" property="childrens" ofType="com.yn.entity.Comment" javaType="java.util.ArrayList">
+    </collection>
   </resultMap>
   <sql id="Base_Column_List">
-    id, content, create_date, level, article_id, author_id, parent_id, to_uid
+    id as aid, content, create_date, level, article_id, author_id, parent_id, to_uid
   </sql>
 
   <select id="findAll" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
-    from comment
-    where deleted = 0
+    from me_comment
+    where deleted = 0 and parent_id is Null
   </select>
 
   <select id="findByArticle" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from comment
-    where article_id = #{id,jdbcType=INTEGER} and deleted = 0 and level = 0
+    from me_comment
+    where article_id = #{id,jdbcType=INTEGER} and deleted = 0 and level = 0 and parent_id is Null
     order by create_date desc
   </select>
-  
+  <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select
+    <include refid="Base_Column_List" />
+    from me_comment
+    where deleted = 0 and id = #{id}
+  </select>
+
+  <select id="getChildrens" resultType="com.yn.entity.Comment" parameterType="java.lang.Integer">
+    select
+    id, content, create_date, level, article_id, author_id, parent_id, to_uid
+    from me_comment
+    where deleted = 0 and parent_id = #{id}
+  </select>
+
   <update id="deleteById" parameterType="java.lang.Integer">
-    update comment set deleted = 1
+    update me_comment set deleted = 1
     where id = #{id,jdbcType=INTEGER}
   </update>
 

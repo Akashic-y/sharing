@@ -6,6 +6,7 @@ import com.yn.common.entity.BaseEntity;
 
 import lombok.Data;
 
+import javax.persistence.Table;
 import javax.persistence.Transient;
 
 /**
@@ -14,6 +15,7 @@ import javax.persistence.Transient;
  * @Date   2019年1月23日
  */
 @Data
+@Table(name = "me_article")
 public class Article extends BaseEntity {
 
 	public static final int Article_TOP = 1;
@@ -31,15 +33,17 @@ public class Article extends BaseEntity {
 	/** 简介 */
 	private String summary;
 	
-	/** 标题*/
+	/** 标题 */
 	private String title;
 	
 	/** 浏览数量 */
 	private Integer viewCounts;
 
+	/** 作者 */
 	@Transient
 	private User author;
 
+	/** 文章正文 */
 	@Transient
 	private ArticleBody body;
 	
@@ -51,7 +55,7 @@ public class Article extends BaseEntity {
 	@Transient
 	private List<Tag> tags;
 
-	/** 评论*/
+	/** 评论 */
 	@Transient
 	private List<Comment> comments;
 

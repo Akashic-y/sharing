@@ -4,7 +4,10 @@ import java.util.Date;
 import com.yn.common.entity.BaseEntity;
 import lombok.Data;
 
+import javax.persistence.Table;
+
 @Data
+@Table(name = "sys_log")
 public class Log extends BaseEntity{
 	private static final long serialVersionUID = 982244216766824068L;
 

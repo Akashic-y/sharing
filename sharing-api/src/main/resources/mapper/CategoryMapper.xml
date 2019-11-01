@@ -9,21 +9,21 @@
   <select id="findAll" resultType="com.yn.entity.Category">
     select 
     <include refid="Base_Column_List" />
-    from category
+    from me_category
   </select>
   
   <select id="findAllDetail" resultType="com.yn.vo.CategoryVO">
     select 
     c.avatar, c.categoryname, c.description,
     (select count(1) from article a where a.category_id = c.id ) as articles
-    from category c
+    from me_category c
   </select>
   
   <select id="getCategoryDetail" resultType="com.yn.vo.CategoryVO" parameterType="java.lang.Integer">
     select 
     c.avatar, c.categoryname, c.description,
     (select count(1) from article a where a.category_id = c.id ) as articles
-    from category c
+    from me_category c
     where id = #{id,jdbcType=INTEGER}
   </select>
   

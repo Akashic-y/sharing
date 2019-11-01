@@ -8,7 +8,7 @@ import com.yn.SharingApiApplicationTests;
 public class CategoryRepositoryTest extends SharingApiApplicationTests{
 
 	@Autowired
-	private CategoryMapper dao;
+	private CategoryMapper categoryMapper;
 
 	@Test
 	public void test() {

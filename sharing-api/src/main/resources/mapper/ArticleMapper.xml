@@ -45,10 +45,10 @@
 		select
 		a.id as aid,a.comment_counts,DATE_FORMAT(a.create_date,'%Y-%m-%d %H:%i:%S') as createDate,a.title,a.view_counts,
 		u.avatar,u.id as uid,u.nickname,b.id as bid,b.content_html,b.content,c.id as cid,c.categoryname,c.description
-		from article a
-		left join user u on u.id = a.author_id
-		left join article_body b on b.id = a.body_id
-		left join category c on c.id = a.category_id
+		from me_article a
+		left join sys_user u on u.id = a.author_id
+		left join me_article_body b on b.id = a.body_id
+		left join me_category c on c.id = a.category_id
 		where a.id = #{id,jdbcType=INTEGER} and a.deleted = 0
 	</select>
 
@@ -56,28 +56,28 @@
 		select
 		a.id as aid,a.comment_counts,DATE_FORMAT(a.create_date,'%Y-%m-%d %H:%i:%S') as createDate,a.title,a.view_counts,
 		u.avatar,u.id as uid,u.nickname,b.id as bid,b.content_html,b.content,c.id as cid,c.categoryname,c.description
-		from article a
-		left join user u on u.id = a.author_id
-		left join article_body b on b.id = a.body_id
-		left join category c on c.id = a.category_id
+		from me_article a
+		left join sys_user u on u.id = a.author_id
+		left join me_article_body b on b.id = a.body_id
+		left join me_category c on c.id = a.category_id
 		where a.deleted = 0
 	</select>
 
 	<select id="listArticleForms" resultType="com.yn.form.ArticleForm">
-		select year(create_date) as year,month(create_date) as month,count(*) as count from article where deleted = 0 group by year(create_date),month(create_date)
+		select year(create_date) as year,month(create_date) as month,count(*) as count from me_article where deleted = 0 group by year(create_date),month(create_date)
 	</select>
 
 	<select id="listArticles" resultMap="BaseResultMap" parameterType="com.yn.form.ArticleForm">
 		select
 		a.id as aid,a.comment_counts, DATE_FORMAT(a.create_date,'%Y-%m-%d %H:%i:%S') as createDate, a.summary, a.title, a.view_counts, a.weight,
 		u.id as uid,u.nickname
-		from article a
-		left join user u on u.id = a.author_id
+		from me_article a
+		left join sys_user u on u.id = a.author_id
 		<if test="tagId != null and tagId!=''">
-		left join article_tag at on at.article_id = a.id and at.tag_id = #{tagId}
+		left join me_article_tag at on at.article_id = a.id and at.tag_id = #{tagId}
 		</if>
 		<if test="categoryId != null and categoryId!=''">
-		left join category c on c.id = a.category_id and c.id=#{categoryId}
+		left join me_category c on c.id = a.category_id and c.id=#{categoryId}
 		</if>
 		where a.deleted = 0
 		<if test="year != null and year !=''">
@@ -94,12 +94,12 @@
 	<select id="listArticlesName" resultType="com.yn.entity.Article" parameterType="com.yn.form.ArticleForm">
 		select
 		a.id ,a.title
-		from article a
+		from me_article a
 		<if test="tagId != null and tagId!=''">
-		join article_tag at on at.article_id = a.id and at.tag_id = #{tagId}
+		join me_article_tag at on at.article_id = a.id and at.tag_id = #{tagId}
 		</if>
 		<if test="categoryId != null and categoryId!=''">
-		join category c on c.id = a.category_id and c.id=#{categoryId}
+		join me_category c on c.id = a.category_id and c.id=#{categoryId}
 		</if>
 		where a.deleted = 0
 		<if test="orderBy != null">
@@ -111,8 +111,8 @@
 		select
 		a.id as aid,a.comment_counts, a.create_date, a.summary, a.title, a.view_counts, a.weight,
 		u.id as uid,u.nickname
-		from article a
-		left join user u on u.id = a.author_id
+		from me_article a
+		left join sys_user u on u.id = a.author_id
 		where a.deleted = 0
 		order by a.view_counts desc
 	</select>
@@ -121,8 +121,8 @@
 		select
 		a.id as aid,a.comment_counts, a.create_date, a.summary, a.title, a.view_counts, a.weight,
 		u.id as uid,u.nickname
-		from article a
-		left join user u on u.id = a.author_id
+		from me_article a
+		left join sys_user u on u.id = a.author_id
 		where a.deleted = 0
 		order by a.create_date desc
 	</select>
@@ -130,36 +130,36 @@
 	<select id="getTag" resultType="com.yn.entity.Tag" parameterType="int">
 		select DISTINCT 
 		at.tag_id as id,t.tagname
-		from article_tag at
+		from me_article_tag at
 		join me_tag t on at.tag_id = t.id
 		where article_id = #{id,jdbcType=INTEGER}
 	</select>
 
 	<update id="deleteById" parameterType="java.lang.Integer">
-		update article set deleted = 1
+		update me_article set deleted = 1
 		where id = #{id,jdbcType=INTEGER}
 	</update>
 
 	<insert id="insertTags">
 		<foreach collection="tags" index="index" item="tag">
-			insert into article_tag (article_id,tag_id) values(#{articleId},#{tag.id});
+			insert into me_article_tag (article_id,tag_id) values(#{articleId},#{tag.id});
 	    </foreach>  
 	</insert>
 
 	<update id="addView" parameterType="java.lang.Integer">
-		update article set view_counts = view_counts + 1 where id = #{id}
+		update me_article set view_counts = view_counts + 1 where id = #{id}
 	</update>
 	
 	<update id="changeCount" parameterType="java.lang.Integer">
-		update article set comment_counts = comment_counts + 1 where id = #{id}
+		update me_article set comment_counts = comment_counts + 1 where id = #{id}
 	</update>
 	
 	<update id="reduceCount" parameterType="java.lang.Integer">
-		update article a INNER join comment c on c.id = #{id} and c.article_id = a.id
+		update me_article a INNER join me_comment c on c.id = #{id} and c.article_id = a.id
 		set a.comment_counts = a.comment_counts - 1
 	</update>
 	
 	<delete id="deleteTags" parameterType="java.lang.Integer">
-	    delete from article_tag where article_id = #{id,jdbcType=INTEGER}
+	    delete from me_article_tag where article_id = #{id,jdbcType=INTEGER}
 	</delete>
 </mapper>

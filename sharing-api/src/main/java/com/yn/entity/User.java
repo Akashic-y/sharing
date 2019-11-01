@@ -5,7 +5,10 @@ import com.yn.common.entity.BaseEntity;
 import com.yn.form.StaticValue;
 import lombok.Data;
 
+import javax.persistence.Table;
+
 @Data
+@Table(name = "sys_user")
 public class User extends BaseEntity {
 	private static final long serialVersionUID = 7038503285561248484L;
 

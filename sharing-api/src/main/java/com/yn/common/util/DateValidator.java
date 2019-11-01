@@ -272,7 +272,6 @@ public class DateValidator {
 			try {
 				return target_sdf.format(front_sdf.parse(Date));
 			} catch (ParseException e) {
-				// TODO Auto-generated catch block
 				return null;
 			}
 		} else {

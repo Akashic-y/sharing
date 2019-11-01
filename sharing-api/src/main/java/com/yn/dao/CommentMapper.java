@@ -11,4 +11,6 @@ public interface CommentMapper extends Mapper<Comment> {
 	List<Comment> findByArticle(Integer id);
 
 	void deleteById(Integer id);
+
+	Comment selectById(Integer id);
 }

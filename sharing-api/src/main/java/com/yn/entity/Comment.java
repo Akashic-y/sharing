@@ -5,9 +5,14 @@ import java.util.List;
 import com.yn.common.entity.BaseEntity;
 import lombok.Data;
 
+import javax.persistence.Table;
 import javax.persistence.Transient;
 
+/**
+ * 评论
+ */
 @Data
+@Table(name = "me_comment")
 public class Comment extends BaseEntity{
 
     private String content;
