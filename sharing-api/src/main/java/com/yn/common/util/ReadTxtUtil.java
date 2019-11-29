@@ -6,7 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class ReadTxtUtil {
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         readAndWriteFile();
     }
 
