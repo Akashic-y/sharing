@@ -1,6 +1,6 @@
 package com.yn.config;
 
-import com.yn.filter.SessionFilter;
+import com.yn.common.filter.SessionFilter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

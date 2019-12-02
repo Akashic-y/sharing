@@ -1,4 +1,4 @@
-package com.yn.form;
+package com.yn.common.constant;
 
 public interface StaticValue {
 	

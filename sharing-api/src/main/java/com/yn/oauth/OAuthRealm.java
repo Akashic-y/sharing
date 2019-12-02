@@ -19,7 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.yn.common.constant.Base;
 import com.yn.common.util.IpUtils;
 import com.yn.entity.User;
-import com.yn.form.StaticValue;
+import com.yn.common.constant.StaticValue;
 import com.yn.service.UserService;
 
 /**

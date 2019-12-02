@@ -1,4 +1,4 @@
-package com.yn.filter;
+package com.yn.common.filter;
 
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;

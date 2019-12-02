@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.yn.SharingApiApplicationTests;
 import com.yn.entity.User;
-import com.yn.form.StaticValue;
+import com.yn.common.constant.StaticValue;
 
 public class UserServiceTest extends SharingApiApplicationTests{
 

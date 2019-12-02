@@ -1,5 +1,6 @@
 package com.yn.form;
 
+import com.yn.common.constant.StaticValue;
 import lombok.Data;
 
 @Data

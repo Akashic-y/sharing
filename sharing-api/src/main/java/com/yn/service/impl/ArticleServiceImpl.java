@@ -18,7 +18,7 @@ import com.yn.dao.ArticleMapper;
 import com.yn.entity.Article;
 import com.yn.entity.User;
 import com.yn.form.ArticleForm;
-import com.yn.form.StaticValue;
+import com.yn.common.constant.StaticValue;
 import com.yn.service.ArticleService;
 
 /**

@@ -21,5 +21,4 @@ public class CategoryVO extends Category {
         this.articles = articles;
     }
 
-
 }

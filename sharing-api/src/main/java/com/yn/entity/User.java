@@ -2,7 +2,7 @@ package com.yn.entity;
 
 import java.util.Date;
 import com.yn.common.entity.BaseEntity;
-import com.yn.form.StaticValue;
+import com.yn.common.constant.StaticValue;
 import lombok.Data;
 
 import javax.persistence.Table;
