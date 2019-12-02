@@ -1,9 +1,7 @@
 package com.yn.common.util;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class ReadTxtUtil {
     public static void main(String[] args) {
