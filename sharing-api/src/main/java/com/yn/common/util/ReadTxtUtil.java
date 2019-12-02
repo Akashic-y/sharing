@@ -14,7 +14,7 @@ public class ReadTxtUtil {
      * 读入TXT文件
      */
     public static void readAndWriteFile() {
-        String pathname = "C:\\Users\\Administrator\\Desktop\\日常文件\\人员.txt";
+        String pathname = "C:\\Users\\Administrator\\Desktop\\日常文件\\人员_20191202.txt";
         String pathname2 = "C:\\Users\\Administrator\\Desktop\\日常文件\\人员_20191127.txt";
         List<String> List1=new ArrayList<>();
         List<String> List2=new ArrayList<>();
@@ -54,8 +54,10 @@ public class ReadTxtUtil {
                 }
             }
             System.out.println("------------------");
+            out.write("-----------------------------\r\n");// \r\n即为换行
             for(String item:List2) {
                 if(!List1.contains(item)) {
+                    out.write(item + "\t\r\n");// \r\n即为换行
                     System.out.println(item);
                     j++;
                 }
