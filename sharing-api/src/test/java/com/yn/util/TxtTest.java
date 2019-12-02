@@ -14,8 +14,8 @@ public class TxtTest {
 
     @Test
     public void readAndWriteFile() {
-        String pathname = "C:\\Users\\Administrator\\Desktop\\日常文件\\人员_20191202.txt";
-        String pathname2 = "C:\\Users\\Administrator\\Desktop\\日常文件\\人员_20191127.txt";
+        String pathname = "C:\\Users\\Administrator\\Desktop\\日常文件\\txt\\人员_20191202.txt";
+        String pathname2 = "C:\\Users\\Administrator\\Desktop\\日常文件\\txt\\人员_20191127.txt";
         List<String> List1=new ArrayList<>();
         List<String> List2=new ArrayList<>();
         try {
@@ -71,7 +71,7 @@ public class TxtTest {
 
     @Test
     public void testJson(){
-        String path = "C:\\Users\\Administrator\\Desktop\\日常文件\\y-cloud.txt";
+        String path = "C:\\Users\\Administrator\\Desktop\\日常文件\\txt\\research.txt";
         try {
             FileReader fr = new FileReader(path);
             BufferedReader br = new BufferedReader(fr);
@@ -115,7 +115,7 @@ public class TxtTest {
 
     @Test
     public void readLog(){
-        String path = "C:\\Users\\Administrator\\Desktop\\日常文件\\cloud.txt";
+        String path = "C:\\Users\\Administrator\\Desktop\\日常文件\\txt\\cloud.txt";
         try {
             FileReader fr = new FileReader(path);
             BufferedReader br = new BufferedReader(fr);
@@ -155,4 +155,5 @@ public class TxtTest {
             e.printStackTrace();
         }
     }
+
 }

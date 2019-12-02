@@ -67,7 +67,7 @@ public class WindowsSystemTool {
     public static String getWindowsMACAddress() {
         String mac = null;
         BufferedReader bufferedReader = null;
-        Process process = null;
+        Process process;
         try {
             process = Runtime.getRuntime().exec("ipconfig /all");
             // windows下的命令，显示信息中包含有mac地址信息
@@ -96,8 +96,6 @@ public class WindowsSystemTool {
             } catch (IOException e1) {
             	logger.error(e1.getMessage());
             }
-            bufferedReader = null;
-            process = null;
         }
         
         return mac;
@@ -146,19 +144,19 @@ public class WindowsSystemTool {
                 if (caption.equals("System Idle Process")
                         || caption.equals("System")) {
                     if (s1.length() > 0) {
-                        idletime += Long.valueOf(s1);
+                        idletime += Long.parseLong(s1);
                     }
                     if (s2.length() > 0) {
-                        idletime += Long.valueOf(s2);
+                        idletime += Long.parseLong(s2);
                     }
                     continue;
                 }
                 
                 if (s1.length() > 0) {
-                    kneltime += Long.valueOf(s1);
+                    kneltime += Long.parseLong(s1);
                 }
                 if (s2.length() > 0) {
-                    usertime += Long.valueOf(s2);
+                    usertime += Long.parseLong(s2);
                 }
             }
             retn[0] = idletime;

@@ -21,9 +21,9 @@ public class SessionFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         String requestStr = getRequestString(request);
-        log.info("requestStr： ======================== " + requestStr);
-        log.info("完整的地址是====" + request.getRequestURL().toString());
-        log.info("提交的方式是========" + request.getMethod());
+//        log.info("requestStr： ======================== " + requestStr);
+//        log.info("完整的地址是====" + request.getRequestURL().toString());
+//        log.info("提交的方式是========" + request.getMethod());
 
         if ("Y".equals(guolv2(requestStr)) || "Y".equals(guolv2(request.getRequestURL().toString()))) {
             log.info("======访问地址发现非法字符，已拦截======其非法地址为："+guolv2(request.getRequestURL().toString()));

@@ -28,7 +28,7 @@ public class OAuthSessionDAO extends CachingSessionDAO implements InitializingBe
 	protected Serializable doCreate(Session session) {
 		Serializable sessionId = generateSessionId(session);
 		assignSessionId(session, sessionId);
-		logger.info(sessionId.toString());
+//		logger.info(sessionId.toString());
 
 		redisManager.set(sessionId.toString(), session, RedisManager.DEFAULT_EXPIRE);
 		return sessionId;
@@ -39,7 +39,7 @@ public class OAuthSessionDAO extends CachingSessionDAO implements InitializingBe
 		if (session instanceof ValidatingSession && !((ValidatingSession) session).isValid()) {
 			return; // 如果会话过期/停止 没必要再更新了
 		}
-		logger.info(session.getId().toString());
+//		logger.info(session.getId().toString());
 		redisManager.set(session.getId().toString(), session, RedisManager.DEFAULT_EXPIRE);
 	}
 
@@ -50,7 +50,7 @@ public class OAuthSessionDAO extends CachingSessionDAO implements InitializingBe
 
 	@Override
 	protected Session doReadSession(Serializable sessionId) {
-		logger.info(sessionId.toString());
+//		logger.info(sessionId.toString());
 		return redisManager.get(sessionId.toString(), Session.class);
 	}
 
