@@ -1,9 +1,7 @@
 package com.yn.common.util;
 
-import java.io.BufferedReader;
-import java.io.DataInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -61,25 +59,27 @@ public class CommonTools {
 	public static String getExecCmdResult(String cmd) {
 		StringBuffer sb = new StringBuffer();
 		StringBuffer str = new StringBuffer();
-		str.append("cmd.exe /c \"").append(cmd).append("\"");
+		str.append("cmd /c \"").append(cmd).append("\"");
 		logger.info(str.toString());
-		Process ls_proc = null;
 		try {
-			ls_proc = Runtime.getRuntime().exec(str.toString());
+			Process ls_proc = Runtime.getRuntime().exec(str.toString());
+			ls_proc.waitFor();
 			BufferedReader in = new BufferedReader(new InputStreamReader(new DataInputStream(ls_proc.getInputStream()),"GBK"));
-			String ss = null;
+			String ss;
 			while ((ss = in.readLine()) != null) {
 				sb.append(ss).append("\n");
 			}
 			in.close();
-		} catch (IOException e) {
+		} catch (IOException | InterruptedException e) {
 			logger.error(e.getMessage());
 		}
 		logger.info(sb.toString());
 		return sb.toString();
 	}
+
 	public static void main(String[] args) {
-		//getExecCmdResult("ipconfig");
-		getExecCmdResult("ping www.qq.com");
+		String execCmdResult = getExecCmdResult("ipconfig");
+//		String execCmdResult = getExecCmdResult("ping www.qq.com");
+		System.out.println(execCmdResult);
 	}
 }
