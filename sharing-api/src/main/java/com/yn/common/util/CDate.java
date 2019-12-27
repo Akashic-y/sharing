@@ -51,8 +51,7 @@ public class CDate {
 	 * 方法功能：获得当前时间 参数说明： 返回值：
 	 */
 	public static Date getcurdate() {
-		Date ldt_rq = new Date();
-		return ldt_rq;
+		return new Date();
 	}
 
 	public static Calendar getCalender() {
@@ -149,22 +148,30 @@ public class CDate {
 	// 获得两个日期间隔时间
 	public static long getruntime(Date adt_rq1, Date adt_rq2, String as_lx) {
 		long ll_return = 0;
-		if (as_lx.equals("秒")) {
-			ll_return = (adt_rq2.getTime() - adt_rq1.getTime()) / 1000;
-		} else if (as_lx.equals("分")) {
-			ll_return = (adt_rq2.getTime() - adt_rq1.getTime()) / 60000;
-		} else if (as_lx.equals("小时")) {
-			ll_return = (adt_rq2.getTime() - adt_rq1.getTime()) / 3600000;
-		} else if (as_lx.equals("天")) {
-			ll_return = (adt_rq2.getTime() - adt_rq1.getTime()) / (24 * 3600000);
-		} else if (as_lx.equals("月")) {
-			ll_return = Long.parseLong(getmonth(adt_rq2)) - Long.parseLong(getmonth(adt_rq1));
-			ll_return += (Long.parseLong(getyear(adt_rq2)) - Long.parseLong(getyear(adt_rq1))) * 12;
+		switch (as_lx) {
+			case "秒":
+				ll_return = (adt_rq2.getTime() - adt_rq1.getTime()) / 1000;
+				break;
+			case "分":
+				ll_return = (adt_rq2.getTime() - adt_rq1.getTime()) / 60000;
+				break;
+			case "小时":
+				ll_return = (adt_rq2.getTime() - adt_rq1.getTime()) / 3600000;
+				break;
+			case "天":
+				ll_return = (adt_rq2.getTime() - adt_rq1.getTime()) / (24 * 3600000);
+				break;
+			case "月":
+				ll_return = Long.parseLong(getmonth(adt_rq2)) - Long.parseLong(getmonth(adt_rq1));
+				ll_return += (Long.parseLong(getyear(adt_rq2)) - Long.parseLong(getyear(adt_rq1))) * 12;
 //             if(ll_return<0) ll_return+=12;
-		} else if (as_lx.equals("年")) {
-			ll_return = Long.parseLong(getyear(adt_rq2)) - Long.parseLong(getyear(adt_rq1));
-		} else if (as_lx.equals("毫秒")) {
-			ll_return = (adt_rq2.getTime() - adt_rq1.getTime());
+				break;
+			case "年":
+				ll_return = Long.parseLong(getyear(adt_rq2)) - Long.parseLong(getyear(adt_rq1));
+				break;
+			case "毫秒":
+				ll_return = (adt_rq2.getTime() - adt_rq1.getTime());
+				break;
 		}
 
 		return ll_return;
@@ -177,7 +184,6 @@ public class CDate {
 
 	public static String getruntime2(Date adt_rq1, Date adt_rq2, String as_lx) {
 		StringBuffer lsb_rtn = new StringBuffer(50);
-		long ll_item = 0;
 		long ll_ms = adt_rq2.getTime() - adt_rq1.getTime();
 //         System.out.println(ll_ms);
 		String[] larray_1 = { "天", "小时", "分", "秒", "毫秒" };
@@ -186,7 +192,7 @@ public class CDate {
 		for (int li_1 = 0; li_1 < li_count; li_1++) {
 			if (ll_ms == 0)
 				return lsb_rtn.toString();
-			ll_item = ll_ms / larray_2[li_1];
+			long ll_item = ll_ms / larray_2[li_1];
 			if (ll_item > 0) {
 				lsb_rtn.append(ll_item);
 				lsb_rtn.append(larray_1[li_1]);
@@ -225,7 +231,7 @@ public class CDate {
 	}
 
 	public static Date getdate(String as_date) {
-		Date ldt_rq = null;
+		Date ldt_rq;
 		try {
 			int li_len = as_date.length();
 			if (as_date.contains("-") && li_len == 10) {
@@ -380,7 +386,7 @@ public class CDate {
 	// 获得指定年第几天的日期
 	public static Date getdayofyear(int ai_year, int ai_day) {
 		Calendar cal = Calendar.getInstance();
-		cal.set(ai_year, 11, 31);
+		cal.set(ai_year, Calendar.DECEMBER, 31);
 		cal.set(Calendar.DAY_OF_YEAR, ai_day);
 		String year = String.valueOf(cal.get(Calendar.YEAR));
 		String month = String.valueOf(cal.get(Calendar.MONTH) + 1);
@@ -391,7 +397,7 @@ public class CDate {
 	// 获得指定年天数
 	public static int getdayofyear(int ai_year) {
 		Calendar cal = Calendar.getInstance();
-		cal.set(ai_year, 11, 31);
+		cal.set(ai_year, Calendar.DECEMBER, 31);
 		return cal.get(Calendar.DAY_OF_YEAR);
 	}
 
@@ -608,17 +614,21 @@ public class CDate {
 
 		int day = Integer.parseInt(getdateformat(adt_rq, "dd"));
 		cal.set(year, month - 1, day);
-		if (as_lx.equals("weekOfMonth")) {
-			li_return = cal.get(Calendar.WEEK_OF_MONTH);
-		} else if (as_lx.equals("weekOfYear")) {
-			li_return = cal.get(Calendar.WEEK_OF_YEAR);
-		} else if (as_lx.equals("chinaweekOfYear")) {
-			int li_day = getdayofyear(adt_rq);
-			if (li_day % 7 == 0) {
-				li_return = li_day / 7;
-			} else {
-				li_return = li_day / 7 + 1;
-			}
+		switch (as_lx) {
+			case "weekOfMonth":
+				li_return = cal.get(Calendar.WEEK_OF_MONTH);
+				break;
+			case "weekOfYear":
+				li_return = cal.get(Calendar.WEEK_OF_YEAR);
+				break;
+			case "chinaweekOfYear":
+				int li_day = getdayofyear(adt_rq);
+				if (li_day % 7 == 0) {
+					li_return = li_day / 7;
+				} else {
+					li_return = li_day / 7 + 1;
+				}
+				break;
 		}
 		return li_return;
 	}
@@ -677,7 +687,7 @@ public class CDate {
 			if (li_pyl == 1)
 				li_pyl = -7;
 		} else {
-			li_pyl = 0 - Integer.parseInt(str);
+			li_pyl = -Integer.parseInt(str);
 		}
 		return getnext(adt_rq, li_pyl);
 	}
@@ -786,7 +796,7 @@ public class CDate {
 	// 判断指定天是否与当前日期匹配,ai_day:天，ai_pyl:偏移量(单位:天)
 	public static boolean mathDay(Date adt_rq, int ai_pyl) {
 		try {
-			Date ldt_rq1 = getnext(new Date(), 0 - ai_pyl);
+			Date ldt_rq1 = getnext(new Date(), -ai_pyl);
 			Date ldt_rq2 = getnext(new Date(), ai_pyl);
 			if (ldt_rq1.compareTo(adt_rq) <= 0 && ldt_rq2.compareTo(adt_rq) >= 0) {
 				return true;
@@ -950,7 +960,7 @@ public class CDate {
 			return -1;
 		}
 
-		result = 12 * (c2.get(Calendar.YEAR) - c1.get(Calendar.YEAR)) + c2.get(Calendar.MONDAY)
+		result = 12 * (c2.get(Calendar.YEAR) - c1.get(Calendar.YEAR)) + c2.get(Calendar.MONTH)
 				- c1.get(Calendar.MONTH);
 
 		return result;

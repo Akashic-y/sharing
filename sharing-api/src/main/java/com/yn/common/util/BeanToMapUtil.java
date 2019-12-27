@@ -33,7 +33,7 @@ public class BeanToMapUtil {
     public static <T> Map<String, String> beanToMap(T bean) {
 
         Class<? extends Object> type = bean.getClass();
-        Map<String, String> returnMap = new HashMap<String, String>();
+        Map<String, String> returnMap = new HashMap<>();
 
         try {
             BeanInfo beanInfo = Introspector.getBeanInfo(type);
@@ -42,15 +42,11 @@ public class BeanToMapUtil {
                 String propertyName = descriptor.getName();
                 if (!propertyName.equals("class")) {
                     Method readMethod = descriptor.getReadMethod();
-                    Object result = readMethod.invoke(bean, new Object[0]);
+                    Object result = readMethod.invoke(bean);
                     returnMap.put(propertyName, result == null ? null : result.toString());
                 }
             }
-        } catch (IntrospectionException e) {
-            log.error(e);
-        } catch (IllegalAccessException e) {
-            log.error(e);
-        } catch (InvocationTargetException e) {
+        } catch (IntrospectionException | InvocationTargetException | IllegalAccessException e) {
             log.error(e);
         }
         return returnMap;
@@ -58,8 +54,8 @@ public class BeanToMapUtil {
 
     public static <T> Map<String, Object> beanToMapObject(T bean) {
 
-        Class<? extends Object> type = bean.getClass();
-        Map<String, Object> returnMap = new HashMap<String, Object>();
+        Class<?> type = bean.getClass();
+        Map<String, Object> returnMap = new HashMap<>();
 
         try {
             BeanInfo beanInfo = Introspector.getBeanInfo(type);
@@ -68,15 +64,11 @@ public class BeanToMapUtil {
                 String propertyName = descriptor.getName();
                 if (!propertyName.equals("class") && !propertyName.endsWith("Str")) {
                     Method readMethod = descriptor.getReadMethod();
-                    Object result = readMethod.invoke(bean, new Object[0]);
+                    Object result = readMethod.invoke(bean);
                     returnMap.put(propertyName, result);
                 }
             }
-        } catch (IntrospectionException e) {
-            log.error(e);
-        } catch (IllegalAccessException e) {
-            log.error(e);
-        } catch (InvocationTargetException e) {
+        } catch (IntrospectionException | IllegalAccessException | InvocationTargetException e) {
             log.error(e);
         }
         return returnMap;
@@ -86,9 +78,9 @@ public class BeanToMapUtil {
     /**
      * 将一个Map对象转化为一个JavaBean
      * 
-     * @param map
+     * @param paramMap
      *            包含属性值的map
-     * @param bean
+     * @param clazz
      *            要转化的类型
      * @return beanObj 转化出来的JavaBean对象
      */
@@ -96,17 +88,11 @@ public class BeanToMapUtil {
         T beanObj = null;
         try {
             beanObj = clazz.newInstance();
-            String propertyName = null;
-            Object propertyValue = null;
             for (Map.Entry<String, Object> entity : paramMap.entrySet()) {
-                propertyName = entity.getKey();
-                propertyValue = entity.getValue();
+                String propertyName = entity.getKey();
+                Object propertyValue = entity.getValue();
                 setProperties(beanObj, propertyName, propertyValue);
             }
-        } catch (IllegalArgumentException e) {
-            log.error(e);
-        } catch (IllegalAccessException e) {
-            log.error(e);
         } catch (Exception e) {
             log.error(e);
         }
