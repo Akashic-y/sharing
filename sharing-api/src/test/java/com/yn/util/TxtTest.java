@@ -14,14 +14,14 @@ public class TxtTest {
 
     @Test
     public void readAndWriteFile() {
-        String pathname = "C:\\Users\\Administrator\\Desktop\\日常文件\\txt\\人员_20191202.txt";
-        String pathname2 = "C:\\Users\\Administrator\\Desktop\\日常文件\\txt\\人员_20191127.txt";
+        String oldOrder = "C:\\Users\\Administrator\\Desktop\\日常文件\\txt\\人员_20191202.txt";
+        String newOrder = "C:\\Users\\Administrator\\Desktop\\日常文件\\txt\\人员_20200102.txt";
         List<String> List1=new ArrayList<>();
         List<String> List2=new ArrayList<>();
         try {
-            FileReader reader = new FileReader(pathname);    // 建立一个对象，它把文件内容转成计算机能读懂的语言
+            FileReader reader = new FileReader(oldOrder);    // 建立一个对象，它把文件内容转成计算机能读懂的语言
             BufferedReader br = new BufferedReader(reader);
-            FileReader reader2 = new FileReader(pathname2);    // 建立一个对象，它把文件内容转成计算机能读懂的语言
+            FileReader reader2 = new FileReader(newOrder);    // 建立一个对象，它把文件内容转成计算机能读懂的语言
             BufferedReader br2 = new BufferedReader(reader2);
             String line;
 

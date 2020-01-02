@@ -13,8 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * TODO class purpose description
- * 
+ *
  * @author zhangweidong
  * @version 3.0 Revise History:
  * 
