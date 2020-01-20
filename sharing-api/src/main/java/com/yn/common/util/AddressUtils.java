@@ -6,6 +6,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+
 /**
  *  根据IP地址获取详细的地域信息
  *  @author YN
@@ -20,11 +23,11 @@ public class AddressUtils {
      *            服务器端请求编码。如GBK,UTF-8等
      * @return
      */
-    public static String getAddresses(String content, String encodingString) {
+    public static String getAddresses(String content, Charset encodingString) {
         // 这里调用pconline的接口
         String urlStr = "http://ip.taobao.com/service/getIpInfo.php";
         // 从http://whois.pconline.com.cn取得IP所在的省市区信息
-        String returnStr = getResult(urlStr, content, encodingString);
+        String returnStr = getResult(urlStr, content, StandardCharsets.UTF_8);
         if (returnStr != null) {
             // 处理返回的省市区信息
             System.out.println(returnStr);
@@ -84,7 +87,7 @@ public class AddressUtils {
      *            服务器端请求编码。如GBK,UTF-8等
      * @return
      */
-    private static String getResult(String urlStr, String content, String encoding) {
+    private static String getResult(String urlStr, String content, Charset encoding) {
         HttpURLConnection connection = null;
         try {
             URL url = new URL(urlStr);
@@ -96,8 +99,7 @@ public class AddressUtils {
             connection.setRequestMethod("POST");// 提交方法POST|GET
             connection.setUseCaches(false);// 是否缓存true|false
             connection.connect();// 打开连接端口
-            DataOutputStream out = new DataOutputStream(connection
-                    .getOutputStream());// 打开输出流往对端服务器写数据
+            DataOutputStream out = new DataOutputStream(connection.getOutputStream());// 打开输出流往对端服务器写数据
             out.writeBytes(content);// 写数据,也就是提交你的表单 name=xxx&pwd=xxx
             out.flush();// 刷新
             out.close();// 关闭输出流
@@ -169,8 +171,7 @@ public class AddressUtils {
                                 value = (value << 4) + 10 + aChar - 'A';
                                 break;
                             default:
-                                throw new IllegalArgumentException(
-                                        "Malformed      encoding.");
+                                throw new IllegalArgumentException("Malformed encoding.");
                         }
                     }
                     outBuffer.append((char) value);
@@ -197,7 +198,7 @@ public class AddressUtils {
     public static void main(String[] args) {
 //        String ip = "163.177.13.2";凯子
         String ip = "218.17.161.178";
-        String address = getAddresses("ip="+ip, "utf-8");
+        String address = getAddresses("ip="+ip, StandardCharsets.UTF_8);
         System.out.println(address);
         // 输出结果为：广东省,深圳市
     }

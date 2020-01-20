@@ -18,7 +18,7 @@ import org.apache.commons.lang3.time.DateFormatUtils;
   * @author YN
   * @date 2019年8月27日 下午5:52:04
  */
-public class CDate {
+public class DateUtils {
 
 	/*
 	 * 方法功能：获得当前运行毫秒 参数说明： 返回值：
@@ -34,6 +34,7 @@ public class CDate {
 	public static final String DATEFORMAT2 = "yyyy-MM-dd HH:mm:ss";// 默认日期格式
 	public static final String DATEFORMAT3 = "yyyy-MM-dd";// 默认日期格式
 	public static final String DATEFORMAT4 = "yyyy-MM";// 默认日期格式
+	public static final String DATEFORMAT5 = "yyyyMMdd_HH_mm_ss_SSS";// 默认日期格式
 
 	public static String getcurrentdate() {
 		return getdateformat(new Date(), DATEFORMAT);
@@ -45,6 +46,9 @@ public class CDate {
 
 	public static String getcurrentdate3() {
 		return getdateformat(new Date(), DATEFORMAT3);
+	}
+	public static String getcurrentdate4() {
+		return getdateformat(new Date(), DATEFORMAT5);
 	}
 
 	/*
@@ -207,7 +211,7 @@ public class CDate {
 	// 获得从指定日期到现在的运行时间
 	public static String getruntime(Date adt_rq1) {
 		Date ldt_2 = new Date();
-		return CDate.getdate(ldt_2) + ":" + CDate.getruntime2(adt_rq1, ldt_2);
+		return DateUtils.getdate(ldt_2) + ":" + DateUtils.getruntime2(adt_rq1, ldt_2);
 	}
 
 	// 将字符串转化为日期
@@ -520,7 +524,7 @@ public class CDate {
 
 	// 提取一个月中的最后一天
 	public static Date getMonthEnd(Date adt_rq) {
-		return getMonthEnd(Integer.parseInt(CDate.getyear(adt_rq)), Integer.parseInt(CDate.getmonth(adt_rq)));
+		return getMonthEnd(Integer.parseInt(DateUtils.getyear(adt_rq)), Integer.parseInt(DateUtils.getmonth(adt_rq)));
 	}
 
 	// 提取一个月中的最后一天
@@ -530,7 +534,7 @@ public class CDate {
 
 	// 提取一个月中的第一天
 	public static Date getMonthFirst(Date adt_rq) {
-		return CDate.getdate(CDate.getyear(adt_rq) + "-" + CDate.getmonth(adt_rq) + "-01");
+		return DateUtils.getdate(DateUtils.getyear(adt_rq) + "-" + DateUtils.getmonth(adt_rq) + "-01");
 	}
 
 	// 获得当月第一个星期一的日期
@@ -710,7 +714,7 @@ public class CDate {
 
 	/* 根据日期获得节日名称 */
 	public static String getjr(Date adt_rq) {
-		String str = CDate.getdateformat(adt_rq, "MMdd");
+		String str = DateUtils.getdateformat(adt_rq, "MMdd");
 		return getjr(str);
 	}
 
@@ -761,7 +765,7 @@ public class CDate {
 
 	/* 根据日期获得星座 */
 	public static String getxz(Date adt_rq) {
-		String str = CDate.getdateformat(adt_rq, "MMdd");
+		String str = DateUtils.getdateformat(adt_rq, "MMdd");
 		return getxz(str);
 	}
 
@@ -1020,9 +1024,9 @@ public class CDate {
 	 */
 	public static String addMonth(String date, int monthNum) {
 		Calendar calendar = getCalender();
-		calendar.setTime(getdate(date, CDate.DATEFORMAT3));
+		calendar.setTime(getdate(date, DateUtils.DATEFORMAT3));
 		calendar.add(Calendar.MONTH, monthNum);
-		return DateFormatUtils.format(calendar, CDate.DATEFORMAT3);
+		return DateFormatUtils.format(calendar, DateUtils.DATEFORMAT3);
 	}
 
 	public static String getThen() {

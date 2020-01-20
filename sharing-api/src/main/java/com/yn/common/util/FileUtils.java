@@ -26,7 +26,7 @@ import java.util.regex.Pattern;
   * @author YN
   * @date 2019年8月27日 下午5:51:38
  */
-public class CFile {
+public class FileUtils {
 	public static final byte DIRCREATE_ALL = 0x03;// 创建所有上级目录
 
 	// 设置dircreatetype

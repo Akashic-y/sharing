@@ -1,5 +1,7 @@
 package com.yn.controller;
 
+import com.yn.common.util.AddressUtils;
+import com.yn.common.util.DateUtils;
 import com.yn.common.util.IpUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -7,13 +9,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 
 @RestController
 public class GetInfoController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String getInfo(HttpServletRequest request){
-        String path = "\\"+request.getSession().getId()+".txt";
+        String path = "\\"+ DateUtils.getcurrentdate4()+".txt";
         File f = new File(path);
         /**
          * 1.获得客户机信息
@@ -61,6 +64,8 @@ public class GetInfoController {
             bw.write("localName："+localName);
             bw.newLine();
             bw.write("浏览器类型："+agent);
+            bw.newLine();
+            bw.write("地址："+ AddressUtils.getAddresses("ip=" + nip,StandardCharsets.UTF_8));
             bw.flush();
             System.out.println("绝对路径--------------------" + f.getAbsolutePath());
         } catch (IOException e) {
