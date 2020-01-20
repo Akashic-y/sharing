@@ -195,6 +195,7 @@ public class AddressUtils {
 
     // 测试
     public static void main(String[] args) {
+//        String ip = "163.177.13.2";凯子
         String ip = "218.17.161.178";
         String address = getAddresses("ip="+ip, "utf-8");
         System.out.println(address);

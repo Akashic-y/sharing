@@ -30,7 +30,7 @@ public class GetInfoController {
         String localAddr = request.getLocalAddr();//获取WEB服务器的IP地址
         String localName = request.getLocalName();//获取WEB服务器的主机名
         String agent = request.getHeader("USER-AGENT");//浏览器类型
-
+        String nip = request.getHeader("X-Natapp-Ip");//通过NatApp获取访问者IP
         try {
             FileWriter fw = new FileWriter(path);
             BufferedWriter bw = new BufferedWriter(fw);
@@ -43,6 +43,8 @@ public class GetInfoController {
             bw.write("请求的URL地址中附带的参数："+queryString);
             bw.newLine();
             bw.write("来访者的IP地址："+remoteAddr);
+            bw.newLine();
+            bw.write("X-Natapp-Ip来访者的外网IP地址："+nip);
             bw.newLine();
             bw.write("来访者的主机名："+remoteHost);
             bw.newLine();
