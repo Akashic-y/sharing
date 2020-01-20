@@ -4,6 +4,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.*;
+import java.net.*;
+import java.nio.charset.StandardCharsets;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * 获取Ip
@@ -64,5 +69,63 @@ public class IpUtils {
     public static String getIpAddr() {
         HttpServletRequest request = HttpContextUtils.getHttpServletRequest();
         return getIpAddr(request);
+    }
+
+    public static void main(String[] args) {
+        try {
+            String ip = getIPLocal();
+            System.out.println("内网IP:" + ip);
+            System.out.println("外网IP："+getV4IP());
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
+    }
+
+
+    /**
+     * @Desc 获取内网IP
+     * @Author yn
+     * @Date 14:38 2020/1/20 0020
+     */
+    private static String getIPLocal() throws IOException {
+        InetAddress ia = InetAddress.getLocalHost();
+        return ia.getHostAddress();
+    }
+
+    /**
+     * 获取本机的外网ip地址
+     * @return
+     */
+    public static String getV4IP(){
+        String ip = "";
+        String chinaz = "http://ip.chinaz.com";
+
+        StringBuilder inputLine = new StringBuilder();
+        String read;
+        BufferedReader in = null;
+        try {
+            URL url = new URL(chinaz);
+            HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+            in = new BufferedReader( new InputStreamReader(urlConnection.getInputStream(), StandardCharsets.UTF_8));
+            while((read=in.readLine())!=null){
+                inputLine.append(read+"\r\n");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally{
+            if(in!=null){
+                try {
+                    in.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        Pattern p = Pattern.compile("<dd class=\"fz24\">(.*?)</dd>");
+        Matcher m = p.matcher(inputLine.toString());
+        if(m.find()){
+            ip = m.group(1);
+        }
+        return ip;
     }
 }
