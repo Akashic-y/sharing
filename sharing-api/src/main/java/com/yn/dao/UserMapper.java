@@ -19,7 +19,7 @@ public interface UserMapper extends Mapper<User> {
 
 	void updateLoginInfo(@Param("id") Integer id,@Param("ip") String ip);
 
-	Set<String> getLimitIp();
+	List<String> getLimitIp();
 
     void deleteById(Long id);
 }

@@ -54,8 +54,7 @@ public class CommentServiceImpl implements CommentService {
     public List<Comment> listCommentsByArticle(Integer id) {
     	//PageHelper.startPage(page.getPageNumber(), page.getPageSize(),true);
     	//TODO 给页面的数据类型
-    	List<Comment> rs = cdao.findByArticle(id);
-        return rs;
+        return cdao.findByArticle(id);
     }
 
     @Override

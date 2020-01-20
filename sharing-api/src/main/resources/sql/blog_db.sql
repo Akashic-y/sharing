@@ -212,3 +212,23 @@ CREATE TABLE `sys_limit_ip` (
   `status` bit(1) DEFAULT NULL COMMENT '状态 0禁用 1启用',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE `access_ip` (
+  `id` int(8) NOT NULL AUTO_INCREMENT,
+  `ip` varchar(32) DEFAULT '' COMMENT 'ip地址',
+  `update_date` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
+  `times` int(4) DEFAULT '0' COMMENT '访问次数',
+  `method` varchar(8) DEFAULT NULL COMMENT '请求方法',
+  `query_string` varchar(32) DEFAULT NULL COMMENT '请求的URL地址中附带的参数',
+  `path_info` varchar(32) DEFAULT NULL,
+  `address` varchar(64) DEFAULT NULL,
+  `request_url` varchar(64) DEFAULT NULL COMMENT '请求的URL地址',
+  `request_uri` varchar(64) DEFAULT NULL COMMENT '请求的资源',
+  `remote_host` varchar(32) DEFAULT NULL,
+  `remote_port` varchar(10) DEFAULT NULL COMMENT '端口号',
+  `remote_user` varchar(32) DEFAULT NULL,
+  `remote_addr` varchar(32) DEFAULT NULL,
+  `agent` varchar(254) DEFAULT NULL COMMENT '浏览器类型',
+  `create_date` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '访问时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

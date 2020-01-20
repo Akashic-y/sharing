@@ -1,5 +1,6 @@
 package com.yn.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
@@ -81,12 +82,12 @@ public class UserServiceImpl implements UserService {
 		if(redisManager.get("limitIP") == null) {
 			synchronized (this) {
 				if(redisManager.get("limitIP") == null) {
-					Set<String> limitIp = dao.getLimitIp();
+					List<String> limitIp = dao.getLimitIp();
 					redisManager.set("limitIP", limitIp);//默认30分钟
 				}
 			}
 		}
-		Set set = redisManager.get("limitIP",Set.class);
+		ArrayList set = redisManager.get("limitIP",ArrayList.class);
 		return set.contains(IpUtils.getIpAddr());
 	}
 

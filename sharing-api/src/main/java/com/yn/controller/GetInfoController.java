@@ -3,6 +3,9 @@ package com.yn.controller;
 import com.yn.common.util.AddressUtils;
 import com.yn.common.util.DateUtils;
 import com.yn.common.util.IpUtils;
+import com.yn.dao.AccessIpMapper;
+import com.yn.entity.AccessIp;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,21 +13,33 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.util.Date;
 
 @RestController
 public class GetInfoController {
 
+    @Autowired
+    private AccessIpMapper dao;
+
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String getInfo(HttpServletRequest request){
+        //通过NatApp获取访问者IP
+        String nip = request.getHeader("X-Natapp-Ip");
+        //判断是否已经存在ip记录，存在就加1
+        if(dao.existIp(nip) > 0){
+            dao.updateByIp(nip);
+            return null;
+        }
         String path = "\\"+ DateUtils.getcurrentdate4()+".txt";
         File f = new File(path);
+
         /**
          * 1.获得客户机信息
          */
         String requestUrl = request.getRequestURL().toString();//得到请求的URL地址
-        String remoteAddr = IpUtils.getIpAddr(request);//得到来访者的IP地址
         String requestUri = request.getRequestURI();//得到请求的资源
         String queryString = request.getQueryString();//得到请求的URL地址中附带的参数
+        String remoteAddr = IpUtils.getIpAddr(request);//得到来访者的IP地址
         String remoteHost = request.getRemoteHost();
         int remotePort = request.getRemotePort();
         String remoteUser = request.getRemoteUser();
@@ -33,7 +48,21 @@ public class GetInfoController {
         String localAddr = request.getLocalAddr();//获取WEB服务器的IP地址
         String localName = request.getLocalName();//获取WEB服务器的主机名
         String agent = request.getHeader("USER-AGENT");//浏览器类型
-        String nip = request.getHeader("X-Natapp-Ip");//通过NatApp获取访问者IP
+        String addresses = AddressUtils.getAddresses("ip=" + nip, StandardCharsets.UTF_8);
+        AccessIp accessIp = new AccessIp();
+        accessIp.setIp(nip);
+        accessIp.setTimes(1);
+        accessIp.setAgent(agent);
+        accessIp.setPathInfo(pathInfo);
+        accessIp.setQueryString(queryString);
+        accessIp.setRemoteHost(remoteHost);
+        accessIp.setRemotePort(remotePort);
+        accessIp.setRemoteUser(remoteUser);
+        accessIp.setRemoteAddr(remoteAddr);
+        accessIp.setRequestUri(requestUri);
+        accessIp.setRequestUrl(requestUrl);
+        accessIp.setAddress(addresses);
+        dao.insertSelective(accessIp);
         try {
             FileWriter fw = new FileWriter(path);
             BufferedWriter bw = new BufferedWriter(fw);
@@ -65,7 +94,7 @@ public class GetInfoController {
             bw.newLine();
             bw.write("浏览器类型："+agent);
             bw.newLine();
-            bw.write("地址："+ AddressUtils.getAddresses("ip=" + nip,StandardCharsets.UTF_8));
+            bw.write("地址："+ addresses);
             bw.flush();
             System.out.println("绝对路径--------------------" + f.getAbsolutePath());
         } catch (IOException e) {

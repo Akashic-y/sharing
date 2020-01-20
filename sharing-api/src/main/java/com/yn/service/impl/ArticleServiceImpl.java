@@ -142,8 +142,7 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public List<Article> listNewArticles(int limit) {
     	PageHelper.startPage(0, limit,true);
-    	List<Article> rs = dao.listArticlesName(new ArticleForm());
-        return rs;
+        return dao.listArticlesName(new ArticleForm());
     }
 
     @Override

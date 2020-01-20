@@ -74,7 +74,8 @@ public class AddressUtils {
             }
 
             System.out.println(country+"="+area+"="+region+"="+city+"="+county+"="+isp);
-            return region;
+//            return region;
+            return region+"-"+city+"-"+county+"-"+isp;
         }
         return null;
     }
@@ -103,18 +104,18 @@ public class AddressUtils {
             out.writeBytes(content);// 写数据,也就是提交你的表单 name=xxx&pwd=xxx
             out.flush();// 刷新
             out.close();// 关闭输出流
-            BufferedReader reader = new BufferedReader(new InputStreamReader(
-                    connection.getInputStream(), encoding));// 往对端写完数据对端服务器返回数据
-            // ,以BufferedReader流来读取
+            // 往对端写完数据对端服务器返回数据 ,以BufferedReader流来读取
+            BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream(), encoding));
             StringBuffer buffer = new StringBuffer();
-            String line = "";
+            String line;
             while ((line = reader.readLine()) != null) {
                 buffer.append(line);
             }
             reader.close();
             return buffer.toString();
         } catch (IOException e) {
-            e.printStackTrace();
+//            e.printStackTrace();
+            System.out.println("AddressUtils.getResult error");
         } finally {
             if (connection != null) {
                 connection.disconnect();// 关闭连接
