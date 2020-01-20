@@ -53,11 +53,8 @@ public class GetInfoController {
         accessIp.setIp(nip);
         accessIp.setTimes(1);
         accessIp.setAgent(agent);
-        accessIp.setPathInfo(pathInfo);
-        accessIp.setQueryString(queryString);
         accessIp.setRemoteHost(remoteHost);
         accessIp.setRemotePort(remotePort);
-        accessIp.setRemoteUser(remoteUser);
         accessIp.setRemoteAddr(remoteAddr);
         accessIp.setRequestUri(requestUri);
         accessIp.setRequestUrl(requestUrl);

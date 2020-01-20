@@ -31,16 +31,9 @@ public class AccessIp extends BaseEntity {
     //访问资源
     private String requestUri;
 
-    //请求参数
-    private String queryString;
-
     private String remoteHost;
 
     private int remotePort;
-
-    private String remoteUser;
-
-    private String pathInfo;
 
     //浏览器类型
     private String agent;
