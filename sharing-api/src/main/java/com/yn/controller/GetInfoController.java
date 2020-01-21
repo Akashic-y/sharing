@@ -1,5 +1,7 @@
 package com.yn.controller;
 
+import com.yn.common.annotation.LogAnnotation;
+import com.yn.common.result.Result;
 import com.yn.common.util.AddressUtils;
 import com.yn.common.util.DateUtils;
 import com.yn.common.util.IpUtils;
@@ -21,7 +23,8 @@ public class GetInfoController {
     private AccessIpMapper dao;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String getInfo(HttpServletRequest request){
+    @LogAnnotation(module = "获取浏览器信息", operation = "获取浏览器信息")
+    public Result getInfo(HttpServletRequest request){
         //通过NatApp获取访问者IP
         String nip = request.getHeader("X-Natapp-Ip");
         //判断是否已经存在ip记录，存在就加1
@@ -48,6 +51,7 @@ public class GetInfoController {
         String localName = request.getLocalName();//获取WEB服务器的主机名
         String agent = request.getHeader("USER-AGENT");//浏览器类型
         String addresses = AddressUtils.getAddresses("ip=" + nip, StandardCharsets.UTF_8);
+        String position = request.getParameter("position");
         AccessIp accessIp = new AccessIp();
         accessIp.setIp(nip);
         accessIp.setTimes(1);
@@ -58,6 +62,7 @@ public class GetInfoController {
         accessIp.setRequestUri(requestUri);
         accessIp.setRequestUrl(requestUrl);
         accessIp.setAddress(addresses);
+        accessIp.setPosition(position);
         dao.insertSelective(accessIp);
         try {
             FileWriter fw = new FileWriter(path);
@@ -96,6 +101,11 @@ public class GetInfoController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return null;
+        return Result.success();
+    }
+
+    @RequestMapping(value = "/addPosition", method = RequestMethod.POST)
+    public Result getInfoPost(HttpServletRequest request){
+        return getInfo(request);
     }
 }

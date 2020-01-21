@@ -1,5 +1,10 @@
 <template>
   <div>
+    <div class="info">
+      <h4 id='status'></h4><hr>
+      <p id='result'></p><hr>
+      <p >由于众多浏览器已不再支持非安全域的定位请求，为保位成功率和精度，请升级您的站点到HTTPS。</p>
+    </div>
     <div class="map">
       <div id="map-core"></div>
     </div>
@@ -13,7 +18,7 @@
 <script>
   import BMap from 'BMap'
   export default {
-    name: 'Address',
+    name: 'baiduMap',
     mounted() {
       this.getAddressByBaidu();
     },
@@ -56,9 +61,13 @@
             var mk = new BMap.Marker(r.point);
             map.addOverlay(mk);
             map.panTo(r.point);
-            that.$message({type: 'success',message:'您的位置：'+r.point.lng+','+r.point.lat});
+            document.getElementById('status').innerHTML='定位成功';
+            var str = [];
+            str.push('您的位置：'+r.point.lng+','+r.point.lat);
+            document.getElementById('result').innerHTML = str.join('<br>');
           } else {
-            that.$message({type: 'error',message:'failed'+this.getStatus()});
+            document.getElementById('status').innerHTML='定位失败';
+            document.getElementById('result').innerHTML = '失败原因排查信息:'+this.getStatus();
           }
         },{enableHighAccuracy: true})
         //关于状态码
@@ -132,5 +141,16 @@
   #map-core {
     width: 100%;
     height: 90%;
+  }
+  .info{
+    width:26rem;
+    padding: .75rem 1.25rem;
+    margin-bottom: 1rem;
+    border-radius: .25rem;
+    top: 1rem;
+    background-color: white;
+    min-width: 22rem;
+    border-width: 0;
+    box-shadow: 0 2px 6px 0 rgba(114, 124, 245, .5);
   }
 </style>

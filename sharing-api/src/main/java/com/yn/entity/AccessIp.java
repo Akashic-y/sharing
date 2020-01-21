@@ -38,5 +38,9 @@ public class AccessIp extends BaseEntity {
     //浏览器类型
     private String agent;
 
+    //通过ip获取的地址
     private String address;
+
+    //定位
+    private String position;
 }

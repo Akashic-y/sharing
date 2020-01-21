@@ -5,7 +5,10 @@ import {getToken} from '@/request/token'
 
 const service = axios.create({
   baseURL: process.env.BASE_API,
-  timeout: 30000
+  timeout: 30000,
+  headers: {
+    'Content-Type': "application/json;charset=utf-8"
+  }
 });
 
 //request拦截器

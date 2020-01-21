@@ -207,8 +207,7 @@
                 content: this.articleForm.editor.value,
                 contentHtml: this.articleForm.editor.ref.d_render
               }
-
-            }
+            };
 
             this.publishVisible = false;
 
