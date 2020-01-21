@@ -32,9 +32,9 @@
   export default {
     name: 'Index',
     created() {
-      this.getHotArtices()
-      this.getNewArtices()
-      this.getHotTags()
+      this.getHotArtices();
+      this.getNewArtices();
+      this.getHotTags();
       this.listArchives()
     },
     data() {
@@ -47,7 +47,7 @@
     },
     methods: {
       getHotArtices() {
-        let that = this
+        let that = this;
         getHotArtices().then(data => {
           that.hotArticles = data.data
         }).catch(error => {
@@ -59,7 +59,7 @@
 
       },
       getNewArtices() {
-        let that = this
+        let that = this;
         getNewArtices().then(data => {
           that.newArticles = data.data
         }).catch(error => {
@@ -71,7 +71,7 @@
 
       },
       getHotTags() {
-        let that = this
+        let that = this;
         getHotTags().then(data => {
           that.hotTags = data.data
         }).catch(error => {
@@ -82,6 +82,7 @@
         })
       },
       listArchives() {
+        let that = this;
         listArchives().then((data => {
           this.archives = data.data
         })).catch(error => {

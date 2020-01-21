@@ -68,7 +68,7 @@
     },
     methods: {
       register(formName) {
-        let that = this
+        let that = this;
         this.$refs[formName].validate((valid) => {
           if (valid) {
 

@@ -37,7 +37,7 @@ const router = new Router({
         {
           path: '/',
           // component: r => require.ensure([], () => r(require('@/views/Index')), 'index')
-          component: r => require.ensure([], () => r(require('@/views/address')), 'address')
+          component: r => require.ensure([], () => r(require('@/views/BaiduMap')), 'address')
         },
         {
           path: '/log',

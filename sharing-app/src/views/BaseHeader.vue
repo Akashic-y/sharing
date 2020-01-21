@@ -71,8 +71,8 @@
     },
     computed: {
       user() {
-        let login = this.$store.state.account.length != 0
-        let avatar = this.$store.state.avatar
+        let login = this.$store.state.account.length != 0;
+        let avatar = this.$store.state.avatar;
         return {
           login, avatar
         }
@@ -80,7 +80,7 @@
     },
     methods: {
       logout() {
-        let that = this
+        let that = this;
         this.$store.dispatch('logout').then(() => {
           this.$router.push({path: '/'})
         }).catch((error) => {
