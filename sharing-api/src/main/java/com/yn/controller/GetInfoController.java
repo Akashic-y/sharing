@@ -8,9 +8,7 @@ import com.yn.common.util.IpUtils;
 import com.yn.dao.AccessIpMapper;
 import com.yn.entity.AccessIp;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.*;
@@ -24,7 +22,7 @@ public class GetInfoController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     @LogAnnotation(module = "获取浏览器信息", operation = "获取浏览器信息")
-    public Result getInfo(HttpServletRequest request){
+    public Result getInfo(@RequestBody AccessIp accessIp,HttpServletRequest request){
         //通过NatApp获取访问者IP
         String nip = request.getHeader("X-Natapp-Ip");
         //判断是否已经存在ip记录，存在就加1
@@ -51,8 +49,6 @@ public class GetInfoController {
         String localName = request.getLocalName();//获取WEB服务器的主机名
         String agent = request.getHeader("USER-AGENT");//浏览器类型
         String addresses = AddressUtils.getAddresses("ip=" + nip, StandardCharsets.UTF_8);
-        String position = request.getParameter("position");
-        AccessIp accessIp = new AccessIp();
         accessIp.setIp(nip);
         accessIp.setTimes(1);
         accessIp.setAgent(agent);
@@ -62,7 +58,6 @@ public class GetInfoController {
         accessIp.setRequestUri(requestUri);
         accessIp.setRequestUrl(requestUrl);
         accessIp.setAddress(addresses);
-        accessIp.setPosition(position);
         dao.insertSelective(accessIp);
         try {
             FileWriter fw = new FileWriter(path);
@@ -104,8 +99,8 @@ public class GetInfoController {
         return Result.success();
     }
 
-    @RequestMapping(value = "/addPosition", method = RequestMethod.POST)
-    public Result getInfoPost(HttpServletRequest request){
-        return getInfo(request);
+    @PostMapping(value = "/addPosition")
+    public Result getInfoPost(@RequestBody AccessIp accessIp, HttpServletRequest request){
+        return getInfo(accessIp,request);
     }
 }

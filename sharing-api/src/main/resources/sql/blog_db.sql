@@ -121,7 +121,7 @@ CREATE TABLE `sys_log` (
   `operation` varchar(25) COLLATE utf8_bin DEFAULT NULL,
   `params` varchar(255) COLLATE utf8_bin DEFAULT NULL,
   `time` bigint(20) DEFAULT NULL,
-  `userid` bigint(11) DEFAULT NULL,
+  `user_id` bigint(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 

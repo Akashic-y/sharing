@@ -73,7 +73,8 @@
         }//如为IP精确定位结果则没有精度信息
         str.push('是否经过偏移：' + (data.isConverted ? '是' : '否'));
         document.getElementById('result').innerHTML = str.join('<br>');
-        addAddress({position:data.position}).then((data => {
+        let query = {position:JSON.stringify(data.position)};
+        addAddress(query).then((data => {
         })).catch(error => {
 
         })

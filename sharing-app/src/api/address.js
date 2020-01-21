@@ -1,11 +1,11 @@
 import request from '@/request'
 
 
-export function addAddress(data) {
+export function addAddress(position) {
   return request({
     url: '/addPosition',
     method: 'post',
-    data: data
+    data: position
   })
 }
 
