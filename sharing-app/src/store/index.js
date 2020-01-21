@@ -34,8 +34,8 @@ export default new Vuex.Store({
     login({commit}, user) {
       return new Promise((resolve, reject) => {
         login(user.account, user.password).then(data => {
-          commit('SET_TOKEN', data.data['Oauth-Token'])
-          setToken(data.data['Oauth-Token'])
+          commit('SET_TOKEN', data.data['Oauth-Token']);
+          setToken(data.data['Oauth-Token']);
           resolve()
         }).catch(error => {
           reject(error)
@@ -44,19 +44,18 @@ export default new Vuex.Store({
     },
     // 获取用户信息
     getUserInfo({commit, state}) {
-      let that = this
       return new Promise((resolve, reject) => {
         getUserInfo().then(data => {
           if (data.data) {
-            commit('SET_ACCOUNT', data.data.account)
-            commit('SET_NAME', data.data.nickname)
-            commit('SET_AVATAR', data.data.avatar)
+            commit('SET_ACCOUNT', data.data.account);
+            commit('SET_NAME', data.data.nickname);
+            commit('SET_AVATAR', data.data.avatar);
             commit('SET_ID', data.data.id)
           } else {
-            commit('SET_ACCOUNT', '')
-            commit('SET_NAME', '')
-            commit('SET_AVATAR', '')
-            commit('SET_ID', '')
+            commit('SET_ACCOUNT', '');
+            commit('SET_NAME', '');
+            commit('SET_AVATAR', '');
+            commit('SET_ID', '');
             removeToken()
           }
           resolve(data)
@@ -70,12 +69,12 @@ export default new Vuex.Store({
       return new Promise((resolve, reject) => {
         logout().then(data => {
 
-          commit('SET_TOKEN', '')
-          commit('SET_ACCOUNT', '')
-          commit('SET_NAME', '')
-          commit('SET_AVATAR', '')
-          commit('SET_ID', '')
-          removeToken()
+          commit('SET_TOKEN', '');
+          commit('SET_ACCOUNT', '');
+          commit('SET_NAME', '');
+          commit('SET_AVATAR', '');
+          commit('SET_ID', '');
+          removeToken();
           resolve()
 
         }).catch(error => {
@@ -86,12 +85,12 @@ export default new Vuex.Store({
     // 前端 登出
     fedLogOut({commit}) {
       return new Promise(resolve => {
-        commit('SET_TOKEN', '')
-        commit('SET_ACCOUNT', '')
-        commit('SET_NAME', '')
-        commit('SET_AVATAR', '')
-        commit('SET_ID', '')
-        removeToken()
+        commit('SET_TOKEN', '');
+        commit('SET_ACCOUNT', '');
+        commit('SET_NAME', '');
+        commit('SET_AVATAR', '');
+        commit('SET_ID', '');
+        removeToken();
         resolve()
       }).catch(error => {
         reject(error)
@@ -100,8 +99,8 @@ export default new Vuex.Store({
     register({commit}, user) {
       return new Promise((resolve, reject) => {
         register(user.account, user.nickname, user.password).then((data) => {
-          commit('SET_TOKEN', data.data['Oauth-Token'])
-          setToken(data.data['Oauth-Token'])
+          commit('SET_TOKEN', data.data['Oauth-Token']);
+          setToken(data.data['Oauth-Token']);
           resolve()
         }).catch((error) => {
           reject(error)

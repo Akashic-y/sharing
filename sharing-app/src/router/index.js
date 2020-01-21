@@ -18,7 +18,7 @@ import store from '@/store'
 
 import {getToken} from '@/request/token'
 
-Vue.use(Router)
+Vue.use(Router);
 
 const router = new Router({
   routes: [
@@ -36,7 +36,8 @@ const router = new Router({
       children: [
         {
           path: '/',
-          component: r => require.ensure([], () => r(require('@/views/Index')), 'index')
+          // component: r => require.ensure([], () => r(require('@/views/Index')), 'index')
+          component: r => require.ensure([], () => r(require('@/views/address')), 'address')
         },
         {
           path: '/log',
@@ -77,7 +78,7 @@ const router = new Router({
   scrollBehavior(to, from, savedPosition) {
     return {x: 0, y: 0}
   }
-})
+});
 
 router.beforeEach((to, from, next) => {
 
@@ -103,13 +104,11 @@ router.beforeEach((to, from, next) => {
         showClose: true,
         message: '请先登录哦'
       })
-
-    }
-    else {
+    } else {
       next();
     }
   }
-})
+});
 
 
 export default router

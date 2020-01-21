@@ -6,7 +6,7 @@ import {getToken} from '@/request/token'
 const service = axios.create({
   baseURL: process.env.BASE_API,
   timeout: 30000
-})
+});
 
 //request拦截器
 service.interceptors.request.use(config => {
@@ -18,7 +18,7 @@ service.interceptors.request.use(config => {
 }, error => {
 
   Promise.reject(error)
-})
+});
 
 // respone拦截器
 service.interceptors.response.use(
@@ -47,7 +47,7 @@ service.interceptors.response.use(
           type: 'warning',
           showClose: true,
           message: '未登录或登录超时，请重新登录哦'
-        })
+        });
 
         return Promise.reject('error');
       }
@@ -59,7 +59,7 @@ service.interceptors.response.use(
           type: 'warning',
           showClose: true,
           message: '你没有权限访问哦'
-        })
+        });
         return Promise.reject('error');
       }
 
@@ -73,8 +73,8 @@ service.interceptors.response.use(
       type: 'warning',
       showClose: true,
       message: '连接超时'
-    })
+    });
     return Promise.reject('error')
-  })
+  });
 
 export default service
