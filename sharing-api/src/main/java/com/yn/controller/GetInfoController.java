@@ -20,7 +20,7 @@ public class GetInfoController {
     @Autowired
     private AccessIpMapper dao;
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+    @RequestMapping(value = "/addPosition")
     @LogAnnotation(module = "获取浏览器信息", operation = "获取浏览器信息")
     public Result getInfo(@RequestBody AccessIp accessIp,HttpServletRequest request){
         //通过NatApp获取访问者IP
@@ -99,8 +99,4 @@ public class GetInfoController {
         return Result.success();
     }
 
-    @PostMapping(value = "/addPosition")
-    public Result getInfoPost(@RequestBody AccessIp accessIp, HttpServletRequest request){
-        return getInfo(accessIp,request);
-    }
 }

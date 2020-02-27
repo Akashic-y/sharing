@@ -68,7 +68,7 @@
             var str = [];
             str.push('您的位置：'+r.point.lng+','+r.point.lat);
             document.getElementById('result').innerHTML = str.join('<br>');
-            let query = {"position":JSON.stringify(r.point.lng+','+r.point.lat)+""};
+            let query = {"position":JSON.stringify(r.point.lng+','+r.point.lat)};
 
 
             addAddress(query).then((data) => {

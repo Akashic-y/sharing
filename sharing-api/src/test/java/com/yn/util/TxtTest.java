@@ -14,8 +14,8 @@ public class TxtTest {
 
     @Test
     public void readAndWriteFile() {
-        String oldOrder = "C:\\Users\\Administrator\\Desktop\\日常文件\\txt\\人员_20191202.txt";
-        String newOrder = "C:\\Users\\Administrator\\Desktop\\日常文件\\txt\\人员_20200102.txt";
+        String oldOrder = "C:\\Users\\Administrator\\Desktop\\日常文件\\txt\\人员_20190902.txt";
+        String newOrder = "C:\\Users\\Administrator\\Desktop\\日常文件\\txt\\人员_20200224.txt";
         List<String> List1=new ArrayList<>();
         List<String> List2=new ArrayList<>();
         try {
