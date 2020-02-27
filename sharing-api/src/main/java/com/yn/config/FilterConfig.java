@@ -33,6 +33,7 @@ public class FilterConfig {
         rs.setOrder(1);//优先级，最顶级
         return rs;
     }
+
     private CorsConfiguration buildConfig() {
         CorsConfiguration corsConfiguration = new CorsConfiguration();
         corsConfiguration.addAllowedOrigin("*");

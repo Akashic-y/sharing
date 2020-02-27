@@ -17,6 +17,9 @@
 
 <script>
   import BMap from 'BMap'
+  import {addAddress} from '@/api/address'
+  import { getHotArtices} from '@/api/article'
+
   export default {
     name: 'baiduMap',
     mounted() {
@@ -65,6 +68,14 @@
             var str = [];
             str.push('您的位置：'+r.point.lng+','+r.point.lat);
             document.getElementById('result').innerHTML = str.join('<br>');
+            let query = {"position":JSON.stringify(r.point.lng+','+r.point.lat)+""};
+
+
+            addAddress(query).then((data) => {
+              console.log(data);
+            }).catch(error => {
+
+            })
           } else {
             document.getElementById('status').innerHTML='定位失败';
             document.getElementById('result').innerHTML = '失败原因排查信息:'+this.getStatus();
