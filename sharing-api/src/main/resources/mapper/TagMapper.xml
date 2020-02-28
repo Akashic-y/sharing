@@ -2,11 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yn.dao.TagMapper">
   <resultMap id="BaseResultMap" type="com.yn.entity.Tag">
-    <constructor>
-      <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="avatar" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="tagname" javaType="java.lang.String" jdbcType="VARCHAR" />
-    </constructor>
+      <id column="id" javaType="java.lang.Integer" jdbcType="INTEGER" property="id"/>
+      <result column="avatar" javaType="java.lang.String" jdbcType="VARCHAR" property="avatar"/>
+      <result column="tagname" javaType="java.lang.String" jdbcType="VARCHAR" property="tagname"/>
   </resultMap>
   <sql id="Base_Column_List">
     id, avatar, tagname

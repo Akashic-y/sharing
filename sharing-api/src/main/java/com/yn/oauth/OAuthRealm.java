@@ -65,9 +65,11 @@ public class OAuthRealm extends AuthorizingRealm {
 		if (StaticValue.blocked.equals(user.getStatus())) {
 			throw new LockedAccountException(); // 帐号锁定
 		}
-		new Thread(() -> {
-			userService.updateLoginInfo(user.getId(),IpUtils.getIpAddr());
-		}, "记录最后登录时间和IP线程").start();
+		//使用vue前后端分离后获取不到客户端ip
+//		String ipAddr = IpUtils.getIpAddr();
+//		new Thread(() -> {
+//			userService.updateLoginInfo(user.getId(), ipAddr);
+//		}, "记录最后登录时间和IP线程").start();
 
 		return new SimpleAuthenticationInfo(user.getAccount(),
 				user.getPassword(), ByteSource.Util.bytes(user.getSalt()), getName());

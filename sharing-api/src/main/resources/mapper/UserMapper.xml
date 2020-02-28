@@ -2,21 +2,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yn.dao.UserMapper">
 	<resultMap id="BaseResultMap" type="com.yn.entity.User">
-		<constructor>
-			<idArg column="id"/>
-			<arg column="account" javaType="java.lang.String" jdbcType="VARCHAR" />
-			<arg column="admin" javaType="java.lang.Boolean" jdbcType="BIT" />
-			<arg column="avatar" javaType="java.lang.String" jdbcType="VARCHAR" />
-			<arg column="create_date" javaType="java.util.Date" />
-			<arg column="deleted" javaType="java.lang.Boolean" jdbcType="BIT" />
-			<arg column="email" javaType="java.lang.String" jdbcType="VARCHAR" />
-			<arg column="last_login" javaType="java.util.Date" />
-			<arg column="mobile_phone_number" javaType="java.lang.String" jdbcType="VARCHAR" />
-			<arg column="nickname" javaType="java.lang.String" jdbcType="VARCHAR" />
-			<arg column="password" javaType="java.lang.String" jdbcType="VARCHAR" />
-			<arg column="salt" javaType="java.lang.String" jdbcType="VARCHAR" />
-			<arg column="status" javaType="java.lang.String" jdbcType="VARCHAR" />
-		</constructor>
+			<id column="id"/>
+			<result column="account" javaType="java.lang.String" property="account"/>
+			<result column="admin" javaType="java.lang.Boolean" property="admin"/>
+			<result column="avatar" javaType="java.lang.String" property="avatar"/>
+			<result column="create_date" javaType="java.util.Date" property="createDate"/>
+			<result column="deleted" javaType="java.lang.Boolean" property="deleted"/>
+			<result column="email" javaType="java.lang.String" property="email"/>
+			<result column="last_login" javaType="java.util.Date" property="lastLogin"/>
+			<result column="mobile_phone_number" javaType="java.lang.String" property="mobilePhoneNumber"/>
+			<result column="nickname" javaType="java.lang.String" property="nickname"/>
+			<result column="password" javaType="java.lang.String" property="password"/>
+			<result column="salt" javaType="java.lang.String" property="salt"/>
+			<result column="status" javaType="java.lang.String" property="status"/>
 	</resultMap>
 	<sql id="Base_Column_List">
 		id, account, admin, avatar, create_date, deleted, email, last_login,

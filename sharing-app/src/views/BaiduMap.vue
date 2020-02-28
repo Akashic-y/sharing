@@ -18,7 +18,6 @@
 <script>
   import BMap from 'BMap'
   import {addAddress} from '@/api/address'
-  import { getHotArtices} from '@/api/article'
 
   export default {
     name: 'baiduMap',
@@ -68,9 +67,7 @@
             var str = [];
             str.push('您的位置：'+r.point.lng+','+r.point.lat);
             document.getElementById('result').innerHTML = str.join('<br>');
-            let query = {"position":JSON.stringify(r.point.lng+','+r.point.lat)};
-
-
+            let query = {position: JSON.stringify(r.point.lng+','+r.point.lat)};
             addAddress(query).then((data) => {
               console.log(data);
             }).catch(error => {

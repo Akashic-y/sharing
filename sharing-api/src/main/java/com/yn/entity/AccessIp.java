@@ -43,4 +43,6 @@ public class AccessIp extends BaseEntity {
 
     //定位
     private String position;
+
+    private String sessionId;
 }

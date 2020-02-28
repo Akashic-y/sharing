@@ -1,6 +1,6 @@
 package com.yn.config;
 
-import com.yn.common.filter.SessionFilter;
+import com.yn.common.filter.XSSFilter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -27,7 +27,7 @@ public class FilterConfig {
     @Bean
     public FilterRegistrationBean xssFilter(){
         FilterRegistrationBean rs = new FilterRegistrationBean();
-        rs.setFilter(new SessionFilter());
+        rs.setFilter(new XSSFilter());
         rs.setName("xssFilter");
         rs.addUrlPatterns("/*");//过滤所有路径
         rs.setOrder(1);//优先级，最顶级

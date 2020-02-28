@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yn.dao.AccessIpMapper">
+
   <update id="updateByIp">
-    update access_ip set update_date = now(),times = times+1 where ip = #{ip}
+    update access_ip set update_date = now(),times = times+1,session_id = #{sessionId} where ip = #{ip}
+  </update>
+
+  <update id="updatePosition">
+    update access_ip set position = #{position} where session_id = #{sessionId}
   </update>
 
   <select id="existIp" resultType="java.lang.Integer">

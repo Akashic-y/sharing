@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Map;
 
-public class SessionFilter implements Filter {
-    private static Logger log = LoggerFactory.getLogger(SessionFilter.class);
+public class XSSFilter implements Filter {
+    private static Logger log = LoggerFactory.getLogger(XSSFilter.class);
 
     public void destroy() { }
 
