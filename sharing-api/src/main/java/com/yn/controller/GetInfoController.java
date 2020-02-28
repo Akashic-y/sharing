@@ -19,7 +19,6 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 
 @RestController
 public class GetInfoController {
@@ -56,7 +55,7 @@ public class GetInfoController {
             String localAddr = request.getLocalAddr();//获取WEB服务器的IP地址
             String localName = request.getLocalName();//获取WEB服务器的主机名
             String agent = request.getHeader("USER-AGENT");//浏览器类型
-            String addresses = AddressUtils.getAddresses("ip=" + nip, StandardCharsets.UTF_8);
+            String addresses = AddressUtils.getAddresses("ip=" + nip);
             AccessIp accessIp = new AccessIp();
             accessIp.setIp(nip);
             accessIp.setTimes(1);

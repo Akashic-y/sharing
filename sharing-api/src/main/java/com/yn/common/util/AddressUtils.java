@@ -19,11 +19,9 @@ public class AddressUtils {
      *
      * @param content
      *            请求的参数 格式为：name=xxx&pwd=xxx
-     * @param encodingString
-     *            服务器端请求编码。如GBK,UTF-8等
      * @return
      */
-    public static String getAddresses(String content, Charset encodingString) {
+    public static String getAddresses(String content) {
         // 这里调用pconline的接口
         String urlStr = "http://ip.taobao.com/service/getIpInfo.php";
         // 从http://whois.pconline.com.cn取得IP所在的省市区信息
@@ -114,7 +112,7 @@ public class AddressUtils {
             reader.close();
             return buffer.toString();
         } catch (IOException e) {
-//            e.printStackTrace();
+            e.printStackTrace();
             System.out.println("AddressUtils.getResult error");
         } finally {
             if (connection != null) {
@@ -199,7 +197,7 @@ public class AddressUtils {
     public static void main(String[] args) {
 //        String ip = "163.177.13.2";凯子
         String ip = "218.17.161.178";
-        String address = getAddresses("ip="+ip, StandardCharsets.UTF_8);
+        String address = getAddresses("ip="+ip);
         System.out.println(address);
         // 输出结果为：广东省,深圳市
     }
