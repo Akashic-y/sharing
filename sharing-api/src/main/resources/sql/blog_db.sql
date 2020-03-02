@@ -174,8 +174,8 @@ CREATE TABLE `access_ip` (
   `remote_addr` varchar(32) DEFAULT NULL,
   `agent` varchar(1000) DEFAULT NULL COMMENT '浏览器类型',
   `create_date` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '访问时间',
-  `position` varchar(32) DEFAULT NULL COMMENT '定位',
+  `position` varchar(128) DEFAULT NULL COMMENT '定位',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4;
 
-ALTER TABLE `access_ip` ADD COLUMN `session_id`  varchar(128) NULL AFTER `position`;
+ALTER TABLE `access_ip` ADD COLUMN `session_id`  varchar(64) NULL AFTER `position`;
