@@ -1,9 +1,7 @@
 <template>
   <div id="home">
     	<el-container>
-			<base-header :activeIndex="activeIndex"></base-header>
 			<router-view class="me-container"/>
-			<base-footer v-show="footerShow"></base-footer>
 		</el-container>
   </div>
 </template>

@@ -117,6 +117,7 @@ public class GetInfoController {
     @LogAnnotation(module = "保存定位", operation = "保存定位")
     public void addPosition(@RequestBody AccessIp accessIp, HttpServletRequest request){
         Cookie[] cookies = request.getCookies();
+        System.out.println("accessIp.getPosition()" + accessIp.getPosition());
         for (Cookie cookie : cookies) {
             if("JSESSIONID".equals(cookie.getName())) {
                 String sessionId = cookie.getValue();

@@ -178,4 +178,4 @@ CREATE TABLE `access_ip` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4;
 
-ALTER TABLE `access_ip` ADD COLUMN `session_id`  varchar(40) NULL AFTER `position`;
+ALTER TABLE `access_ip` ADD COLUMN `session_id`  varchar(128) NULL AFTER `position`;
