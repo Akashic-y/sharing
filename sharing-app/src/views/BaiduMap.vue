@@ -63,6 +63,7 @@
             var mk = new BMap.Marker(r.point);
             map.addOverlay(mk);
             map.panTo(r.point);
+            map.setZoom(14);
             document.getElementById('status').innerHTML='定位成功';
             var str = [];
             str.push('您的位置：'+r.point.lng+','+r.point.lat);

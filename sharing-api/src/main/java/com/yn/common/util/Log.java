@@ -1,5 +1,6 @@
 package com.yn.common.util;
 
+import freemarker.template.TemplateException;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
@@ -10,7 +11,6 @@ import java.util.Map;
 /***
  * 封装log4j接口，统一处理日志/debug信息的输出
  *
- * @author jyq
  *
  */
 public class Log {
@@ -90,8 +90,8 @@ public class Log {
 			return;
 		}
 		logger.error(Ex.toString());
-		for (int i = 0; i < stackTraceElement.length; i++) {
-			logger.error(stackTraceElement[i].toString());
+		for (StackTraceElement traceElement : stackTraceElement) {
+			logger.error(traceElement.toString());
 		}
 	}
 
@@ -109,8 +109,8 @@ public class Log {
 			return;
 		}
 		logger.error(Ex.toString());
-		for (int i = 0; i < stackTraceElement.length; i++) {
-			logger.error(stackTraceElement[i].toString());
+		for (StackTraceElement traceElement : stackTraceElement) {
+			logger.error(traceElement.toString());
 		}
 	}
 
@@ -128,8 +128,8 @@ public class Log {
 			return;
 		}
 		logger.error(Ex.toString());
-		for (int i = 0; i < stackTraceElement.length; i++) {
-			logger.error(stackTraceElement[i].toString());
+		for (StackTraceElement traceElement : stackTraceElement) {
+			logger.error(traceElement.toString());
 		}
 	}
 
@@ -137,14 +137,12 @@ public class Log {
 		LEVEL = lvl;
 		// 修改log4j.properties日志等级级别
 		ContentGenerator generator = new ContentGenerator();
-		Map<String, String> data = new HashMap<String, String>();
+		Map<String, String> data = new HashMap<>();
 		data.put("level", lvl);
 		String path = generator.getClass().getClassLoader().getResource("/").getPath();
 		try {
 			generator.generatFile("log4j.properties", path, "log4j.properties", data);
-		} catch (IOException e) {
-			Log.warnStackTrace(e);
-		} catch (TemplateException e) {
+		} catch (IOException | TemplateException e) {
 			Log.warnStackTrace(e);
 		}
 	}
@@ -159,7 +157,7 @@ public class Log {
 	public static String getFileNameAndLineNumber(String className) {
 		String fname = null;
 		int lineNumber = 0;
-		StackTraceElement stack[] = (new Throwable()).getStackTrace();
+		StackTraceElement[] stack = (new Throwable()).getStackTrace();
 		int ix = 0;
 		while (ix < stack.length) {
 			StackTraceElement frame = stack[ix];
