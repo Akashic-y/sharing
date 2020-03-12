@@ -1,6 +1,5 @@
 package com.yn.util;
 
-import com.yn.common.util.DateUtils;
 import com.yn.common.util.HttpKit;
 
 import java.io.BufferedWriter;
@@ -17,14 +16,20 @@ import java.util.regex.Pattern;
 public class GetNewsUtil {
 
     public static void main(String[] args) {
-        getNewList();
+//        getNewPeopleList();
+        getPeopleNewList();
     }
 
-    public static void getNewList() {
-        String path = "D:\\"+ DateUtils.getcurrentdate4()+".txt";
-        String fin = "D:\\income.txt";
+    /**
+     * @Desc 新员工
+     * @Author yn
+     * @Date 14:51 2020/3/12 0012
+     */
+    public static void getNewPeopleList() {
+        String path = "D:\\newPeople.txt";
+        String fin = "D:\\newPeopleByDate.txt";
         File f = new File(path);
-        File f2 = new File(fin);
+        new File(fin);
         Map<String,String> param = new HashMap<>();
         param.put("open_id","huang-bin");
         param.put("co_id","10001");
@@ -39,7 +44,53 @@ public class GetNewsUtil {
             BufferedWriter bw2 = new BufferedWriter(fw2);
             for (;i < 99; i++) {
                 param.put("pageNumber",i+"");
-                String rs = HttpKit.doPost("http://mp.ybobba.com/sys/qywx/news/list", param);
+                String rs = HttpKit.doPost("http://mp.wexcxc.com/sys/qywx/news/list", param);
+                if(rs.contains("没有数据")){
+                    break;
+                }
+//                System.out.println(rs);
+                List<String> list = getMatcher(rs.trim(), "h4");
+                List<String> time = getMatcher(rs.trim(), "span");
+                for (int k = 0; k < list.size(); k++) {
+                    bw2.write(list.get(k) + "---------------------" + time.get(k));
+                    bw2.newLine();
+                }
+                bw.write(rs.trim());
+                bw.flush();
+                bw2.flush();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println("绝对路径--------------------" + f.getAbsolutePath());
+        System.out.println("一共-------" + (i-1));
+    }
+
+    /**
+     * @Desc 人事公告
+     * @Author yn
+     * @Date 14:51 2020/3/12 0012
+     */
+    public static void getPeopleNewList() {
+        String path = "D:\\peopleNews.txt";
+        String fin = "D:\\peopleNewsByDate.txt";
+        File f = new File(path);
+        new File(fin);
+        Map<String,String> param = new HashMap<>();
+        param.put("open_id","huang-bin");
+        param.put("co_id","10001");
+        param.put("news_type","24d324e25105437688d5d073bc7a9e14");
+        param.put("plate_pid","24d324e25105437688d5d073bc7a9e14");
+        param.put("plate_id","ba0be40d7f4f4e8a830f60a1b699667c");
+        int i = 1;
+        try {
+            FileWriter fw = new FileWriter(path);
+            BufferedWriter bw = new BufferedWriter(fw);
+            FileWriter fw2 = new FileWriter(fin);
+            BufferedWriter bw2 = new BufferedWriter(fw2);
+            for (;i < 99; i++) {
+                param.put("pageNumber",i+"");
+                String rs = HttpKit.doPost("http://mp.wefddfwwev.com/sys/qywx/news/list", param);
                 if(rs.contains("没有数据")){
                     break;
                 }
