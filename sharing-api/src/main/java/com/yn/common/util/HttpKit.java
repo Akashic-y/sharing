@@ -11,6 +11,9 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
+import org.apache.xmlrpc.XmlRpcException;
+import org.apache.xmlrpc.client.XmlRpcClient;
+import org.apache.xmlrpc.client.XmlRpcClientConfigImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -24,6 +27,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
@@ -292,5 +296,21 @@ public class HttpKit {
             e.printStackTrace();
         }
         return result;
+    }
+
+    public static Object sendXmlRpc(String url, String methodName, List params){
+        try {
+            XmlRpcClientConfigImpl config = new XmlRpcClientConfigImpl();
+            config.setServerURL(new URL(url));
+            config.setBasicUserName("");
+            config.setBasicPassword("");
+            XmlRpcClient client = new XmlRpcClient();
+            client.setConfig(config);
+
+            return client.execute(methodName, params);
+        } catch (MalformedURLException | XmlRpcException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }
