@@ -31,7 +31,9 @@ public class GetNewsUtil {
 //        getNewPeopleList();
 //        getPeopleNewList();
 //        getAllCompanyNews();
-        getAllCompanyNotice();
+//        getAllCompanyNotice();
+        String str = "onclick=\"news_info('92f999bb650d4c219122d7d7f9b48250')\">";
+        getMatcher(str);
     }
 
     /**
@@ -130,4 +132,21 @@ public class GetNewsUtil {
         }
         return list;
     }
+
+    /**
+     * @Desc 获取标签里面的内容
+     * @Author yn
+     * @Date 10:09 2020/3/12 0012
+     */
+    public static List<String> getMatcher(String str){
+        ArrayList<String> list = new ArrayList<>();
+        String regex=".*onclick=\"news_info('(.*?)')\">";
+        Pattern p =Pattern.compile(regex);
+        Matcher m = p.matcher(str);
+        while(m.find()){
+            list.add(m.group(1));
+        }
+        return list;
+    }
+
 }
