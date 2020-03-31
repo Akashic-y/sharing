@@ -1,15 +1,18 @@
 package com.yn.util;
 
 import com.yn.common.util.HttpKit;
+import sun.misc.BASE64Encoder;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -24,6 +27,9 @@ public class GetNewsUtil {
     //获取详情url
     private static String detailUrl = "";
 
+    //获取详情url
+    private static String imgServerPath = "";
+
     //用户名 带-
     private static String open_id = "";
 
@@ -35,8 +41,9 @@ public class GetNewsUtil {
 
 //        getNewPeopleList();
 //        getPeopleNewList();
-        getAllCompanyNews();
-        getAllCompanyNotice();
+//        getAllCompanyNews();
+//        getAllCompanyNotice();
+        downloadImg(path + "allNoticeDetail.txt");
 
         long endTime=System.currentTimeMillis(); //获取结束时间
         System.out.println("程序运行时间： "+(endTime-startTime)+"ms");
@@ -216,4 +223,98 @@ public class GetNewsUtil {
         return list;
     }
 
+    /**
+     * @Desc 获取src属性
+     * @Author yn
+     * @Date 20:08 2020/3/30 0030
+     */
+    public static List<String> getSrc(String str){
+        ArrayList<String> list = new ArrayList<>();
+        String regex="src=\"(.*?)\"";
+        Pattern p =Pattern.compile(regex);
+        Matcher m = p.matcher(str);
+        while(m.find()){
+            list.add(m.group(1));
+        }
+        return list;
+    }
+
+    /**
+     * @Desc 获取文件中img标签的src属性 下载图片
+     * @Author yn
+     * @Date 20:02 2020/3/30 0030
+     */
+    public static void downloadImg(String fileName){
+        try {
+            ThreadPoolExecutor executor = new ThreadPoolExecutor(4, 6,
+                    200, TimeUnit.MILLISECONDS, new ArrayBlockingQueue<>(1000));
+            FileReader reader = new FileReader(fileName);
+            BufferedReader br = new BufferedReader(reader);
+            String line;
+            while ((line = br.readLine()) != null) {
+                List<String> imgSrcs = getSrc(line);
+                for (String str : imgSrcs) {
+                    String[] split = str.split("/");
+                    String imgPath;
+                    imgPath = path + "img\\" + split[split.length -1];
+                    MyTask myTask = new MyTask(str.startsWith("http")?str : imgServerPath + str,imgPath);
+                    executor.execute(myTask);
+//                    downloadPicture(str.startsWith("http")?str : imgServerPath + str,imgPath);
+                }
+            }
+            executor.shutdown();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * @Desc 链接url下载图片
+     * @Author yn
+     * @Date 10:49 2020/3/31 0031
+     */
+    public static void downloadPicture(String urlStr, String path) {
+        URL url;
+        try {
+            url = new URL(urlStr);
+            DataInputStream dataInputStream = new DataInputStream(url.openStream());
+
+            FileOutputStream fileOutputStream = new FileOutputStream(new File(path));
+            ByteArrayOutputStream output = new ByteArrayOutputStream();
+
+            byte[] buffer = new byte[1024];
+            int length;
+
+            while ((length = dataInputStream.read(buffer)) > 0) {
+                output.write(buffer, 0, length);
+            }
+//            BASE64Encoder encoder = new BASE64Encoder();
+//            String encode = encoder.encode(buffer);//返回Base64编码过的字节数组字符串
+//            System.out.println(encode);
+            fileOutputStream.write(output.toByteArray());
+            dataInputStream.close();
+            fileOutputStream.close();
+        } catch (IOException e) {
+            System.out.println(urlStr);
+//            e.printStackTrace();
+        }
+    }
+}
+
+
+class MyTask implements Runnable {
+
+    private String urlStr;
+    private String path;
+
+    public MyTask(String urlStr, String path) {
+        this.urlStr = urlStr;
+        this.path = path;
+    }
+
+    @Override
+    public void run() {
+        GetNewsUtil.downloadPicture(urlStr,path);
+//        System.out.println("task "+path+"执行完毕");
+    }
 }
