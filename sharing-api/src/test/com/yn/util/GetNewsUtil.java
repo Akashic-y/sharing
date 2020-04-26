@@ -43,7 +43,7 @@ public class GetNewsUtil {
 //        getPeopleNewList();
 //        getAllCompanyNews();
 //        getAllCompanyNotice();
-        downloadImg(path + "allNoticeDetail.txt");
+//        downloadImg(path + "allNoticeDetail.txt");
 
         long endTime=System.currentTimeMillis(); //获取结束时间
         System.out.println("程序运行时间： "+(endTime-startTime)+"ms");
@@ -276,24 +276,27 @@ public class GetNewsUtil {
     public static void downloadPicture(String urlStr, String path) {
         URL url;
         try {
-            url = new URL(urlStr);
-            DataInputStream dataInputStream = new DataInputStream(url.openStream());
+            File file = new File(path);
+            if(file.exists()) {
+                url = new URL(urlStr);
+                DataInputStream dataInputStream = new DataInputStream(url.openStream());
 
-            FileOutputStream fileOutputStream = new FileOutputStream(new File(path));
-            ByteArrayOutputStream output = new ByteArrayOutputStream();
+                FileOutputStream fileOutputStream = new FileOutputStream(file);
+                ByteArrayOutputStream output = new ByteArrayOutputStream();
 
-            byte[] buffer = new byte[1024];
-            int length;
+                byte[] buffer = new byte[1024];
+                int length;
 
-            while ((length = dataInputStream.read(buffer)) > 0) {
-                output.write(buffer, 0, length);
-            }
+                while ((length = dataInputStream.read(buffer)) > 0) {
+                    output.write(buffer, 0, length);
+                }
 //            BASE64Encoder encoder = new BASE64Encoder();
 //            String encode = encoder.encode(buffer);//返回Base64编码过的字节数组字符串
 //            System.out.println(encode);
-            fileOutputStream.write(output.toByteArray());
-            dataInputStream.close();
-            fileOutputStream.close();
+                fileOutputStream.write(output.toByteArray());
+                dataInputStream.close();
+                fileOutputStream.close();
+            }
         } catch (IOException e) {
             System.out.println(urlStr);
 //            e.printStackTrace();
