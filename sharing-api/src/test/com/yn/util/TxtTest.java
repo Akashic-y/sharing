@@ -48,7 +48,7 @@ public class TxtTest {
             int j = 0;
             for(String item:List1) {
                 if(!List2.contains(item)) {
-                    out.write(item + "\t\r\n");// \r\n即为换行
+                    out.write(item + "\r\n");// \r\n即为换行
                     System.out.println(item);
                     i++;
                 }
@@ -57,7 +57,7 @@ public class TxtTest {
             out.write("-----------------------------\r\n");// \r\n即为换行
             for(String item:List2) {
                 if(!List1.contains(item)) {
-                    out.write(item + "\t\r\n");// \r\n即为换行
+                    out.write(item + "\r\n");// \r\n即为换行
                     System.out.println(item);
                     j++;
                 }
