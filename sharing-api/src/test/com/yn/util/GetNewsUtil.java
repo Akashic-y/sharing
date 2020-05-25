@@ -1,10 +1,8 @@
 package com.yn.util;
 
 import com.yn.common.util.HttpKit;
-import sun.misc.BASE64Encoder;
 
 import java.io.*;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -41,8 +39,8 @@ public class GetNewsUtil {
 
 //        getNewPeopleList();
 //        getPeopleNewList();
-//        getAllCompanyNews();
-//        getAllCompanyNotice();
+        getAllCompanyNews();
+        getAllCompanyNotice();
 //        downloadImg(path + "allNoticeDetail.txt");
 
         long endTime=System.currentTimeMillis(); //获取结束时间
@@ -277,7 +275,7 @@ public class GetNewsUtil {
         URL url;
         try {
             File file = new File(path);
-            if(file.exists()) {
+            if(!file.exists()) {
                 url = new URL(urlStr);
                 DataInputStream dataInputStream = new DataInputStream(url.openStream());
 
@@ -298,8 +296,8 @@ public class GetNewsUtil {
                 fileOutputStream.close();
             }
         } catch (IOException e) {
-            System.out.println(urlStr);
-//            e.printStackTrace();
+//            System.out.println(urlStr);
+            e.printStackTrace();
         }
     }
 }
@@ -317,6 +315,7 @@ class MyTask implements Runnable {
 
     @Override
     public void run() {
+//        System.out.println(urlStr);
         GetNewsUtil.downloadPicture(urlStr,path);
 //        System.out.println("task "+path+"执行完毕");
     }
