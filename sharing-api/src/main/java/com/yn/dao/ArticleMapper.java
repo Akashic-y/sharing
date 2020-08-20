@@ -13,30 +13,30 @@ import tk.mybatis.mapper.common.Mapper;
 
 public interface ArticleMapper extends Mapper<Article> {
 
-	Article selectById(int id);
+    Article selectById(int id);
 
-	List<Content> listArticles(ArticleForm form);
+    List<Content> listArticles(ArticleForm form);
 
-	List<Content> findOrderByViewsAndLimit();
+    List<Content> findOrderByViewsAndLimit();
 
-	List<Content> findOrderByCreateDateAndLimit();
+    List<Content> findOrderByCreateDateAndLimit();
 
-	List<Article> listArticlesName(ArticleForm articleForm);
+    List<Article> listArticlesName(ArticleForm articleForm);
 
-	List<Article> findAll();
+    List<Article> findAll();
 
-	void addView(Integer id);
+    void addView(Integer id);
 
-	List<ArticleForm> listArticleForms();
+    List<ArticleForm> listArticleForms();
 
-	void insertTags(@Param("articleId")int articleId, @Param("tags")List<Tag> tags);
+    void insertTags(@Param("articleId") int articleId, @Param("tags") List<Tag> tags);
 
-	void deleteTags(Integer id);
+    void deleteTags(Integer id);
 
-	void changeCount(Integer id);
+    void changeCount(Integer id);
 
-	void reduceCount(Integer id);
+    void reduceCount(Integer id);
 
-	int deleteById(Integer id);
+    int deleteById(Integer id);
 
 }

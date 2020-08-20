@@ -75,7 +75,7 @@ public class IpUtils {
         try {
             String ip = getIPLocal();
             System.out.println("内网IP:" + ip);
-            System.out.println("外网IP："+getV4IP());
+            System.out.println("外网IP：" + getV4IP());
         } catch (IOException e1) {
             e1.printStackTrace();
         }
@@ -94,9 +94,10 @@ public class IpUtils {
 
     /**
      * 获取本机的外网ip地址
+     *
      * @return
      */
-    public static String getV4IP(){
+    public static String getV4IP() {
         String ip = "";
         String chinaz = "http://ip.chinaz.com";
 
@@ -106,14 +107,14 @@ public class IpUtils {
         try {
             URL url = new URL(chinaz);
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-            in = new BufferedReader( new InputStreamReader(urlConnection.getInputStream(), StandardCharsets.UTF_8));
-            while((read=in.readLine())!=null){
-                inputLine.append(read+"\r\n");
+            in = new BufferedReader(new InputStreamReader(urlConnection.getInputStream(), StandardCharsets.UTF_8));
+            while ((read = in.readLine()) != null) {
+                inputLine.append(read + "\r\n");
             }
         } catch (IOException e) {
             e.printStackTrace();
-        } finally{
-            if(in!=null){
+        } finally {
+            if (in != null) {
                 try {
                     in.close();
                 } catch (IOException e) {
@@ -123,7 +124,7 @@ public class IpUtils {
         }
         Pattern p = Pattern.compile("<dd class=\"fz24\">(.*?)</dd>");
         Matcher m = p.matcher(inputLine.toString());
-        if(m.find()){
+        if (m.find()) {
             ip = m.group(1);
         }
         return ip;

@@ -11,10 +11,10 @@ public class EmailTest extends SharingApiApplicationTests {
     EmailUtil emailUtil;
 
     @Test
-    public void test(){
+    public void test() {
         String[] to = {"1678549524@qq.com"};
         String subject = "邮件主题";
         String text = "邮件内容";
-        emailUtil.sendHtmlMail(to,subject,text);
+        emailUtil.sendHtmlMail(to, subject, text);
     }
 }

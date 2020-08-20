@@ -10,15 +10,21 @@ import javax.persistence.Table;
  */
 @Data
 @Table(name = "me_article_tag")
-public class Category extends BaseEntity{
+public class Category extends BaseEntity {
 
-	/** 图片路径 */
-	private String avatar;
+    /**
+     * 图片路径
+     */
+    private String avatar;
 
-	/** 名称 */
-	private String categoryname;
+    /**
+     * 名称
+     */
+    private String categoryname;
 
-	/** 描述 */
-	private String description;
+    /**
+     * 描述
+     */
+    private String description;
 
 }

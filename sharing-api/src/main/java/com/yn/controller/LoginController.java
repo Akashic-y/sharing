@@ -72,10 +72,10 @@ public class LoginController {
 
 
     private void executeLogin(String account, String password, Result r) {
-    	if(userService.isLimitIP()) {
-    		r.setResultCode(ResultCode.USER_IP_ERROR);
-    		return;
-    	}
+        if (userService.isLimitIP()) {
+            r.setResultCode(ResultCode.USER_IP_ERROR);
+            return;
+        }
         Subject subject = SecurityUtils.getSubject();
         UsernamePasswordToken token = new UsernamePasswordToken(account, password);
         try {

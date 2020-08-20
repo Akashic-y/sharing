@@ -36,7 +36,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     @Transactional
     public Integer saveCategory(Category category) {
-    	dao.insertSelective(category);
+        dao.insertSelective(category);
         return category.getId();
     }
 

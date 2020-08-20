@@ -8,11 +8,11 @@ import tk.mybatis.mapper.common.Mapper;
 
 public interface TagMapper extends Mapper<Tag> {
 
-	List<TagVO> findAllDetail();
+    List<TagVO> findAllDetail();
 
-	TagVO getTagDetail(Integer id);
+    TagVO getTagDetail(Integer id);
 
-	List<Tag> listHotTagsByArticleUse(int limit);
+    List<Tag> listHotTagsByArticleUse(int limit);
 
-	List<Tag> findAll();
+    List<Tag> findAll();
 }

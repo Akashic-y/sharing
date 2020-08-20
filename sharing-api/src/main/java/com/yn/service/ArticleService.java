@@ -39,8 +39,8 @@ public interface ArticleService {
 
     List<Article> listNewArticles(int limit);
 
-	List<Content> listArticles(ArticleForm article, PageVo page);
+    List<Content> listArticles(ArticleForm article, PageVo page);
 
-	List<ArticleForm> listArticleForms();
+    List<ArticleForm> listArticleForms();
 
 }

@@ -10,9 +10,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @MapperScan("com.yn.dao")
 public class SpringbootStarter {
     private final static Logger LOGGER = LoggerFactory.getLogger(SpringbootStarter.class);
-    
-	public static void main(String[] args) {
-	    SpringApplication.run(SpringbootStarter.class, args);
+
+    public static void main(String[] args) {
+        SpringApplication.run(SpringbootStarter.class, args);
         LOGGER.info("项目启动 ");
-	}
+    }
 }

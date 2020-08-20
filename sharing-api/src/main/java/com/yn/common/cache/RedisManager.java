@@ -16,7 +16,7 @@ import org.springframework.data.redis.core.ValueOperations;
  */
 public class RedisManager {
 
-	private static final Logger logger = LoggerFactory.getLogger(RedisManager.class);
+    private static final Logger logger = LoggerFactory.getLogger(RedisManager.class);
     /**
      * 默认过期时长，单位：秒 30分钟
      */
@@ -37,7 +37,7 @@ public class RedisManager {
                 redisTemplate.opsForValue().set(key, value, expire, TimeUnit.SECONDS);
             }
         } catch (Exception e) {
-        	logger.error(e.getMessage());
+            logger.error(e.getMessage());
         }
 
     }

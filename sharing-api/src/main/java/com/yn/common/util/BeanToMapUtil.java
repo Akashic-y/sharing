@@ -13,10 +13,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- *
  * @author zhangweidong
  * @version 3.0 Revise History:
- * 
  */
 public class BeanToMapUtil {
 
@@ -24,9 +22,8 @@ public class BeanToMapUtil {
 
     /**
      * 将一个 JavaBean 对象转化为一个 Map
-     * 
-     * @param bean
-     *            要转化的JavaBean对象
+     *
+     * @param bean 要转化的JavaBean对象
      * @return returnMap 转化出来的 Map对象
      */
     public static <T> Map<String, String> beanToMap(T bean) {
@@ -73,14 +70,12 @@ public class BeanToMapUtil {
         return returnMap;
     }
 
-    
+
     /**
      * 将一个Map对象转化为一个JavaBean
-     * 
-     * @param paramMap
-     *            包含属性值的map
-     * @param clazz
-     *            要转化的类型
+     *
+     * @param paramMap 包含属性值的map
+     * @param clazz    要转化的类型
      * @return beanObj 转化出来的JavaBean对象
      */
     public static <T> T mapToBean(Map<String, Object> paramMap, Class<T> clazz) {

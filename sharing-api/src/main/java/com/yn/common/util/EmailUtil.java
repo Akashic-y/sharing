@@ -13,39 +13,39 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import com.sun.mail.util.MailSSLSocketFactory;
 import org.springframework.stereotype.Component;
 
- /**
-  * @ClassName: EmailUtil 
-  * @Description: 网易企业邮箱发送工具类
-  * @author YN
-  * @date 2019年8月27日 下午3:51:13  
-  */
- @Component
+/**
+ * @author YN
+ * @ClassName: EmailUtil
+ * @Description: 网易企业邮箱发送工具类
+ * @date 2019年8月27日 下午3:51:13
+ */
+@Component
 public class EmailUtil {
-	
-	@Value("${email.username}")
-	private String username;//企业邮箱
-	
-	@Value("${email.from}")
-	private String from;//发件人昵称展示
-	
-	@Value("${email.password}")
-	private String password;//企业邮箱密码 授权密码不是登录密码
-	
-	@Value("${email.host}")
-	private String host;//163企业邮箱smtp
-	/**
-	 * 
-	 * @param to 接收邮箱
-	 * @param subject 邮件主题
-	 * @param text 邮件内容
-	 */
-    public void sendHtmlMail(String[] to,String subject,String text) {
-        try{
+
+    @Value("${email.username}")
+    private String username;//企业邮箱
+
+    @Value("${email.from}")
+    private String from;//发件人昵称展示
+
+    @Value("${email.password}")
+    private String password;//企业邮箱密码 授权密码不是登录密码
+
+    @Value("${email.host}")
+    private String host;//163企业邮箱smtp
+
+    /**
+     * @param to      接收邮箱
+     * @param subject 邮件主题
+     * @param text    邮件内容
+     */
+    public void sendHtmlMail(String[] to, String subject, String text) {
+        try {
             //设置服务器验证信息
             Properties prop = new Properties();
             prop.setProperty("mail.smtp.auth", "true");
             prop.setProperty("mail.smtp.timeout", "994"); // 加密端口(ssl)  可通过 https://qiye.163.com/help/client-profile.html 进行查询
-    
+
             MailSSLSocketFactory sf = new MailSSLSocketFactory();// SSL加密
             sf.setTrustAllHosts(true); // 设置信任所有的主机
             prop.put("mail.smtp.ssl.enable", "true");
@@ -55,11 +55,11 @@ public class EmailUtil {
             MimeMessage message = javaMailSend.createMimeMessage();
             MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "utf-8");
             String nick = MimeUtility.encodeText(from);//设置昵称
-            messageHelper.setFrom(new InternetAddress(nick + " <"+username+">"));// 邮件发送者
+            messageHelper.setFrom(new InternetAddress(nick + " <" + username + ">"));// 邮件发送者
             messageHelper.setTo(to);
             messageHelper.setSubject(subject);
             messageHelper.setText(text, true);
-    
+
             //设置邮件服务器登录信息
             javaMailSend.setHost(host);
             javaMailSend.setUsername(username);

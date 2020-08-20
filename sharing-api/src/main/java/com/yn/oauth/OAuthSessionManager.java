@@ -13,27 +13,27 @@ import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
  * 从请求头获取token
  *
  * @author yn
- *         <p>
- *         2018年1月23日
+ * <p>
+ * 2018年1月23日
  */
 public class OAuthSessionManager extends DefaultWebSessionManager {
 
-	public static final String OAUTH_TOKEN = "Oauth-Token";
+    public static final String OAUTH_TOKEN = "Oauth-Token";
 
-	private static final String REFERENCED_SESSION_ID_SOURCE = "Stateless request";
+    private static final String REFERENCED_SESSION_ID_SOURCE = "Stateless request";
 
-	public OAuthSessionManager() {
-		super();
-	}
+    public OAuthSessionManager() {
+        super();
+    }
 
-	@Override
-	protected Serializable getSessionId(ServletRequest request, ServletResponse response) {
-		HttpServletRequest httpRequest = (HttpServletRequest) request;
-		String id = httpRequest.getHeader(OAUTH_TOKEN);
+    @Override
+    protected Serializable getSessionId(ServletRequest request, ServletResponse response) {
+        HttpServletRequest httpRequest = (HttpServletRequest) request;
+        String id = httpRequest.getHeader(OAUTH_TOKEN);
 
-		request.setAttribute(ShiroHttpServletRequest.REFERENCED_SESSION_ID_SOURCE, REFERENCED_SESSION_ID_SOURCE);
-		request.setAttribute(ShiroHttpServletRequest.REFERENCED_SESSION_ID, id);
-		request.setAttribute(ShiroHttpServletRequest.REFERENCED_SESSION_ID_IS_VALID, Boolean.TRUE);
-		return id;
-	}
+        request.setAttribute(ShiroHttpServletRequest.REFERENCED_SESSION_ID_SOURCE, REFERENCED_SESSION_ID_SOURCE);
+        request.setAttribute(ShiroHttpServletRequest.REFERENCED_SESSION_ID, id);
+        request.setAttribute(ShiroHttpServletRequest.REFERENCED_SESSION_ID_IS_VALID, Boolean.TRUE);
+        return id;
+    }
 }

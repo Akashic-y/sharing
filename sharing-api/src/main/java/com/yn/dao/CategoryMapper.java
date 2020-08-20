@@ -7,9 +7,9 @@ import com.yn.vo.CategoryVO;
 import tk.mybatis.mapper.common.Mapper;
 
 public interface CategoryMapper extends Mapper<Category> {
-	List<Category> findAll();
+    List<Category> findAll();
 
-	List<CategoryVO> findAllDetail();
+    List<CategoryVO> findAllDetail();
 
-	CategoryVO getCategoryDetail(Integer id);
+    CategoryVO getCategoryDetail(Integer id);
 }

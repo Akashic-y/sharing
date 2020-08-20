@@ -10,15 +10,14 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
 /**
- *  根据IP地址获取详细的地域信息
- *  @author YN
- *  @date 2020年1月20日14:23:54
+ * 根据IP地址获取详细的地域信息
+ *
+ * @author YN
+ * @date 2020年1月20日14:23:54
  */
 public class AddressUtils {
     /**
-     *
-     * @param content
-     *            请求的参数 格式为：name=xxx&pwd=xxx
+     * @param content 请求的参数 格式为：name=xxx&pwd=xxx
      * @return
      */
     public static String getAddresses(String content) {
@@ -30,7 +29,7 @@ public class AddressUtils {
             // 处理返回的省市区信息
             System.out.println(returnStr);
             String[] temp = returnStr.split(",");
-            if(temp.length<3){
+            if (temp.length < 3) {
                 return "0";//无效IP，局域网测试
             }
             String region = (temp[5].split(":"))[1].replaceAll("\"", "");
@@ -71,19 +70,17 @@ public class AddressUtils {
                 }
             }
 
-            System.out.println(country+"="+area+"="+region+"="+city+"="+county+"="+isp);
+            System.out.println(country + "=" + area + "=" + region + "=" + city + "=" + county + "=" + isp);
 //            return region;
-            return region+"-"+city+"-"+county+"-"+isp;
+            return region + "-" + city + "-" + county + "-" + isp;
         }
         return null;
     }
+
     /**
-     * @param urlStr
-     *            请求的地址
-     * @param content
-     *            请求的参数 格式为：name=xxx&pwd=xxx
-     * @param encoding
-     *            服务器端请求编码。如GBK,UTF-8等
+     * @param urlStr   请求的地址
+     * @param content  请求的参数 格式为：name=xxx&pwd=xxx
+     * @param encoding 服务器端请求编码。如GBK,UTF-8等
      * @return
      */
     private static String getResult(String urlStr, String content, Charset encoding) {
@@ -121,18 +118,19 @@ public class AddressUtils {
         }
         return null;
     }
+
     /**
      * unicode 转换成 中文
      *
-     * @author fanhui 2007-3-15
      * @param theString
      * @return
+     * @author fanhui 2007-3-15
      */
     public static String decodeUnicode(String theString) {
         char aChar;
         int len = theString.length();
         StringBuffer outBuffer = new StringBuffer(len);
-        for (int x = 0; x < len;) {
+        for (int x = 0; x < len; ) {
             aChar = theString.charAt(x++);
             if (aChar == '\\') {
                 aChar = theString.charAt(x++);
@@ -197,7 +195,7 @@ public class AddressUtils {
     public static void main(String[] args) {
 //        String ip = "163.177.13.2";凯子
         String ip = "218.17.161.178";
-        String address = getAddresses("ip="+ip);
+        String address = getAddresses("ip=" + ip);
         System.out.println(address);
         // 输出结果为：广东省,深圳市
     }

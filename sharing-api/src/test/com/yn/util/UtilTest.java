@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class UtilTest {
     @Test
-    public void BeanMap(){
+    public void BeanMap() {
         Tag tag = new Tag();
         tag.setAvatar("www");
         tag.setTagname("twww");

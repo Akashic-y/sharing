@@ -2,6 +2,7 @@ package com.yn.entity;
 
 import java.util.Date;
 import java.util.List;
+
 import com.yn.common.entity.BaseEntity;
 import lombok.Data;
 
@@ -13,13 +14,13 @@ import javax.persistence.Transient;
  */
 @Data
 @Table(name = "me_comment")
-public class Comment extends BaseEntity{
+public class Comment extends BaseEntity {
 
     private String content;
 
     @Transient
     private User author;
-    
+
     private Date createDate;
 
     /**

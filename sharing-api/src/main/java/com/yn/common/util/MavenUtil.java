@@ -7,7 +7,7 @@ public class MavenUtil {
      * @Author yn
      * @Date 11:28 2019/12/27 0027
      */
-    public static void addJar(String jarPath, String groupId, String artifactId, String version){
+    public static void addJar(String jarPath, String groupId, String artifactId, String version) {
         String cmd = "mvn install:install-file -Dfile=" + jarPath + " -DgroupId=" + groupId +
                 " -DartifactId=" + artifactId + " -Dversion=" + version + " -Dpackaging=jar";
         String execCmdResult = CommonTools.getExecCmdResult(cmd);
@@ -19,6 +19,6 @@ public class MavenUtil {
         String groupId = "com.github.open-android";
         String artifactId = "pinyin4j";
         String version = "2.5.0";
-        addJar(jarPath,groupId,artifactId,version);
+        addJar(jarPath, groupId, artifactId, version);
     }
 }

@@ -7,12 +7,14 @@ import javax.persistence.Table;
 
 @Data
 @Table(name = "me_tag")
-public class Tag extends BaseEntity{
+public class Tag extends BaseEntity {
 
-	/** 图片路径 */
-	private String avatar;
+    /**
+     * 图片路径
+     */
+    private String avatar;
 
-	private String tagname;
+    private String tagname;
 
-	private Integer count;
+    private Integer count;
 }

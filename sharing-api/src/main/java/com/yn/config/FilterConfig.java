@@ -25,7 +25,7 @@ public class FilterConfig {
     }
 
     @Bean
-    public FilterRegistrationBean xssFilter(){
+    public FilterRegistrationBean xssFilter() {
         FilterRegistrationBean rs = new FilterRegistrationBean();
         rs.setFilter(new XSSFilter());
         rs.setName("xssFilter");

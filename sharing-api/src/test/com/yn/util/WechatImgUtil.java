@@ -31,8 +31,8 @@ public class WechatImgUtil {
         for (File file1 : file) {
             if (file1.isFile()) {
                 Object[] xori = getXor(file1);
-                if (xori != null && xori[1] != null){
-                    x.set((int)xori[1]);
+                if (xori != null && xori[1] != null) {
+                    x.set((int) xori[1]);
                 }
                 break;
             }
@@ -40,11 +40,11 @@ public class WechatImgUtil {
         Arrays.stream(file).parallel().forEach(file1 -> {
             if (file1.isDirectory()) {
                 String[] newTargetPath = file1.getPath().split("[/\\\\]");
-                File targetFile = new File(targetPath+File.separator+newTargetPath[newTargetPath.length - 1]);
+                File targetFile = new File(targetPath + File.separator + newTargetPath[newTargetPath.length - 1]);
                 if (!targetFile.exists()) {
                     targetFile.mkdirs();
                 }
-                convert(file1.getPath(),targetPath+File.separator+newTargetPath[newTargetPath.length - 1]);
+                convert(file1.getPath(), targetPath + File.separator + newTargetPath[newTargetPath.length - 1]);
                 return;
             }
             Object[] xor = getXor(file1);

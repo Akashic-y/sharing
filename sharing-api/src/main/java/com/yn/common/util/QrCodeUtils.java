@@ -21,6 +21,7 @@ import java.util.HashMap;
 
 /**
  * 二维码工具类
+ *
  * @Author kzh
  * @Description
  * @Date 19-4-1 下午4:50
@@ -31,10 +32,11 @@ public class QrCodeUtils {
 
     /**
      * 创建二维码
+     *
      * @param content 二维码封装内容
-     * @param logo 中心logo（未支持）
-     * @param weight 宽度
-     * @param height 高度
+     * @param logo    中心logo（未支持）
+     * @param weight  宽度
+     * @param height  高度
      * @return
      */
     public static BufferedImage createImage(String content, String logo, Integer weight, Integer height) {
@@ -44,12 +46,12 @@ public class QrCodeUtils {
          * 2、如果高宽都未指定，使用默认的高宽300x300
          * 3、只指定了高宽中的一个，则高宽相等
          */
-        if(weight != null && height != null) {
+        if (weight != null && height != null) {
 
-        }else if(weight == null && height == null) {
+        } else if (weight == null && height == null) {
             weight = 300;
             height = 300;
-        }else {
+        } else {
             weight = (weight == null ? height : weight);
             height = (height == null ? weight : height);
         }
@@ -76,6 +78,7 @@ public class QrCodeUtils {
     /**
      * 输出二维码到流中
      * 在本项目中输出到流中会出现换行，导致输出乱码，原因不详，建议使用base64输出形式{@link QrCodeUtils#writeToBase64(java.lang.String, java.lang.String, java.lang.Integer, java.lang.Integer)}
+     *
      * @param content
      * @param logo
      * @param stream
@@ -89,19 +92,20 @@ public class QrCodeUtils {
             ImageIO.write(image, "png", stream);
         } catch (IOException e) {
             log.error("生成二维码失败, 写入二维码到流失败，错误信息:{}", JSON.toJSONString(e));
-            throw new RuntimeException( "生成二维码失败");
+            throw new RuntimeException("生成二维码失败");
         }
     }
 
     /**
      * 以base64形式输出二维码
+     *
      * @param content
      * @param logo
      * @param weight
      * @param height
      * @return
      */
-    public static String writeToBase64(String content, String logo, Integer weight, Integer height){
+    public static String writeToBase64(String content, String logo, Integer weight, Integer height) {
         try {
             BufferedImage image = createImage(content, logo, weight, height);
             ByteArrayOutputStream bos = new ByteArrayOutputStream();

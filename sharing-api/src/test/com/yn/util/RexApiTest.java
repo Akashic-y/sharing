@@ -13,7 +13,7 @@ public class RexApiTest {
         stopMeeting();
     }
 
-    private static void createMeeting(){
+    private static void createMeeting() {
         RequestMsgXML msgXML = new RequestMsgXML("10008",
                 "<Meeting>" +
                         "<MeetingTopic></MeetingTopic>" +
@@ -25,13 +25,13 @@ public class RexApiTest {
                         "<IsUnitCast>1</IsUnitCast>" +
                         "<IsRecord>0</IsRecord>" +
                         "<CameraList>" +
-                            "<Encoder>" +
-                                "<Ip>192.168.3.151</Ip>" +
-                                "<Type>0</Type>" +
-                                "<Username></Username>" +
-                                "<UserPwd></UserPwd>" +
-                                "<Port></Port>" +
-                            "</Encoder>" +
+                        "<Encoder>" +
+                        "<Ip>192.168.3.151</Ip>" +
+                        "<Type>0</Type>" +
+                        "<Username></Username>" +
+                        "<UserPwd></UserPwd>" +
+                        "<Port></Port>" +
+                        "</Encoder>" +
                         "</CameraList>" +
                         "<IsPublic>1</IsPublic>" +
                         "<MeetingLevel>1</MeetingLevel>" +
@@ -42,14 +42,16 @@ public class RexApiTest {
                         "</Meeting>");
         post(msgXML.getXML());
     }
-    private static void stopMeeting(){
+
+    private static void stopMeeting() {
         RequestMsgXML msgXML = new RequestMsgXML("10009",
                 "<RoomIds>0,1</RoomIds>");
         post(msgXML.getXML());
     }
+
     private static int post(String xml) {
         PostMethod post = new PostMethod("http://192.168.3.229/HttpService.action");
-        post.getParams().setParameter(HttpMethodParams.HTTP_CONTENT_CHARSET,"utf-8");
+        post.getParams().setParameter(HttpMethodParams.HTTP_CONTENT_CHARSET, "utf-8");
         try {
             RequestEntity entity = new StringRequestEntity(xml, "text/xml", "utf-8");
             post.setRequestEntity(entity);
@@ -67,6 +69,7 @@ public class RexApiTest {
         return 200;
     }
 }
+
 class RequestMsgXML {
 
     private String msgHead;

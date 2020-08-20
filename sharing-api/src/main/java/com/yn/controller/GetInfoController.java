@@ -28,16 +28,16 @@ public class GetInfoController {
 
     @RequestMapping(value = "/")
     @LogAnnotation(module = "获取浏览器信息", operation = "获取浏览器信息")
-    public void getInfo(HttpServletRequest request, HttpServletResponse response){
+    public void getInfo(HttpServletRequest request, HttpServletResponse response) {
         String sessionId = request.getSession().getId();
-        System.out.println("request.getSession().getId()"+ sessionId);
+        System.out.println("request.getSession().getId()" + sessionId);
         //通过NatApp获取访问者IP
         String nip = request.getHeader("X-Natapp-Ip");
         //判断是否已经存在ip记录，存在就加1
-        if(dao.existIp(nip) > 0){
-            dao.updateByIp(nip,sessionId);
-        }else {
-            String path = "\\"+ DateUtils.getcurrentdate4()+".txt";
+        if (dao.existIp(nip) > 0) {
+            dao.updateByIp(nip, sessionId);
+        } else {
+            String path = "\\" + DateUtils.getcurrentdate4() + ".txt";
             File f = new File(path);
 
             /**
@@ -73,33 +73,33 @@ public class GetInfoController {
                 BufferedWriter bw = new BufferedWriter(fw);
                 bw.write("获取到的客户机信息如下：");
                 bw.newLine();
-                bw.write("请求的URL地址："+requestUrl);
+                bw.write("请求的URL地址：" + requestUrl);
                 bw.newLine();
-                bw.write("请求的资源："+requestUri);
+                bw.write("请求的资源：" + requestUri);
                 bw.newLine();
-                bw.write("请求的URL地址中附带的参数："+queryString);
+                bw.write("请求的URL地址中附带的参数：" + queryString);
                 bw.newLine();
-                bw.write("来访者的IP地址："+remoteAddr);
+                bw.write("来访者的IP地址：" + remoteAddr);
                 bw.newLine();
-                bw.write("X-Natapp-Ip来访者的外网IP地址："+nip);
+                bw.write("X-Natapp-Ip来访者的外网IP地址：" + nip);
                 bw.newLine();
-                bw.write("来访者的主机名："+remoteHost);
+                bw.write("来访者的主机名：" + remoteHost);
                 bw.newLine();
-                bw.write("使用的端口号："+remotePort);
+                bw.write("使用的端口号：" + remotePort);
                 bw.newLine();
-                bw.write("remoteUser："+remoteUser);
+                bw.write("remoteUser：" + remoteUser);
                 bw.newLine();
-                bw.write("请求使用的方法："+method);
+                bw.write("请求使用的方法：" + method);
                 bw.newLine();
-                bw.write("pathInfo："+pathInfo);
+                bw.write("pathInfo：" + pathInfo);
                 bw.newLine();
-                bw.write("localAddr："+localAddr);
+                bw.write("localAddr：" + localAddr);
                 bw.newLine();
-                bw.write("localName："+localName);
+                bw.write("localName：" + localName);
                 bw.newLine();
-                bw.write("浏览器类型："+agent);
+                bw.write("浏览器类型：" + agent);
                 bw.newLine();
-                bw.write("地址："+ addresses);
+                bw.write("地址：" + addresses);
                 bw.flush();
                 System.out.println("绝对路径--------------------" + f.getAbsolutePath());
             } catch (IOException e) {
@@ -115,13 +115,13 @@ public class GetInfoController {
 
     @RequestMapping(value = "/addPosition")
     @LogAnnotation(module = "保存定位", operation = "保存定位")
-    public void addPosition(@RequestBody AccessIp accessIp, HttpServletRequest request){
+    public void addPosition(@RequestBody AccessIp accessIp, HttpServletRequest request) {
         Cookie[] cookies = request.getCookies();
         System.out.println("accessIp.getPosition()" + accessIp.getPosition());
         for (Cookie cookie : cookies) {
-            if("JSESSIONID".equals(cookie.getName())) {
+            if ("JSESSIONID".equals(cookie.getName())) {
                 String sessionId = cookie.getValue();
-                System.out.println("cookie.getValue()"+ sessionId);
+                System.out.println("cookie.getValue()" + sessionId);
                 accessIp.setSessionId(sessionId);
                 dao.updatePosition(accessIp);
                 break;

@@ -39,7 +39,7 @@ public class CommentServiceImpl implements CommentService {
     @Override
     @Transactional
     public Integer saveComment(Comment comment) {
-    	comment.setAuthorId(UserUtils.getCurrentUser().getId());
+        comment.setAuthorId(UserUtils.getCurrentUser().getId());
         return cdao.insertSelective(comment);
     }
 
@@ -52,8 +52,8 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public List<Comment> listCommentsByArticle(Integer id) {
-    	//PageHelper.startPage(page.getPageNumber(), page.getPageSize(),true);
-    	//TODO 给页面的数据类型
+        //PageHelper.startPage(page.getPageNumber(), page.getPageSize(),true);
+        //TODO 给页面的数据类型
         return cdao.findByArticle(id);
     }
 
@@ -62,12 +62,12 @@ public class CommentServiceImpl implements CommentService {
     public Comment saveCommentAndChangeCounts(Comment comment) {
         comment.setArticleId(UserUtils.getCurrentUser().getId());
         //设置level
-        if(null == comment.getParent()){
+        if (null == comment.getParent()) {
             comment.setLevel(0);
-        }else{
-            if(null == comment.getToUser()){
+        } else {
+            if (null == comment.getToUser()) {
                 comment.setLevel(1);
-            }else{
+            } else {
                 comment.setLevel(2);
             }
         }

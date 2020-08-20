@@ -17,77 +17,77 @@ import com.yn.service.UserService;
 
 /**
  * @author yn
- *         <p>
- *         2018年1月23日
+ * <p>
+ * 2018年1月23日
  */
 @Service
 public class UserServiceImpl implements UserService {
 
-	@Autowired
-	private UserMapper dao;
-	
-	@Autowired
-	private RedisManager redisManager;
+    @Autowired
+    private UserMapper dao;
 
-	@Override
-	public List<User> findAll() {
-		return dao.findAll();
-	}
+    @Autowired
+    private RedisManager redisManager;
 
-	@Override
-	public User getUserByAccount(String account) {
-		return dao.findByAccount(account);
-	}
+    @Override
+    public List<User> findAll() {
+        return dao.findAll();
+    }
 
-	@Override
-	public User getUserById(Long id) {
-		return dao.selectByPrimaryKey(id);
-	}
+    @Override
+    public User getUserByAccount(String account) {
+        return dao.findByAccount(account);
+    }
 
-	@Override
-	@Transactional
-	public int saveUser(User user) {
-		PasswordHelper.encryptPassword(user);
-		int index = new Random().nextInt(6) + 1;
-		String avatar = "/static/user/user_" + index + ".png";
-		user.setAvatar(avatar);
-		return dao.insertSelective(user);
-	}
+    @Override
+    public User getUserById(Long id) {
+        return dao.selectByPrimaryKey(id);
+    }
 
-	@Override
-	@Transactional
-	public int updateUser(User user) {
-		return dao.updateByPrimaryKeySelective(user);
-	}
+    @Override
+    @Transactional
+    public int saveUser(User user) {
+        PasswordHelper.encryptPassword(user);
+        int index = new Random().nextInt(6) + 1;
+        String avatar = "/static/user/user_" + index + ".png";
+        user.setAvatar(avatar);
+        return dao.insertSelective(user);
+    }
 
-	@Override
-	@Transactional
-	public void deleteUserById(Long id) {
-		dao.deleteById(id);
-	}
+    @Override
+    @Transactional
+    public int updateUser(User user) {
+        return dao.updateByPrimaryKeySelective(user);
+    }
 
-	@Override
-	public int exitUser(String account) {
-		return dao.exitUser(account);
-	}
+    @Override
+    @Transactional
+    public void deleteUserById(Long id) {
+        dao.deleteById(id);
+    }
 
-	@Override
-	public void updateLoginInfo(Integer id,String ip) {
-		dao.updateLoginInfo(id,ip);
-	}
+    @Override
+    public int exitUser(String account) {
+        return dao.exitUser(account);
+    }
 
-	@Override
-	public boolean isLimitIP() {
-		if(redisManager.get("limitIP") == null) {
-			synchronized (this) {
-				if(redisManager.get("limitIP") == null) {
-					List<String> limitIp = dao.getLimitIp();
-					redisManager.set("limitIP", limitIp);//默认30分钟
-				}
-			}
-		}
-		ArrayList set = redisManager.get("limitIP",ArrayList.class);
-		return set.contains(IpUtils.getIpAddr());
-	}
+    @Override
+    public void updateLoginInfo(Integer id, String ip) {
+        dao.updateLoginInfo(id, ip);
+    }
+
+    @Override
+    public boolean isLimitIP() {
+        if (redisManager.get("limitIP") == null) {
+            synchronized (this) {
+                if (redisManager.get("limitIP") == null) {
+                    List<String> limitIp = dao.getLimitIp();
+                    redisManager.set("limitIP", limitIp);//默认30分钟
+                }
+            }
+        }
+        ArrayList set = redisManager.get("limitIP", ArrayList.class);
+        return set.contains(IpUtils.getIpAddr());
+    }
 
 }

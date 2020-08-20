@@ -5,12 +5,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.yn.SharingApiApplicationTests;
 
-public class CategoryRepositoryTest extends SharingApiApplicationTests{
+public class CategoryRepositoryTest extends SharingApiApplicationTests {
 
-	@Autowired
-	private CategoryMapper categoryMapper;
+    @Autowired
+    private CategoryMapper categoryMapper;
 
-	@Test
-	public void test() {
-	}
+    @Test
+    public void test() {
+    }
 }

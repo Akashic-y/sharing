@@ -13,7 +13,8 @@ import java.util.Map;
 public class XSSFilter implements Filter {
     private static Logger log = LoggerFactory.getLogger(XSSFilter.class);
 
-    public void destroy() { }
+    public void destroy() {
+    }
 
     public void doFilter(ServletRequest servletRequest,
                          ServletResponse servletResponse, FilterChain filterChain)
@@ -26,7 +27,7 @@ public class XSSFilter implements Filter {
 //        log.info("提交的方式是========" + request.getMethod());
 
         if ("Y".equals(guolv2(requestStr)) || "Y".equals(guolv2(request.getRequestURL().toString()))) {
-            log.info("======访问地址发现非法字符，已拦截======其非法地址为："+guolv2(request.getRequestURL().toString()));
+            log.info("======访问地址发现非法字符，已拦截======其非法地址为：" + guolv2(request.getRequestURL().toString()));
             response.setStatus(403);
             return;
         }
@@ -38,18 +39,18 @@ public class XSSFilter implements Filter {
 //                || StringUtils.equals(myhosts, "xx.xx.xxx.xxx")
 //                || StringUtils.equals(myhosts, "xx.xx.xxx.xxx")
 //                || StringUtils.equals(myhosts, "xx.xx.xxx.xxx")) {
-            // 过滤请求特殊字符，扫描跨站式漏洞
-            Map parameters = request.getParameterMap();
-            if (parameters != null && parameters.size() > 0) {
-                for (Object o : parameters.keySet()) {
-                    String key = (String) o;
-                    String[] values = (String[]) parameters.get(key);
-                    for (int i = 0; i < values.length; i++) {
-                        values[i] = guolv(values[i]);
-                    }
+        // 过滤请求特殊字符，扫描跨站式漏洞
+        Map parameters = request.getParameterMap();
+        if (parameters != null && parameters.size() > 0) {
+            for (Object o : parameters.keySet()) {
+                String key = (String) o;
+                String[] values = (String[]) parameters.get(key);
+                for (int i = 0; i < values.length; i++) {
+                    values[i] = guolv(values[i]);
                 }
             }
-            filterChain.doFilter(servletRequest, servletResponse);
+        }
+        filterChain.doFilter(servletRequest, servletResponse);
 //        } else {
 //            log.info("======访问host非法，已拦截======其非法host为:" + myhosts);
 //            response.setStatus(403);  //或者response.setStatus(403);
@@ -57,7 +58,8 @@ public class XSSFilter implements Filter {
 
     }
 
-    public void init(FilterConfig filterConfig) { }
+    public void init(FilterConfig filterConfig) {
+    }
 
     /**
      * @Author yn
@@ -92,6 +94,7 @@ public class XSSFilter implements Filter {
         else
             return requestPath;
     }
+
     /**
      * @Author yn
      * @Desc 判断请求中特殊字符

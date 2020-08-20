@@ -9,17 +9,17 @@ import com.yn.entity.User;
 import tk.mybatis.mapper.common.Mapper;
 
 public interface UserMapper extends Mapper<User> {
-	User selectById(String Long);
+    User selectById(String Long);
 
-	User findByAccount(String account);
+    User findByAccount(String account);
 
-	int exitUser(String account);
+    int exitUser(String account);
 
-	List<User> findAll();
+    List<User> findAll();
 
-	void updateLoginInfo(@Param("id") Integer id,@Param("ip") String ip);
+    void updateLoginInfo(@Param("id") Integer id, @Param("ip") String ip);
 
-	List<String> getLimitIp();
+    List<String> getLimitIp();
 
     void deleteById(Long id);
 }

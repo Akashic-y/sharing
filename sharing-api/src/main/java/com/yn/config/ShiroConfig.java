@@ -21,12 +21,12 @@ import com.yn.oauth.OAuthSessionManager;
 @Configuration
 public class ShiroConfig {
 
-	@Bean
-	public ShiroFilterFactoryBean shiroFilter(SecurityManager securityManager) {
-		ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
-		shiroFilterFactoryBean.setSecurityManager(securityManager);
+    @Bean
+    public ShiroFilterFactoryBean shiroFilter(SecurityManager securityManager) {
+        ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
+        shiroFilterFactoryBean.setSecurityManager(securityManager);
 
-		Map<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
+        Map<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
 //		filterChainDefinitionMap.put("/", "anon");
 //		filterChainDefinitionMap.put("/static/**", "anon");
 //		filterChainDefinitionMap.put("/sharingFile/**", "anon");
@@ -38,64 +38,64 @@ public class ShiroConfig {
 //		filterChainDefinitionMap.put("/upload", "authc");
 //		filterChainDefinitionMap.put("/users/currentUser", "authc");
 
-		filterChainDefinitionMap.put("/**", "anon");
+        filterChainDefinitionMap.put("/**", "anon");
 
-		// 返回json数据，由前端跳转
-		shiroFilterFactoryBean.setLoginUrl("/handleLogin");
+        // 返回json数据，由前端跳转
+        shiroFilterFactoryBean.setLoginUrl("/handleLogin");
 
-		shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
-		return shiroFilterFactoryBean;
-	}
+        shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
+        return shiroFilterFactoryBean;
+    }
 
-	@Bean
-	public HashedCredentialsMatcher hashedCredentialsMatcher() {
-		HashedCredentialsMatcher hashedCredentialsMatcher = new HashedCredentialsMatcher();
-		hashedCredentialsMatcher.setHashAlgorithmName("md5");
-		hashedCredentialsMatcher.setHashIterations(2);
-		return hashedCredentialsMatcher;
-	}
+    @Bean
+    public HashedCredentialsMatcher hashedCredentialsMatcher() {
+        HashedCredentialsMatcher hashedCredentialsMatcher = new HashedCredentialsMatcher();
+        hashedCredentialsMatcher.setHashAlgorithmName("md5");
+        hashedCredentialsMatcher.setHashIterations(2);
+        return hashedCredentialsMatcher;
+    }
 
-	@Bean
-	public OAuthRealm oAuthRealm() {
-		OAuthRealm myShiroRealm = new OAuthRealm();
-		myShiroRealm.setCredentialsMatcher(hashedCredentialsMatcher());
-		return myShiroRealm;
-	}
+    @Bean
+    public OAuthRealm oAuthRealm() {
+        OAuthRealm myShiroRealm = new OAuthRealm();
+        myShiroRealm.setCredentialsMatcher(hashedCredentialsMatcher());
+        return myShiroRealm;
+    }
 
-	@Bean
-	public SecurityManager securityManager(OAuthRealm oAuthRealm, SessionManager sessionManager) {
-		DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
-		securityManager.setRealm(oAuthRealm);
-		securityManager.setSessionManager(sessionManager);
-		// 自定义缓存实现 使用redis
-		// securityManager.setCacheManager(cacheManager());
-		return securityManager;
-	}
+    @Bean
+    public SecurityManager securityManager(OAuthRealm oAuthRealm, SessionManager sessionManager) {
+        DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
+        securityManager.setRealm(oAuthRealm);
+        securityManager.setSessionManager(sessionManager);
+        // 自定义缓存实现 使用redis
+        // securityManager.setCacheManager(cacheManager());
+        return securityManager;
+    }
 
-	@Bean
-	public SessionManager sessionManager(OAuthSessionDAO authSessionDAO) {
-		OAuthSessionManager oAuthSessionManager = new OAuthSessionManager();
-		oAuthSessionManager.setSessionDAO(authSessionDAO);
-		return oAuthSessionManager;
-	}
+    @Bean
+    public SessionManager sessionManager(OAuthSessionDAO authSessionDAO) {
+        OAuthSessionManager oAuthSessionManager = new OAuthSessionManager();
+        oAuthSessionManager.setSessionDAO(authSessionDAO);
+        return oAuthSessionManager;
+    }
 
-	@Bean
-	public OAuthSessionDAO authSessionDAO(RedisManager redisManager) {
-		OAuthSessionDAO authSessionDAO = new OAuthSessionDAO();
-		authSessionDAO.setRedisManager(redisManager);
-		return authSessionDAO;
-	}
+    @Bean
+    public OAuthSessionDAO authSessionDAO(RedisManager redisManager) {
+        OAuthSessionDAO authSessionDAO = new OAuthSessionDAO();
+        authSessionDAO.setRedisManager(redisManager);
+        return authSessionDAO;
+    }
 
-	@Bean
-	public LifecycleBeanPostProcessor lifecycleBeanPostProcessor() {
-		return new LifecycleBeanPostProcessor();
-	}
+    @Bean
+    public LifecycleBeanPostProcessor lifecycleBeanPostProcessor() {
+        return new LifecycleBeanPostProcessor();
+    }
 
-	@Bean
-	public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(SecurityManager securityManager) {
-		AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor = new AuthorizationAttributeSourceAdvisor();
-		authorizationAttributeSourceAdvisor.setSecurityManager(securityManager);
-		return authorizationAttributeSourceAdvisor;
-	}
+    @Bean
+    public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(SecurityManager securityManager) {
+        AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor = new AuthorizationAttributeSourceAdvisor();
+        authorizationAttributeSourceAdvisor.setSecurityManager(securityManager);
+        return authorizationAttributeSourceAdvisor;
+    }
 
 }

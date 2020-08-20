@@ -31,23 +31,23 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Autowired
     private ArticleMapper dao;
-    
+
     @Autowired
     private ArticleBodyMapper bodyDao;
-    
+
     @Override
     public List<Content> listArticles(PageVo page) {
-    	PageHelper.startPage(page.getPageNumber(), page.getPageSize(),true);
-    	List<Content> rs = dao.listArticles(null);
-    	PageInfo<Content> pi = new PageInfo<>(rs);
+        PageHelper.startPage(page.getPageNumber(), page.getPageSize(), true);
+        List<Content> rs = dao.listArticles(null);
+        PageInfo<Content> pi = new PageInfo<>(rs);
         return pi.getList();
     }
 
     @Override
     public List<Content> listArticles(ArticleForm article, PageVo page) {
-    	PageHelper.startPage(page.getPageNumber(), page.getPageSize(),true);
-    	List<Content> rs = dao.listArticles(article);
-    	PageInfo<Content> pi = new PageInfo<>(rs);
+        PageHelper.startPage(page.getPageNumber(), page.getPageSize(), true);
+        List<Content> rs = dao.listArticles(article);
+        PageInfo<Content> pi = new PageInfo<>(rs);
         return pi.getList();
     }
 
@@ -65,9 +65,9 @@ public class ArticleServiceImpl implements ArticleService {
     @Transactional
     public Integer publishArticle(Article article) {
 
-        if(null != article.getId()){
+        if (null != article.getId()) {
             return this.updateArticle(article);
-        }else{
+        } else {
             return this.saveArticle(article);
         }
 
@@ -76,23 +76,23 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     @Transactional
     public Integer saveArticle(Article article) {
-    	bodyDao.insertSelective(article.getBody());
+        bodyDao.insertSelective(article.getBody());
         User currentUser = UserUtils.getCurrentUser();
         if (null != currentUser) {
             article.setAuthor(currentUser);
         }
         dao.insertSelective(article);
-        dao.insertTags(article.getId(),article.getTags());
+        dao.insertTags(article.getId(), article.getTags());
         return article.getId();
     }
 
     @Override
     @Transactional
     public Integer updateArticle(Article article) {
-    	bodyDao.update(article.getBody());
-    	dao.deleteTags(article.getId());
-    	dao.insertTags(article.getId(),article.getTags());
-    	User currentUser = UserUtils.getCurrentUser();
+        bodyDao.update(article.getBody());
+        dao.deleteTags(article.getId());
+        dao.insertTags(article.getId(), article.getTags());
+        User currentUser = UserUtils.getCurrentUser();
         if (null != currentUser) {
             article.setAuthor(currentUser);
         }
@@ -108,15 +108,15 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public List<Content> listArticlesByTag(Integer id) {
-    	ArticleForm article = new ArticleForm();
-    	article.setTagId(id);
+        ArticleForm article = new ArticleForm();
+        article.setTagId(id);
         return dao.listArticles(article);
     }
 
     @Override
     public List<Content> listArticlesByCategory(Integer id) {
-    	ArticleForm article = new ArticleForm();
-    	article.setCategoryId(id);
+        ArticleForm article = new ArticleForm();
+        article.setCategoryId(id);
         return dao.listArticles(article);
     }
 
@@ -125,8 +125,8 @@ public class ArticleServiceImpl implements ArticleService {
     public Article getArticleAndAddViews(Integer id) {
         Article article = dao.selectByPrimaryKey(id);
         new Thread(() -> {
-        	dao.addView(id);
-		}, "观看数量加1").start();
+            dao.addView(id);
+        }, "观看数量加1").start();
         return article;
     }
 
@@ -134,14 +134,15 @@ public class ArticleServiceImpl implements ArticleService {
     public List<Article> listHotArticles(int limit) {
         ArticleForm articleForm = new ArticleForm();
         articleForm.setOrderBy(StaticValue.view_counts);
-        PageHelper.startPage(0, limit,true);
-        List<Article> rs = dao.listArticlesName(articleForm);;
+        PageHelper.startPage(0, limit, true);
+        List<Article> rs = dao.listArticlesName(articleForm);
+        ;
         return rs;
     }
 
     @Override
     public List<Article> listNewArticles(int limit) {
-    	PageHelper.startPage(0, limit,true);
+        PageHelper.startPage(0, limit, true);
         return dao.listArticlesName(new ArticleForm());
     }
 

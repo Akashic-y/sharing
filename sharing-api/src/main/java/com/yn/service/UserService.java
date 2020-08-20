@@ -23,9 +23,9 @@ public interface UserService {
 
     void deleteUserById(Long id);
 
-	int exitUser(String account);
+    int exitUser(String account);
 
-	void updateLoginInfo(Integer id,String ip);
-	
-	boolean isLimitIP();
+    void updateLoginInfo(Integer id, String ip);
+
+    boolean isLimitIP();
 }

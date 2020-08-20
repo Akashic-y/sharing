@@ -5,9 +5,9 @@ import org.apache.ibatis.annotations.Param;
 import tk.mybatis.mapper.common.Mapper;
 
 public interface AccessIpMapper extends Mapper<AccessIp> {
-	public int existIp(String ip);
+    public int existIp(String ip);
 
-	void updateByIp(@Param("ip") String ip,@Param("sessionId") String sessionId);
+    void updateByIp(@Param("ip") String ip, @Param("sessionId") String sessionId);
 
-	void updatePosition(AccessIp accessIp);
+    void updatePosition(AccessIp accessIp);
 }

@@ -35,7 +35,7 @@ public class CommentRepositoryTest extends SharingApiApplicationTests {
     }
 
     @Test
-    public void getAll(){
+    public void getAll() {
         List<Comment> all = dao.findAll();
         for (Comment comment : all) {
             System.out.println(comment);

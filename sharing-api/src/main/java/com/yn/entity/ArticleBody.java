@@ -10,8 +10,8 @@ import javax.persistence.Table;
 /**
  * 文章正文
  */
-public class ArticleBody extends BaseEntity{
-	
+public class ArticleBody extends BaseEntity {
+
     private String content;
 
     private String contentHtml;

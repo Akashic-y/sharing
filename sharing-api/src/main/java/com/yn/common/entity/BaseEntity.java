@@ -11,7 +11,7 @@ import java.io.Serializable;
  */
 public abstract class BaseEntity implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
     @Id
     private Integer id;
@@ -35,15 +35,15 @@ public abstract class BaseEntity implements Serializable {
     public int hashCode() {
         int hashCode = 17;
         hashCode += null == getId() ? 0 : getId().hashCode() * 31;
-		return hashCode;
-	}
+        return hashCode;
+    }
 
-	public Integer getId() {
-		return id;
-	}
+    public Integer getId() {
+        return id;
+    }
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
 }
