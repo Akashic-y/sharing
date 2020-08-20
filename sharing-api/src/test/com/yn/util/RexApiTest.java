@@ -10,12 +10,45 @@ import java.io.IOException;
 
 public class RexApiTest {
     public static void main(String[] args) {
-        RequestMsgXML msgXML = new RequestMsgXML("10002",
-                "<GetFileListReq><SearchStr></SearchStr></GetFileListReq>");
+        stopMeeting();
+    }
+
+    private static void createMeeting(){
+        RequestMsgXML msgXML = new RequestMsgXML("10008",
+                "<Meeting>" +
+                        "<MeetingTopic></MeetingTopic>" +
+                        "<MeetingAuthor></MeetingAuthor>" +
+                        "<RecordAlias>1441</RecordAlias>" +
+                        "<IsDirect>1</IsDirect>" +
+                        "<BeginTime>2020-08-18 11:12:00</BeginTime>" +
+                        "<EndTime>2020-08-18 12:51:00</EndTime>" +
+                        "<IsUnitCast>1</IsUnitCast>" +
+                        "<IsRecord>0</IsRecord>" +
+                        "<CameraList>" +
+                            "<Encoder>" +
+                                "<Ip>192.168.3.151</Ip>" +
+                                "<Type>0</Type>" +
+                                "<Username></Username>" +
+                                "<UserPwd></UserPwd>" +
+                                "<Port></Port>" +
+                            "</Encoder>" +
+                        "</CameraList>" +
+                        "<IsPublic>1</IsPublic>" +
+                        "<MeetingLevel>1</MeetingLevel>" +
+                        "<MeetingType>1</MeetingType>" +
+                        "<CallNum>172.16.30.122</CallNum>" +
+                        "<CallBitrate>3</CallBitrate>" +
+                        "<Remark></Remark>" +
+                        "</Meeting>");
+        post(msgXML.getXML());
+    }
+    private static void stopMeeting(){
+        RequestMsgXML msgXML = new RequestMsgXML("10009",
+                "<RoomIds>0,1</RoomIds>");
         post(msgXML.getXML());
     }
     private static int post(String xml) {
-        PostMethod post = new PostMethod("http://192.168.3.144/HttpService.action");
+        PostMethod post = new PostMethod("http://192.168.3.229/HttpService.action");
         post.getParams().setParameter(HttpMethodParams.HTTP_CONTENT_CHARSET,"utf-8");
         try {
             RequestEntity entity = new StringRequestEntity(xml, "text/xml", "utf-8");

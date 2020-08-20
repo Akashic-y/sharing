@@ -8,7 +8,6 @@ import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
-import com.sun.prism.paint.Color;
 import org.apache.ws.commons.util.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
