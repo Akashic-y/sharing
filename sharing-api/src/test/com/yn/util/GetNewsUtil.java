@@ -4,10 +4,7 @@ import com.yn.common.util.HttpKit;
 
 import java.io.*;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -37,12 +34,13 @@ public class GetNewsUtil {
     public static void main(String[] args) {
         long startTime = System.currentTimeMillis();   //获取开始时间
 
-//        getNewPeopleList();
+//        getNewStaffList("D:\\allNewsByDate.txt","D:\\allNoticeByDate.txt");
 //        getPeopleNewList();
-        getAllCompanyNews();
-        getAllCompanyNotice();
-//        downloadImg(path + "allNoticeDetail.txt");
-
+//        getAllCompanyNews();
+//        getAllCompanyNotice();
+//        downloadImg(path + "allNewsDetail.txt");
+        statisticsEmployees("C:\\Users\\Administrator\\Desktop\\日常文件\\txt\\人员_20200824.txt",
+                "D:\\newStaffByDate.txt");
         long endTime = System.currentTimeMillis(); //获取结束时间
         System.out.println("程序运行时间： " + (endTime - startTime) + "ms");
     }
@@ -52,9 +50,38 @@ public class GetNewsUtil {
      * @Author yn
      * @Date 14:51 2020/3/12 0012
      */
-    public static void getNewPeopleList() {
-        getNewByType("132c8e7757a044968e6ec7fbcc6e423c", "132c8e7757a044968e6ec7fbcc6e423c",
-                "b249fbac2cc44a50944feb9dcc6a279d", "newStaff");
+    public static void getNewStaffList(String allNewsByDatePath, String allNoticeByDatePath) {
+//        getNewByType("132c8e7757a044968e6ec7fbcc6e423c", "132c8e7757a044968e6ec7fbcc6e423c",
+//                "b249fbac2cc44a50944feb9dcc6a279d", "newStaff");
+
+        try {
+            String fin = path + "newStaffByDate.txt";
+            File writeName = new File(fin);
+            writeName.createNewFile(); // 创建新文件,有同名的文件的话直接覆盖
+            FileWriter writer = new FileWriter(writeName);
+            BufferedWriter out = new BufferedWriter(writer);
+            FileReader reader = new FileReader(allNewsByDatePath);
+            BufferedReader br = new BufferedReader(reader);
+            FileReader reader2 = new FileReader(allNoticeByDatePath);
+            BufferedReader br2 = new BufferedReader(reader2);
+            String line;
+
+            while ((line = br2.readLine()) != null) {
+                if(line.contains("入职") || line.contains("加入") || line.contains("回归")){
+                    out.write(line + "\r\n");
+                }
+            }
+
+            while ((line = br.readLine()) != null) {
+                if(line.contains("入职") || line.contains("加入") || line.contains("回归")){
+                    out.write(line + "\r\n");
+                }
+            }
+            out.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     /**
@@ -297,6 +324,76 @@ public class GetNewsUtil {
             }
         } catch (IOException e) {
 //            System.out.println(urlStr);
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * @Desc 以前入职和在职比较详情
+     * @Author yn
+     * @Date 18:24 2020/8/24 0024
+     */
+    public static void statisticsEmployees(String employeeTxtPath,String newsTxtPath){
+        List<String> newsList=new ArrayList<>();
+        List<String> employeeList=new ArrayList<>();
+        try {
+            FileReader reader = new FileReader(employeeTxtPath);
+            BufferedReader br = new BufferedReader(reader);
+            FileReader reader2 = new FileReader(newsTxtPath);
+            BufferedReader br2 = new BufferedReader(reader2);
+            File writeName = new File("C:\\Users\\Administrator\\Desktop\\employeeInInfo.txt");
+            writeName.createNewFile(); // 创建新文件,有同名的文件的话直接覆盖
+            FileWriter writer = new FileWriter(writeName);
+            BufferedWriter inFile = new BufferedWriter(writer);
+            File employeeOutInfo = new File("C:\\Users\\Administrator\\Desktop\\employeeOutInfo.txt");
+            employeeOutInfo.createNewFile();
+            FileWriter outWriter = new FileWriter(employeeOutInfo);
+            BufferedWriter outFile = new BufferedWriter(outWriter);
+            Map<String,String> map = new HashMap<>();
+            Map<String,String> isOldMap = new HashMap<>();
+            String line;
+
+            while ((line = br2.readLine()) != null) {
+                newsList.add(line);
+            }
+
+            while ((line = br.readLine()) != null) {
+                String[] split = line.split(";");
+                for (String employeeName : split) {
+                    if(employeeName.contains("-")) employeeName = employeeName.split("-")[0];
+                    employeeList.add(employeeName);
+                }
+            }
+
+            for (String news : newsList) {
+                map.put(news,"");
+                StringBuilder value = new StringBuilder();
+                for (String employeeName : employeeList) {
+                    if(news.contains(employeeName)){
+                        value.append(employeeName).append(",");
+                        isOldMap.put(employeeName,"N");
+                    }
+                }
+                map.put(news,value.toString());
+            }
+
+            //下面是写入文件
+            for (String news : newsList) {
+                if("".equals(map.get(news))){
+                    outFile.write(news + "\r\n");
+                }else {
+                    inFile.write(news +" In: " +map.get(news) + "\r\n");
+                }
+            }
+
+            inFile.write("老-----------------------------\r\n");
+            for (String employeeName : employeeList) {
+                if(isOldMap.get(employeeName) == null)
+                    inFile.write(employeeName + "\r\n");
+            }
+            inFile.flush();
+            outFile.flush();
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
