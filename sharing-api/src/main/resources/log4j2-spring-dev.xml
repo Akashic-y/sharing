@@ -4,7 +4,7 @@
 		<property name="LOG_HOME">/blog</property>
 		<property name="INFO_FILE_NAME">info.log</property>
 		<property name="WARN_FILE_NAME">warn.log</property>
-		<property name="ERROR_FILE_NAME">ecc.log</property>
+		<property name="ERROR_FILE_NAME">error.log</property>
 		<property name="PLOG_FILE_NAME">plog.log</property>
 		<property name="BACKUP_FILE_NAME">backup</property>
 		<property name="log_level">info</property>
