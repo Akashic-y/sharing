@@ -3,6 +3,7 @@ package com.yn.util;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
 import tk.mybatis.mapper.util.StringUtil;
 
@@ -16,8 +17,8 @@ public class TxtTest {
     public void readAndWriteFile() {
         String oldOrder = "C:\\Users\\Administrator\\Desktop\\日常文件\\txt\\人员_20190902.txt";
         String newOrder = "C:\\Users\\Administrator\\Desktop\\日常文件\\txt\\人员_20200403.txt";
-        List<String> List1 = new ArrayList<>();
-        List<String> List2 = new ArrayList<>();
+        Map<String,String> oldMap = new HashMap<>();
+        Map<String,String> newMap = new HashMap<>();
         try {
             FileReader reader = new FileReader(oldOrder);    // 建立一个对象，它把文件内容转成计算机能读懂的语言
             BufferedReader br = new BufferedReader(reader);
@@ -25,19 +26,27 @@ public class TxtTest {
             BufferedReader br2 = new BufferedReader(reader2);
             String line;
 
-            StringBuffer sb = new StringBuffer();
+            StringBuilder sb = new StringBuilder();
             while ((line = br.readLine()) != null) {
-                sb.append(line.replaceAll("-", ""));
+                sb.append(line);
             }
-            String[] split = sb.toString().split(";");
-            List1.addAll(Arrays.asList(split));
+            String[] oldSplit = sb.toString().split(";");
+            for (String s : oldSplit) {
+                if(StringUtils.isNotEmpty(s)){
+                    oldMap.put(s.split("-")[0],s);
+                }
+            }
 
-            StringBuffer sb2 = new StringBuffer();
+            StringBuilder sb2 = new StringBuilder();
             while ((line = br2.readLine()) != null) {
-                sb2.append(line.replaceAll("-", ""));
+                sb2.append(line);
             }
-            String[] split2 = sb2.toString().split(";");
-            List2.addAll(Arrays.asList(split2));
+            String[] newSplit = sb2.toString().split(";");
+            for (String s : newSplit) {
+                if(StringUtils.isNotEmpty(s)){
+                    newMap.put(s.split("-")[0],s);
+                }
+            }
 
             //下面是写入文件
             File writeName = new File("C:\\Users\\Administrator\\Desktop\\output.txt"); // 相对路径，如果没有则要建立一个新的output.txt文件
@@ -46,8 +55,9 @@ public class TxtTest {
             BufferedWriter out = new BufferedWriter(writer);
             int i = 0;
             int j = 0;
-            for (String item : List1) {
-                if (!List2.contains(item)) {
+            for(String key : oldMap.keySet()){
+                if(newMap.get(key) == null) {
+                    String item = oldMap.get(key);
                     out.write(item + "\r\n");// \r\n即为换行
                     System.out.println(item);
                     i++;
@@ -55,8 +65,9 @@ public class TxtTest {
             }
             System.out.println("------------------");
             out.write("-----------------------------\r\n");// \r\n即为换行
-            for (String item : List2) {
-                if (!List1.contains(item)) {
+            for(String key : newMap.keySet()){
+                if(oldMap.get(key) == null) {
+                    String item = newMap.get(key);
                     out.write(item + "\r\n");// \r\n即为换行
                     System.out.println(item);
                     j++;
