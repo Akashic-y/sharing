@@ -10,7 +10,7 @@ import java.io.IOException;
 
 public class RexApiTest {
     public static void main(String[] args) {
-        stopMeeting();
+        startMeetingSchedule();
     }
 
     private static void createMeeting() {
@@ -49,8 +49,19 @@ public class RexApiTest {
         post(msgXML.getXML());
     }
 
+    private static void meetingScheduleList() {
+        RequestMsgXML msgXML = new RequestMsgXML("10010",
+                "<GetScheduleListReq><CurrPage>3</CurrPage><PageCount>1</PageCount></GetScheduleListReq>");
+        post(msgXML.getXML());
+    }
+    private static void startMeetingSchedule() {
+        RequestMsgXML msgXML = new RequestMsgXML("10011",
+                "<StartScheduleReq><ScheduleId>21725350e4cd47418db14515cf461c1c</ScheduleId></StartScheduleReq>");
+        post(msgXML.getXML());
+    }
+
     private static int post(String xml) {
-        PostMethod post = new PostMethod("http://192.168.3.229/HttpService.action");
+        PostMethod post = new PostMethod("http://192.168.3.119/HttpService.action");
         post.getParams().setParameter(HttpMethodParams.HTTP_CONTENT_CHARSET, "utf-8");
         try {
             RequestEntity entity = new StringRequestEntity(xml, "text/xml", "utf-8");
