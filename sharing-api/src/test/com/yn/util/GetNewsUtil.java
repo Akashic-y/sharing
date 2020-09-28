@@ -39,7 +39,7 @@ public class GetNewsUtil {
 //        getAllCompanyNews();
 //        getAllCompanyNotice();
 //        downloadImg(path + "allNewsDetail.txt");
-        statisticsEmployees("C:\\Users\\Administrator\\Desktop\\日常文件\\txt\\人员_20200824.txt",
+        compareEmployees("C:\\Users\\Administrator\\Desktop\\日常文件\\txt\\人员_20200824.txt",
                 "D:\\newStaffByDate.txt");
         long endTime = System.currentTimeMillis(); //获取结束时间
         System.out.println("程序运行时间： " + (endTime - startTime) + "ms");
@@ -333,7 +333,7 @@ public class GetNewsUtil {
      * @Author yn
      * @Date 18:24 2020/8/24 0024
      */
-    public static void statisticsEmployees(String employeeTxtPath,String newsTxtPath){
+    public static void compareEmployees(String employeeTxtPath,String newsTxtPath){
         List<String> newsList=new ArrayList<>();
         List<String> employeeList=new ArrayList<>();
         try {
