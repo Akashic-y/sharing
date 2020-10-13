@@ -10,7 +10,7 @@ import java.io.IOException;
 
 public class RexApiTest {
     public static void main(String[] args) {
-        startMeetingSchedule();
+        vodList();
     }
 
     private static void createMeeting() {
@@ -49,19 +49,32 @@ public class RexApiTest {
         post(msgXML.getXML());
     }
 
+    private static void vodList() {
+        RequestMsgXML msgXML = new RequestMsgXML("10001", 
+                "<GetFileListReq>" +
+                "<SearchStr>192.168.5.224</SearchStr>" +
+                "<CurrPage>1</CurrPage>" +
+                "<PageCount>10</PageCount>" +
+                "</GetFileListReq>");
+        post(msgXML.getXML());
+    }
+    private static void meetingList() {
+        RequestMsgXML msgXML = new RequestMsgXML("10002", "");
+        post(msgXML.getXML());
+    }
     private static void meetingScheduleList() {
         RequestMsgXML msgXML = new RequestMsgXML("10010",
-                "<GetScheduleListReq><CurrPage>3</CurrPage><PageCount>1</PageCount></GetScheduleListReq>");
+                "<GetScheduleListReq><CurrPage>1</CurrPage><PageCount>10</PageCount></GetScheduleListReq>");
         post(msgXML.getXML());
     }
     private static void startMeetingSchedule() {
         RequestMsgXML msgXML = new RequestMsgXML("10011",
-                "<StartScheduleReq><ScheduleId>21725350e4cd47418db14515cf461c1c</ScheduleId></StartScheduleReq>");
+                "<StartScheduleReq><ScheduleId>234f8a52613b45c1a04dbd8e7226a058</ScheduleId></StartScheduleReq>");
         post(msgXML.getXML());
     }
 
     private static int post(String xml) {
-        PostMethod post = new PostMethod("http://192.168.3.119/HttpService.action");
+        PostMethod post = new PostMethod("http://192.168.3.229/HttpService.action");
         post.getParams().setParameter(HttpMethodParams.HTTP_CONTENT_CHARSET, "utf-8");
         try {
             RequestEntity entity = new StringRequestEntity(xml, "text/xml", "utf-8");
