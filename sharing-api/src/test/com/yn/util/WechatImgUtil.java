@@ -10,8 +10,29 @@ import java.util.concurrent.atomic.AtomicReference;
 public class WechatImgUtil {
 
     public static void main(String[] args) {
+        readImg();
+    }
+
+
+    /**
+     * @Desc 还原聊天记录图片
+     * @Author yn
+     * @Date 18:06 2021/5/17 0017
+     */
+    public static void readImg(){
         String path = "C:\\Users\\Administrator\\Documents\\WeChat Files\\y1678549524\\FileStorage";
         String targetPath = "D:\\weChat\\temp";
+        convert(path, targetPath);
+    }
+
+    /**
+     * @Desc 还原撤回图片
+     * @Author yn
+     * @Date 18:05 2021/5/17 0017
+     */
+    public static void restoreImg(){
+        String path = "C:\\Users\\Administrator\\Documents\\WeChat Files\\wxid_hkgjtd4fexwr22\\FileStorage\\Temp";
+        String targetPath = "D:\\weChat\\new";
         convert(path, targetPath);
     }
 

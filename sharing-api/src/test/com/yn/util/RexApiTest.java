@@ -10,7 +10,7 @@ import java.io.IOException;
 
 public class RexApiTest {
     public static void main(String[] args) {
-        vodList();
+        meetingList();
     }
 
     private static void createMeeting() {
@@ -52,7 +52,7 @@ public class RexApiTest {
     private static void vodList() {
         RequestMsgXML msgXML = new RequestMsgXML("10001", 
                 "<GetFileListReq>" +
-                "<SearchStr>192.168.5.224</SearchStr>" +
+                "<SearchStr>20200724~~192.168.5.224</SearchStr>" +
                 "<CurrPage>1</CurrPage>" +
                 "<PageCount>10</PageCount>" +
                 "</GetFileListReq>");
@@ -74,7 +74,7 @@ public class RexApiTest {
     }
 
     private static int post(String xml) {
-        PostMethod post = new PostMethod("http://192.168.3.229/HttpService.action");
+        PostMethod post = new PostMethod("http://192.168.3.9/HttpService.action");
         post.getParams().setParameter(HttpMethodParams.HTTP_CONTENT_CHARSET, "utf-8");
         try {
             RequestEntity entity = new StringRequestEntity(xml, "text/xml", "utf-8");
@@ -158,12 +158,11 @@ class RequestMsgXML {
 
         StringBuffer buff = new StringBuffer();
         buff.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>")
-                .append("<RequestMsg>").append("<MsgHead>")
+                .append("<RequestMsg><MsgHead>")
                 .append(headxml.toString())
-                .append("</MsgHead>")
-                .append("<MsgBody>")
+                .append("</MsgHead><MsgBody>")
                 .append(this.msgBody)
-                .append("</MsgBody>").append("</RequestMsg>");
+                .append("</MsgBody></RequestMsg>");
 
         return buff.toString();
     }

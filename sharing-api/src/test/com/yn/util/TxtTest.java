@@ -15,8 +15,8 @@ public class TxtTest {
 
     @Test
     public void readAndWriteFile() {
-        String oldOrder = "C:\\Users\\Administrator\\Desktop\\日常文件\\txt\\人员_20190902.txt";
-        String newOrder = "C:\\Users\\Administrator\\Desktop\\日常文件\\txt\\人员_20200403.txt";
+        String oldOrder = "C:\\Users\\Administrator\\Desktop\\日常文件\\txt\\人员_20210421.txt";
+        String newOrder = "C:\\Users\\Administrator\\Desktop\\日常文件\\txt\\人员_20210510.txt";
         Map<String,String> oldMap = new HashMap<>();
         Map<String,String> newMap = new HashMap<>();
         try {
