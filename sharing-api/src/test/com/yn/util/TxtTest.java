@@ -10,13 +10,16 @@ import tk.mybatis.mapper.util.StringUtil;
 import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class TxtTest {
 
     @Test
     public void readAndWriteFile() {
-        String oldOrder = "C:\\Users\\Administrator\\Desktop\\日常文件\\txt\\人员_20210421.txt";
-        String newOrder = "C:\\Users\\Administrator\\Desktop\\日常文件\\txt\\人员_20210510.txt";
+        String path = "C:/Users/Administrator/Desktop/日常文件/txt/";
+        String oldOrder = path+"人员_20190902.txt";
+        String newOrder = path+"人员_20210628.txt";
         Map<String,String> oldMap = new HashMap<>();
         Map<String,String> newMap = new HashMap<>();
         try {
@@ -167,4 +170,14 @@ public class TxtTest {
         }
     }
 
+    @Test
+    public void regex(){
+        String errMessage = "[adsasdasdasd2]qwe12312312";
+        String regex = "\\[(.*?)]";
+        Pattern p = Pattern.compile(regex);
+        Matcher m = p.matcher(errMessage);
+        while (m.find()) {
+            System.out.println(m.group(1));
+        }
+    }
 }

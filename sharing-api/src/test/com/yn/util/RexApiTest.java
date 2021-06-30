@@ -10,7 +10,7 @@ import java.io.IOException;
 
 public class RexApiTest {
     public static void main(String[] args) {
-        meetingList();
+        stopMeeting();
     }
 
     private static void createMeeting() {
@@ -45,7 +45,7 @@ public class RexApiTest {
 
     private static void stopMeeting() {
         RequestMsgXML msgXML = new RequestMsgXML("10009",
-                "<RoomIds>0,1</RoomIds>");
+                "<RoomIds>1df2d376-beb8-11eb-9ed9-8de9dca074e4</RoomIds>");
         post(msgXML.getXML());
     }
 
@@ -82,6 +82,7 @@ public class RexApiTest {
             HttpClient client = new HttpClient();
             int status = client.executeMethod(post); // 执行，模拟POST方法提交到服务器
             String returnData = post.getResponseBodyAsString();
+            System.out.println("finish push send data:" + xml);
             System.out.println("finish push return code:" + status);
             System.out.println("finish push return data:" + returnData);
             return status;

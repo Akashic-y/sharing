@@ -10,7 +10,7 @@ import java.util.concurrent.atomic.AtomicReference;
 public class WechatImgUtil {
 
     public static void main(String[] args) {
-        readImg();
+        restoreImg();
     }
 
 
